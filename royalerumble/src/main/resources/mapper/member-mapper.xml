@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fumbler.royalerumble.dao.MemberDao">
+    <select id="selectOne" parameterType="String" resultType="Member">
+        SELECT * FROM MEMBERS WHERE EMAIL = #{email}
+    </select>
+
+    <insert id="insert" parameterType="Member" >
+        INSERT INTO MEMBERS (ID, EMAIL, USER_NAME, PASSWORD)
+        VALUES (MEMBERS_SEQ.nextval, #{email}, #{userName}, #{password})
+    </insert>
+</mapper>

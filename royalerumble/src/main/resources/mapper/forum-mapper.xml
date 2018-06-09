@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fumbler.royalerumble.dao.ForumDao">
+    <select id="getCount" resultType="int">
+        SELECT COUNT(*) AS TOTAL FROM FORUMS
+    </select>
+    <select id="selectOne" resultType="Forum">
+        SELECT * FROM FORUMS WHERE id = #{id}
+    </select>
+
+    <select id="selectList" parameterType="Pagination" resultType="Forum">
+        SELECT * FROM(
+            SELECT ROW_NUMBER() OVER (ORDER BY ID DESC) AS SEQ,
+                ID,
+                USER_NAME,
+                SUBJECT,
+                CONTENT,
+                REG_DATE
+          FROM FORUMS) f,
+          (SELECT FORUM_ID, COUNT(*) COMMENT_CNT FROM COMMENTS GROUP BY forum_id) c
+        WHERE SEQ BETWEEN #{start} AND #{end} AND f.ID = c.FORUM_ID(+)
+    </select>
+
+    <insert id="insert" parameterType="forum">
+        INSERT INTO FORUMS (ID, USER_NAME, SUBJECT, CONTENT)
+        VALUES (FORUM_SEQ.nextval, #{userName}, #{subject}, #{content})
+    </insert>
+</mapper>
