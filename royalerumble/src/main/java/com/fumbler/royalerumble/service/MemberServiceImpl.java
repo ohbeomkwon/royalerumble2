@@ -1,7 +1,7 @@
 package com.fumbler.royalerumble.service;
 
 import com.fumbler.royalerumble.dao.MemberDao;
-import com.fumbler.royalerumble.model.Authentication;
+import com.fumbler.royalerumble.model.Authenticate;
 import com.fumbler.royalerumble.model.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +16,9 @@ public class MemberServiceImpl implements MemberService {
     MemberDao dao;
 
     @Override
-    public Member memberLogin(Authentication authentication) throws Exception {
-        Member member = dao.selectOne(authentication.getEmail());
-        if(member != null && member.getPassword().equals(authentication.getPassword())){
+    public Member memberLogin(Authenticate authenticate) throws Exception {
+        Member member = dao.selectOne(authenticate.getEmail());
+        if(member != null && member.getPassword().equals(authenticate.getPassword())){
             return member;
         }
         return null;
@@ -31,7 +31,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean checkEmail(String email) throws Exception {
-        return dao.selectOne(email) != null;
+    public boolean duplication(String email, String userName) throws Exception {
+        if(userName.equals("null")) {
+            return dao.selectOne(email) != null;
+        } else {
+            return dao.selectUserName(userName) != null;
+        }
     }
 }

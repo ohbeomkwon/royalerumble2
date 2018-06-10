@@ -40,13 +40,11 @@
     }
 
 </style>
-<script src="${root}resources/js/common.js"></script>
 <script src="${root}resources/js/comment.templ.js"></script>
 <script src="${root}resources/js/comment.js"></script>
 <script src="${root}resources/js/rest.js"></script>
 <script>
     <c:url value="/api/comment/${forum.id}" var="url"/>
-
     $(function () {
         //기본 옵션
         var api = new Rest('${url}');
@@ -56,14 +54,17 @@
             forumId:${forum.id},
             sort:'default'
         };
-        console.log(opt);
         $('.comments').makeComments(opt);
+
+        var created = $('.parse-time').text();
+        $('.parse-time').text(parseTime(new Date(created)));
     });
 </script>
 <div class="card forum-view">
     <div class="card-header forum-view">
-        <h4>${forum.subject}</h4><span>${forum.userName}</span>
-        <fmt:formatDate value="${forum.regDate}" pattern="yyyy-MM-dd hh:mm:ss"/>
+        <h4>${forum.subject}</h4>
+        <span>${forum.userName}</span>
+        <span class="parse-time"><fmt:formatDate value="${forum.regDate}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
         <div class="row">
             <div class="col-sm text-right">
             </div>

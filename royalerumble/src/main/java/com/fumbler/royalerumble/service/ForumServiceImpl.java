@@ -3,6 +3,7 @@ package com.fumbler.royalerumble.service;
 import com.fumbler.royalerumble.dao.ForumDao;
 import com.fumbler.royalerumble.model.Forum;
 import com.fumbler.royalerumble.model.Pagination;
+import com.fumbler.royalerumble.model.Query;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,14 @@ public class ForumServiceImpl implements ForumService{
     ForumDao dao;
 
     @Override
-    public Pagination makePagination(int page) throws Exception {
-        int total = dao.getCount();
-        log.info("총 갯수 : "+total);
-        return new Pagination(page, total, 10, 10);
+    public Pagination makePagination(int page, Query query) throws Exception {
+        int total = dao.getCount(query);
+        Pagination pagination = new Pagination(page, total, 10, 10);
+        pagination.setType(query.getType());
+        pagination.setSelect(query.getSelect());
+        pagination.setKeyword(query.getKeyword());
+        pagination.setLikeKeyword(query.getLikeKeyword());
+        return pagination;
     }
 
     @Override

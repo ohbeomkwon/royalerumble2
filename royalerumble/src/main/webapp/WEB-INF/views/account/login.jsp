@@ -15,7 +15,7 @@
 <div class="card royale-login">
     <span class="h4 font-weight-bold text-center">로그인</span>
     <div class="card-body">
-        <form:form commandName="authentication">
+        <form:form commandName="authenticate">
             <div class="md-form">
                 <form:input path="email" cssClass="form-control" required="required"/>
                 <label for="email">이메일</label>

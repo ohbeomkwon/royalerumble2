@@ -1,12 +1,10 @@
 package com.fumbler.royalerumble.controller;
 
-import com.fumbler.royalerumble.model.Authentication;
+import com.fumbler.royalerumble.model.Authenticate;
 import com.fumbler.royalerumble.model.Member;
 import com.fumbler.royalerumble.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -23,19 +21,19 @@ public class AccountController {
     MemberService service;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Authentication authentication) {
+    public String login(Authenticate authenticate) {
         return "account/login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginSubmit(@Valid Authentication authentication,
-                              BindingResult result,
-                              HttpSession session) throws Exception {
+    public String loginSubmit(
+            @Valid Authenticate authenticate,
+            BindingResult result,
+            HttpSession session) throws Exception {
         if(result.hasErrors()){
             return "account/login";
         }
-        log.debug(authentication.toString());
-        Member member = service.memberLogin(authentication);
+        Member member = service.memberLogin(authenticate);
         if(member == null) {
             result.reject("loginFail", "아이디 또는 비밀번호가 틀립니다.");
             return "account/login";
@@ -76,8 +74,11 @@ public class AccountController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/checkemail", method = RequestMethod.POST)
-    public boolean checkEmail(@RequestBody String email) throws Exception {
-        return service.checkEmail(email);
+    @RequestMapping(value = "/check", method = RequestMethod.GET)
+    public boolean duplication(
+            @RequestParam("email") String email,
+            @RequestParam("name") String userName) throws Exception {
+        return service.duplication(email, userName);
     }
+
 }

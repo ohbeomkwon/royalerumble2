@@ -13,27 +13,51 @@
 </style>
 <script>
     $(function(){
-        $('#checkEamil').click(e => {
-            // console.log(event);
+        var emailDupl = false;
+        var nameDupl = false;
+        $('#checkEmail').click(e => {
             var email = $('#email').val();
-            // $.get('checkemail', {email:email}, function(data){
-            //     console.log(data);
-            // })
-            $.ajax({
-                url : '${root}checkemail',
-                type : 'post',
-                contentType : 'application/json',
-                data : email,
-                success : function(data) {
-                    if(data){
-                        alert("이메일 중복입니다.");
-                        $(':submit').prop('disabled', true);
-                    } else {
-                        alert("사용가능한 이메일 입니다.");
-                        $(':submit').prop('disabled', false);
-                    }
+            if(!email.trim()){
+                alert("이메일을 입력해주세요");
+                return;
+            }
+            $.get('check', {email : email, name : 'null'}, function(data){
+                if(data){
+                    alert("이메일 중복입니다.");
+                    emailDupl = false;
+                } else {
+                    alert("사용 가능한 이메일 입니다.");
+                    emailDupl = true;
                 }
             });
+        });
+
+        $('#checkName').click(e =>{
+            var userName = $('#userName').val();
+            if(!userName.trim()){
+                alert("이름을 입력해주세요");
+                return;
+            }
+            $.get('check', {email : 'null', name : userName }, function(data){
+                if(data){
+                    alert("이름 중복입니다.");
+                    anmeDupl = false;
+                } else {
+                    alert("사용 가능한 이름입니다.");
+                    nameDupl = true;
+                }
+            })
+        });
+
+        $(':submit').click(e => {
+            if(emailDupl == false) {
+                alert("이메일 중복체크를 해주세요.");
+                return;
+            }
+            if(nameDupl == false) {
+                alert("이름 중복체크를 해주세요.");
+                return;
+            }
         })
     });
 </script>
@@ -45,7 +69,7 @@
                 <div class="input-group">
                     <form:input path="email" cssClass="form-control" required="required"/>
                     <label for="email">이메일</label>
-                    <button type="button" class="btn btn-primary btn-sm" id="checkEamil">중복확인</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="checkEmail">중복확인</button>
                 </div>
                 <div>
                 </div>
@@ -53,7 +77,8 @@
             <div class="md-form">
                 <div class="input-group">
                     <form:input path="userName" cssClass="form-control" required="required"/>
-                    <label for="userName">별명</label>
+                    <label for="userName">유저네임</label>
+                    <button type="button" class="btn btn-primary btn-sm" id="checkName">중복확인</button>
                 </div>
                 <div>
 
@@ -68,7 +93,7 @@
                 </div>
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary" disabled>회원가입</button>
+                <button type="submit" class="btn btn-primary">회원가입</button>
             </div>
         </form:form>
     </div>

@@ -8,8 +8,17 @@ public class Pagination {
     public final int PER_PAGE;
     public final int PER_BLOCK;
 
+    //댓글 관련
     private long forumId; //게시글 번호
     private String sort; //정렬
+
+    //게시판 관련
+    private String type;
+    private int select;
+    private String keyword; //검색어
+    private String likeKeyword;
+
+    //paging 관련
     private int totalCount; //전체 데이터 건 수
     private int page; //현재 페이지
     private int start; //현재 페이지 시작번호

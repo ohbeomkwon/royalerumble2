@@ -23,11 +23,7 @@
     </style>
     <script src="${root}resources/node_modules/mdbootstrap/js/jquery-3.3.1.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-    <script>
-        $(function () {
-
-        });
-    </script>
+    <script src="${root}resources/js/common.js"></script>
 </head>
 <body>
 <tiles:insertAttribute name="menu" />

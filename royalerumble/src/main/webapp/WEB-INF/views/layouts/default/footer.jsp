@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!--하단-->
-<footer class="page-footer font-small primary-color pt-4 mt-0">
+<footer class="page-footer font-small blue accent-3 pt-4 mt-0">
     <!--하단 링크-->
     <div class="container-fluid text-center text-md-left">
         <div class="row">

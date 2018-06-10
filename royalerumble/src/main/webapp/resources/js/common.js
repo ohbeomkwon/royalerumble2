@@ -18,22 +18,23 @@ Date.prototype.toDateTime = function () {
     return this.toString() + ' ' + hour + ':' + minute + ':' + second;
 };
 
-function parseTime(regDate) {
+function parseTime(time) {
     var now = new Date();
+    var created = new Date(time);
     
-    var dateDiff = now.getDate() - regDate.getDate();
-    var hourDiff = now.getHours() - regDate.getHours();
-    var minuteDiff = now.getMinutes() - regDate.getMinutes();
+    var dateDiff = now.getDate() - created.getDate();
+    var hourDiff = now.getHours() - created.getHours();
+    var minuteDiff = now.getMinutes() - created.getMinutes();
 
-    var year = regDate.getFullYear() < now.getFullYear();
-    var month  = regDate.getMonth() + 1 < now.getMonth() + 1;
-    var date = regDate.getDate() > 28;
-    var hour = now.getMinutes() >= regDate.getMinutes() ? hourDiff : hourDiff - 1;
-    var minute = now.getMinutes() >= regDate.getMinutes() ? minuteDiff : minuteDiff - 1;
-    var second = now.getSeconds() - regDate.getSeconds();
+    var year = created.getFullYear() < now.getFullYear();
+    var month  = created.getMonth() + 1 < now.getMonth() + 1;
+    var date = created.getDate() > 28;
+    var hour = now.getMinutes() >= created.getMinutes() ? hourDiff : hourDiff - 1;
+    var minute = now.getMinutes() >= created.getMinutes() ? minuteDiff : minuteDiff - 1;
+    var second = now.getSeconds() - created.getSeconds();
 
     if(year || month || date) {
-        return regDate.toString();
+        return created.toString();
     } else if(dateDiff > 0) {
         return dateDiff + "일 전";
     } else if(hourDiff > 0) {
@@ -43,5 +44,21 @@ function parseTime(regDate) {
     } else {
         return second + "초 전";
     }
+}
 
+function newBadge(time) {
+    var now = new Date();
+    var created = new Date(time);
+    if(now.getFullYear() === created.getFullYear() &&
+        now.getMonth() + 1 === created.getMonth() + 1 &&
+        now.getDate() === created.getDate()){
+        return '<span class="badge pink">new</span>';
+    } else {
+        return '';
+    }
+
+    // if(now.getFullYear() == created.getFullYear() && now.getMonth() + 1 == created.getMonth() &&
+    //     now.getDate() == created.getDate() && now.getHours() == created.getHours() {
+    //     return true;
+    // }
 }

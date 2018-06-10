@@ -57,7 +57,10 @@ var commentTmpl = {
                         <div class="comment-header row">
                             <div class="col-sm-4">
                                 <span class="comment-writer font-weight-bold" style="font-size:14px">${comment.userName}</span>
-                                <span class="comment-date" style="color:gray; margin-left:5px">${parseTime(new Date(comment.regDate))}</span>
+                                <span class="comment-date" style="color:gray; margin-left:5px">
+                                    ${parseTime(comment.regDate)}
+                                </span>
+                                    ${newBadge(comment.regDate)}
                             </div>
                             <div class="col-sm-8 text-right">
                                 <span class="comment-report" style="color:gray; margin-right:5px">신고</span>

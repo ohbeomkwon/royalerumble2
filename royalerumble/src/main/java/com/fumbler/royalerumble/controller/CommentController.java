@@ -22,10 +22,10 @@ public class CommentController {
     CommentService service;
 
     @GetMapping
-    public Map<String, Object> getCommentList(@PathVariable long forumId,
-                                               @RequestParam(value = "page", defaultValue = "1") int page,
-                                               @RequestParam(value = "sort", defaultValue = "default") String sort)
-                                                throws Exception{
+    public Map<String, Object> getCommentList(
+            @PathVariable long forumId,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "sort", defaultValue = "default") String sort) throws Exception{
         Map<String, Object> map = new HashMap<>();
         Pagination pagination = service.makePagination(page, forumId, sort, 1);
         List<Comment> list = service.findListComment(pagination);
