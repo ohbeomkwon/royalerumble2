@@ -18,8 +18,28 @@
             background-color : #DDDDDD;
         }
         .root.container {
-            min-height: 500px;
+            min-height: 800px;
         }
+        .primary-lighter-hover {
+            color: #4285F4;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+        .primary-lighter-hover:hover {
+            -webkit-transition: .4s;
+            transition: .4s;
+            color: #8ab4f8;
+        }
+
+        .grey-darker-hover {
+            color: #616161;
+            -webkit-transition: .4s;
+            transition: .4s; }
+        .grey-darker-hover:hover {
+            -webkit-transition: .4s;
+            transition: .4s;
+            color: #3b3b3b; }
+
     </style>
     <script src="${root}resources/node_modules/mdbootstrap/js/jquery-3.3.1.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>

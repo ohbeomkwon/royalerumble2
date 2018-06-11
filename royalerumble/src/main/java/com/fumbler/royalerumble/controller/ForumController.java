@@ -35,7 +35,7 @@ public class ForumController {
             @RequestParam(value = "type", defaultValue = "free") String type,
             @RequestParam(value = "select", defaultValue = "0") int select,
             @RequestParam(value = "keyword", defaultValue = "") String keyword,
-            Search search, Model model) throws Exception{
+            Model model) throws Exception{
         //TODO Pagination 에 type,select,keyword 정보 추가하기...
         Query query = new Query(type, select, keyword);
         Pagination pagination = service.makePagination(page, query);
@@ -46,19 +46,20 @@ public class ForumController {
         return "forums/list";
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public String forumSearch(@Valid Search search, BindingResult result) throws Exception{
-        String query =
-                "type=" + search.getSearchType() + "&select=" + search.getSearchSelect();
-        if(result.hasErrors()){
-            return "redirect:/forums/list?" + query;
-        }
-        return "redirect:/forums/list?" + query + "&keyword=" +
-                URLEncoder.encode(search.getSearchKeyword(),"UTF-8");
-    }
+//    @RequestMapping(value = "/list", method = RequestMethod.POST)
+//    public String forumSearch(@Valid Search search, BindingResult result) throws Exception{
+//        String query =
+//                "type=" + search.getSearchType() + "&select=" + search.getSearchSelect();
+//        if(result.hasErrors()){
+//            return "redirect:/forums/list?" + query;
+//        }
+//        return "redirect:/forums/list?" + query + "&keyword=" +
+//                URLEncoder.encode(search.getSearchKeyword(),"UTF-8");
+//    }
 
     @RequestMapping(value = "/forum/{id}", method = RequestMethod.GET)
     public String getView(@PathVariable("id") long id, Model model) throws Exception {
+        //TODO 추천 기능 넣기
         Forum forum = service.findOne(id);
         model.addAttribute("forum", forum);
         return "forums/forum";

@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+//TODO 추천 기능 넣기
 @Slf4j
 @RestController
 @RequestMapping("/api/comment/{forumId}")

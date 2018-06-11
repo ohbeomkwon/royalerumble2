@@ -2,24 +2,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <style>
-    .card.royale-success{
+    .card.royale-account{
         margin: 8em auto;
         width: 450px;
         height: 600px;
     }
 
-    .card-header.royale-success{
+    .card-header.royale-account{
 
     }
 
 
 </style>
-<div class="card royale-success">
-    <div class="card-header royale-success text-center">
+<div class="card royale-account">
+    <div class="card-header royale-account text-center">
         <p class="h2 font-weight-bold primary-lighter-hover">FUMBLER</p>
         <p class="h4 grey-darker-hover">Congratulation !!</p>
     </div>
-    <div class="card-body royale-success">
+    <div class="card-body royale-account">
         <p class="h4 font-weight-bold">${member.email}</p>
         <span class="h5">${member.userName}님 가입을 환영합니다.</span>
         <p class="mt-5 font-small">
@@ -32,7 +32,7 @@
             감사합니다.
         </p>
     </div>
-    <div class="card-footer royale-success">
+    <div class="card-footer royale-account">
         <div class="text-center font-small">
             <a href="${root}login">로그인하기</a>
         </div>

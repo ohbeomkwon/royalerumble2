@@ -26,14 +26,14 @@
             $(element).text(parseTime(created));
             $(element).closest('tr').find('td').eq(1).append(newBadge(created));
         });
-        $(':submit').click(e =>{
+        $(':submit').click(e => {
             var keyword = $('#searchKeyword').val();
-            if(!keyword.trim()){
+            if (!keyword.trim()) {
                 alert("검색어를 입력해주세요");
                 e.preventDefault();
                 return;
             }
-            if(keyword.trim().length < 2){
+            if (keyword.trim().length < 2) {
                 alert("검색은 2글자 이상입니다.");
                 e.preventDefault();
                 return;
@@ -55,39 +55,35 @@
                 </div>
             </div>
             <div class="col-auto">
-                <form:form commandName="search">
+                <form method="get">
                     <div class="input-group mt-1">
-                        <form:hidden path="searchType" value="${pagination.type}"/>
-                        <form:select path="searchSelect" class="browser-default">
+                        <input type="hidden" id="type" name="type" value="${pagination.type}"/>
+                        <select type="select" id="select" name="select" class="browser-default">
                             <c:choose>
-                                <c:when test="${pagination.select == 1}">
-                                    <form:option value="1" selected="true">제목</form:option>
-                                    <form:option value="2">제목+내용</form:option>
-                                    <form:option value="3">유저네임</form:option>
+                                <c:when test="${pagination.select == 1 || pagination.select == 0}">
+                                    <option value="1" selected="true">제목</option>
+                                    <option value="2">제목+내용</option>
+                                    <option value="3">유저네임</option>
                                 </c:when>
                                 <c:when test="${pagination.select == 2}">
-                                    <form:option value="1">제목</form:option>
-                                    <form:option value="2" selected="true">제목+내용</form:option>
-                                    <form:option value="3">유저네임</form:option>
+                                    <option value="1">제목</option>
+                                    <option value="2" selected="true">제목+내용</option>
+                                    <option value="3">유저네임</option>
                                 </c:when>
                                 <c:when test="${pagination.select == 3}">
-                                    <form:option value="1">제목</form:option>
-                                    <form:option value="2">제목+내용</form:option>
-                                    <form:option value="3" selected="true">유저네임</form:option>
+                                    <option value="1">제목</option>
+                                    <option value="2">제목+내용</option>
+                                    <option value="3" selected="true">유저네임</option>
                                 </c:when>
-                                <c:otherwise>
-                                    <form:option value="1">제목</form:option>
-                                    <form:option value="2">제목+내용</form:option>
-                                    <form:option value="3">유저네임</form:option>
-                                </c:otherwise>
                             </c:choose>
-                        </form:select>
-                        <form:input path="searchKeyword" cssClass="form-control py-0" placeholder="검색어" value="${pagination.keyword}"/>
+                        </select>
+                        <input type="text" id="keyword" name="keyword" class="form-control py-0" placeholder="검색어"
+                               value="${pagination.keyword}"/>
                         <div class="input-group-append">
                             <button type="submit" class="input-group-text">검색</button>
                         </div>
                     </div>
-                </form:form>
+                </form>
             </div>
             <div class="col-auto">
                 <a class="btn btn-primary btn-sm" href="${root}forums/writing?type=${pagination.type}">글쓰기</a>
@@ -97,13 +93,13 @@
     <div class="card-body forum-list">
         <table class="table">
             <thead>
-                <tr>
-                    <th class="text-center" style="width: 50px">글번호</th>
-                    <th class="text-center" style="width: 400px">제목</th>
-                    <th class="text-center" style="width: 80px">유저네임</th>
-                    <th class="text-center" style="width: 50px">날짜</th>
-                    <th class="text-center" style="width: 50px">조회수</th>
-                </tr>
+            <tr>
+                <th class="text-center" style="width: 50px">글번호</th>
+                <th class="text-center" style="width: 400px">제목</th>
+                <th class="text-center" style="width: 80px">유저네임</th>
+                <th class="text-center" style="width: 50px">날짜</th>
+                <th class="text-center" style="width: 50px">조회수</th>
+            </tr>
             </thead>
             <tbody>
             <c:choose>
@@ -113,9 +109,13 @@
                             <td class="text-center">${forum.id}</td>
                             <td>
                                 <a href="${root}forums/forum/${forum.id}"><span>${forum.subject}</span></a>
-                                <a href="#">
-                                    <span class="comment-cnt font-weight-bold">[${forum.commentCnt}]</span>
-                                </a>
+                                <c:if test="${forum.commentCnt >0}">
+                                    <a href="#">
+                                        <span class="comment-cnt font-weight-bold">
+                                                [${forum.commentCnt}]
+                                        </span>
+                                    </a>
+                                </c:if>
                             </td>
                             <td class="text-center forum-item-right">
                                 <a href="#"><span class="user-name">${forum.userName}</span></a>
@@ -138,10 +138,12 @@
     </div>
     <c:choose>
         <c:when test="${pagination.keyword != ''}">
-            <pagination:pagination pagination="${pagination}" link="${root}forums/list" params="&type=${pagination.type}&select=${pagination.select}&keyword=${pagination.keyword}"/>
+            <pagination:pagination pagination="${pagination}" link="${root}forums/list"
+                                   params="&type=${pagination.type}&select=${pagination.select}&keyword=${pagination.keyword}"/>
         </c:when>
         <c:otherwise>
-            <pagination:pagination pagination="${pagination}" link="${root}forums/list" params="&type=${pagination.type}"/>
+            <pagination:pagination pagination="${pagination}" link="${root}forums/list"
+                                   params="&type=${pagination.type}"/>
         </c:otherwise>
     </c:choose>
 </div>

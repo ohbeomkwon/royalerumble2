@@ -8,7 +8,7 @@
         width: 1000px;
         height: 100%;
         min-height: 600px;
-        margin: 2em auto;
+        margin: 4em auto;
     }
 
     .card-header.forum-write {
@@ -45,9 +45,9 @@
 </script>
 <div class="card forum-write">
     <div class="card-header forum-write">
-        <c:if test="${type == 'free'}"><h3 class="my-2">자유</h3></c:if>
-        <c:if test="${type == 'info'}"><h3 class="my-2">정보</h3></c:if>
-        <c:if test="${type == 'strategy'}"><h3 class="my-2">전략</h3></c:if>
+        <c:if test="${type == 'free'}"><h3 class="my-2">[포럼] 자유</h3></c:if>
+        <c:if test="${type == 'info'}"><h3 class="my-2">[포럼] 정보</h3></c:if>
+        <c:if test="${type == 'strategy'}"><h3 class="my-2">[포럼] 전략</h3></c:if>
     </div>
     <div class="card-body forum-write">
         <%--<form:form commandName="forum" enctype="multipart/form-data">--%>

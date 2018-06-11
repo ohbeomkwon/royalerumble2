@@ -1,5 +1,6 @@
 package com.fumbler.royalerumble.model;
 
+import com.fumbler.royalerumble.dao.MemberDao;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,5 +24,9 @@ public class Member {
     private Date regDate;
 
     private Date updateDate;
+
+    public boolean passwordMatching(String password){
+        return this.password.equals(password);
+    }
 
 }

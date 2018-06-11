@@ -1,6 +1,7 @@
 package com.fumbler.royalerumble.service;
 
 import com.fumbler.royalerumble.dao.MemberDao;
+import com.fumbler.royalerumble.exception.loginFailException;
 import com.fumbler.royalerumble.model.Authenticate;
 import com.fumbler.royalerumble.model.Member;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member memberLogin(Authenticate authenticate) throws Exception {
         Member member = dao.selectOne(authenticate.getEmail());
-        if(member != null && member.getPassword().equals(authenticate.getPassword())){
+        if (member != null && member.passwordMatching(authenticate.getPassword())) {
             return member;
         }
         return null;
@@ -32,7 +33,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public boolean duplication(String email, String userName) throws Exception {
-        if(userName.equals("null")) {
+        if (userName.equals("null")) {
             return dao.selectOne(email) != null;
         } else {
             return dao.selectUserName(userName) != null;

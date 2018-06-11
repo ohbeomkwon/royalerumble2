@@ -6,8 +6,8 @@
     <div class="container-fluid text-center text-md-left">
         <div class="row">
             <!--하단 브랜드-->
-            <div class="col-md-12">
-                <h5 align="center">ROYALERUMBLE</h5>
+            <div class="col-md-12 text-center">
+                <span class="h4 font-weight-bold">FUMBLER</span>
             </div>
             <div class="mx-auto">
                 <ul class="nav md-fills">
