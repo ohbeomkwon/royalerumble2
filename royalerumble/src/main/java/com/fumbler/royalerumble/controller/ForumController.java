@@ -45,7 +45,7 @@ public class ForumController {
         model.addAttribute("forum", "active");
         return "forums/list";
     }
-
+//post form 태그 용...
 //    @RequestMapping(value = "/list", method = RequestMethod.POST)
 //    public String forumSearch(@Valid Search search, BindingResult result) throws Exception{
 //        String query =

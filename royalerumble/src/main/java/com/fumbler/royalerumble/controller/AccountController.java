@@ -4,6 +4,7 @@ import com.fumbler.royalerumble.model.Authenticate;
 import com.fumbler.royalerumble.model.Member;
 import com.fumbler.royalerumble.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.concurrent.ExecutionException;
@@ -63,16 +66,10 @@ public class AccountController {
         if(result.hasErrors()) {
             return "account/join";
         }
-        log.info(member.toString());
         if(!service.memberJoin(member)){
             return "account/join";
         }
         redirectAttributes.addFlashAttribute("member", member);
-        return "account/success";
-    }
-
-    @RequestMapping(value = "/success", method = RequestMethod.GET)
-    public String joinSuccess(){
         return "account/success";
     }
 
@@ -84,12 +81,4 @@ public class AccountController {
         return service.duplication(email, userName);
     }
 
-    @RequestMapping(value = "account/{id}", method = RequestMethod.GET)
-    public String accountInfo(@PathVariable("id") long id, HttpSession session){
-        Member sessionMember = (Member) session.getAttribute("USER");
-        if(sessionMember.getId() != id) {
-            return "redirect:/home";
-        }
-        return "account/info";
-    }
 }

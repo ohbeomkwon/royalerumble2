@@ -68,8 +68,8 @@
             <form:textarea path="content"/>
             <form:hidden path="insertType" value="${type}"/>
             <div class="text-center mt-3">
-                <button type="submit" class="btn btn-blue btn-md">쓰기</button>
-                <a href="javascript:history.back()" class="btn btn-blue btn-md">취소</a>
+                <button type="submit" class="btn btn-primary btn-md">쓰기</button>
+                <a href="javascript:history.back()" class="btn btn-primary btn-md">취소</a>
             </div>
         </form:form>
     </div>

@@ -34,12 +34,13 @@
                     <a class="nav-link font-weight-bold" href="#">랭킹</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link font-weight-bold" href="#" data-toggle="modal" data-target="#fullHeightModalRight">토크</a>
+                    <a class="nav-link font-weight-bold" href="#" data-toggle="modal"
+                       data-target="#fullHeightModalRight">토크</a>
                 </li>
                 <li class="nav-item dropdown <c:if test="${forum == 'active'}">active</c:if>">
-                    <a class="nav-link dropdown-toggle font-weight-bold" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle font-weight-bold" id="dropdownForum" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">포럼</a>
-                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="dropdownForum">
                         <a class="dropdown-item font-weight-bold" href="${root}forums/list">자유</a>
                         <a class="dropdown-item font-weight-bold" href="${root}forums/list?type=info">정보</a>
                         <a class="dropdown-item font-weight-bold" href="${root}forums/list?type=strategy">전략</a>
@@ -61,8 +62,14 @@
                         </li>
                     </c:when>
                     <c:otherwise>
-                        <li class="nav-item <c:if test="${account == 'active'}">active</c:if>">
-                            <a class="nav-link font-weight-bold" href="${root}/account/${USER.id}">회원정보</a>
+                        <li class="nav-item dropdown <c:if test="${account == 'active'}">active</c:if>">
+                            <a class="nav-link dropdown-toggle font-weight-bold" id="dropdownAccount"
+                               data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">${USER.userName}</a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="dropdownAccount">
+                                <a class="dropdown-item font-weight-bold" href="${root}profile/account">회원정보</a>
+                                <a class="dropdown-item font-weight-bold" href="${root}profile/password">비밀번호 변경</a>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link font-weight-bold " href="${root}logout">
@@ -76,7 +83,8 @@
     </div>
 </nav>
 <!-- Modal -->
-<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-full-height modal-right" role="document">
         <div class="modal-content">
             <div class="modal-header">

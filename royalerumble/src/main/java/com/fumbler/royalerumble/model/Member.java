@@ -21,6 +21,8 @@ public class Member {
 
     private String password;
 
+    private String newPassword;
+
     private Date regDate;
 
     private Date updateDate;
@@ -28,5 +30,4 @@ public class Member {
     public boolean passwordMatching(String password){
         return this.password.equals(password);
     }
-
 }

@@ -18,10 +18,15 @@
 </style>
 <script>
     $(function () {
-        var emailDupl = false;
-        var nameDupl = false;
+        var validation = {
+            email : '',
+            emailDupl : false,
+            name : '',
+            nameDupl : false,
+        };
         $('#checkEmail').click(e => {
             var email = $('#email').val();
+            validation.email = email;
             if (!email.trim()) {
                 alert("이메일을 입력해주세요");
                 return;
@@ -29,16 +34,17 @@
             $.get('check', {email: email}, function (data) {
                 if (data) {
                     alert("이메일 중복입니다.");
-                    emailDupl = false;
+                    validation.emailDupl = false;
                 } else {
                     alert("사용 가능한 이메일 입니다.");
-                    emailDupl = true;
+                    validation.emailDupl = true;
                 }
             });
         });
 
         $('#checkName').click(e => {
             var userName = $('#userName').val();
+            validation.name = userName;
             if (!userName.trim()) {
                 alert("이름을 입력해주세요");
                 return;
@@ -46,22 +52,30 @@
             $.get('check', {name: userName}, function (data) {
                 if (data) {
                     alert("이름 중복입니다.");
-                    nameDupl = false;
+                    validation.nameDupl = false;
                 } else {
                     alert("사용 가능한 이름입니다.");
-                    nameDupl = true;
+                    validation.nameDupl = true;
                 }
             })
         });
 
         $(':submit').click(e => {
-            if (emailDupl == false) {
+            var email = $('#email').val();
+            var userName = $('#userName').val();
+            if (validation.emailDupl == false) {
                 alert("이메일 중복체크를 해주세요.");
-                return;
+                e.preventDefault();
             }
-            if (nameDupl == false) {
+            if (validation.nameDupl == false) {
                 alert("이름 중복체크를 해주세요.");
-                return;
+                e.preventDefault();
+            }
+            if (validation.email !== email || validation.name !== userName) {
+                validation.emailDupl = false;
+                validation.nameDupl = false;
+                alert("다시 검사해주세요.");
+                e.preventDefault();
             }
         })
     });

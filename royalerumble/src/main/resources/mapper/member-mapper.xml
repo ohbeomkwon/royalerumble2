@@ -15,4 +15,18 @@
         INSERT INTO MEMBERS (ID, EMAIL, USER_NAME, PASSWORD)
         VALUES (MEMBERS_SEQ.nextval, #{email}, #{userName}, #{password})
     </insert>
+
+    <update id="update" parameterType="Member" >
+        UPDATE MEMBERS SET
+        <choose>
+            <when test="userName != null">
+                USER_NAME = #{userName}
+                WHERE ID = #{id}
+            </when>
+            <when test="password != null">
+                PASSWORD = #{newPassword}
+                WHERE ID = #{id} AND PASSWORD = #{password}
+            </when>
+        </choose>
+    </update>
 </mapper>

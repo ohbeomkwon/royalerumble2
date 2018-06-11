@@ -17,6 +17,11 @@ public class MemberServiceImpl implements MemberService {
     MemberDao dao;
 
     @Override
+    public Member getMember(String email) throws Exception {
+        return dao.selectOne(email);
+    }
+
+    @Override
     public Member memberLogin(Authenticate authenticate) throws Exception {
         Member member = dao.selectOne(authenticate.getEmail());
         if (member != null && member.passwordMatching(authenticate.getPassword())) {
@@ -38,5 +43,10 @@ public class MemberServiceImpl implements MemberService {
         } else {
             return dao.selectUserName(userName) != null;
         }
+    }
+
+    @Override
+    public boolean memberUpdate(Member member) throws Exception {
+        return dao.update(member) == 1;
     }
 }
