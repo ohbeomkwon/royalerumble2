@@ -20,7 +20,9 @@
         font-weight: bold;
     }
 </style>
+<script>
 
+</script>
 <div class="card royale-login">
     <div class="card-header royale-login text-center">
         <p class="h2 font-weight-bold primary-lighter-hover">FUMBLER</p>
@@ -29,12 +31,12 @@
     <div class="card-body royale-login">
         <form:form commandName="authenticate">
             <div class="md-form">
-                <i class="fa fa-envelope prefix grey-text"></i>
+                <%--<i class="fa fa-envelope prefix grey-text"></i>--%>
                 <form:input path="email" cssClass="form-control" required="required"/>
                 <label for="email">E-MAIL</label>
             </div>
             <div class="md-form">
-                <i class="fa fa-lock prefix grey-text"></i>
+                <%--<i class="fa fa-lock prefix grey-text"></i>--%>
                 <form:password path="password" cssClass="form-control" required="required"/>
                 <label for="password">PASSWORD</label>
             </div>
@@ -50,10 +52,14 @@
                 </div>
             </div>
             <div class="mt-5">
+                <form:hidden path="url"/>
                 <button type="submit" class="btn btn-primary btn-block">로그인</button>
             </div>
-            <div>
-                <form:errors cssClass="error" element="p"/>
+            <div class="error">
+                <form:errors element="p"/>
+                <c:if test="${not empty authenticate.interceptorMessage}">
+                    <p>${authenticate.interceptorMessage}</p>
+                </c:if>
             </div>
         </form:form>
     </div>

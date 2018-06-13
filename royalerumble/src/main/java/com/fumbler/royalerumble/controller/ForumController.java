@@ -1,25 +1,21 @@
 package com.fumbler.royalerumble.controller;
 
 import com.fumbler.royalerumble.model.Forum;
+import com.fumbler.royalerumble.model.Member;
 import com.fumbler.royalerumble.model.Pagination;
 import com.fumbler.royalerumble.model.Query;
-import com.fumbler.royalerumble.model.Search;
 import com.fumbler.royalerumble.service.ForumService;
-import com.sun.deploy.net.HttpResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import javax.validation.constraints.Null;
-import java.net.URLEncoder;
 import java.util.List;
 @Slf4j
 @Controller
@@ -35,7 +31,7 @@ public class ForumController {
             @RequestParam(value = "type", defaultValue = "free") String type,
             @RequestParam(value = "select", defaultValue = "0") int select,
             @RequestParam(value = "keyword", defaultValue = "") String keyword,
-            Model model) throws Exception{
+            Model model) throws Exception {
         //TODO Pagination 에 type,select,keyword 정보 추가하기...
         Query query = new Query(type, select, keyword);
         Pagination pagination = service.makePagination(page, query);
@@ -45,17 +41,6 @@ public class ForumController {
         model.addAttribute("forum", "active");
         return "forums/list";
     }
-//post form 태그 용...
-//    @RequestMapping(value = "/list", method = RequestMethod.POST)
-//    public String forumSearch(@Valid Search search, BindingResult result) throws Exception{
-//        String query =
-//                "type=" + search.getSearchType() + "&select=" + search.getSearchSelect();
-//        if(result.hasErrors()){
-//            return "redirect:/forums/list?" + query;
-//        }
-//        return "redirect:/forums/list?" + query + "&keyword=" +
-//                URLEncoder.encode(search.getSearchKeyword(),"UTF-8");
-//    }
 
     @RequestMapping(value = "/forum/{id}", method = RequestMethod.GET)
     public String getView(@PathVariable("id") long id, Model model) throws Exception {
@@ -66,20 +51,57 @@ public class ForumController {
     }
 
     @RequestMapping(value = "/writing", method = RequestMethod.GET)
-    public String writing(
-            @RequestParam(value = "type", defaultValue = "free") String type, Forum forum, Model model){
+    public String write(@RequestParam(value = "type", defaultValue = "free") String type,
+                          Forum forum, Model model){
         model.addAttribute("type", type);
         return "forums/writing";
     }
 
     @RequestMapping(value = "/writing", method = RequestMethod.POST)
-    public String writingSubmit(@Valid Forum forum, BindingResult result, Model model) throws Exception {
+    public String writeSubmit(@Valid Forum forum, BindingResult result) throws Exception {
         if(result.hasErrors()){
-            return "redirect:/forums/writing?type="+forum.getType();
+            return "forums/writing";
         }
         if(!service.insertForum(forum)){
-            return "redirect:/forums/writing?type="+forum.getType();
+            return "forums/writing";
         }
-        return "redirect:/forums/list?type="+forum.getType();
+        return "redirect:/forums/list?type=" + forum.getType();
+    }
+
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+    public String edit(@PathVariable long id,
+                            Forum forum, HttpSession session, Model model) throws Exception {
+        Member member = (Member) session.getAttribute("USER");
+        Forum editForum = service.findOne(id);
+        if(!editForum.userNameMatching(member.getUserName())){
+            return "redirect:/";
+        }
+        model.addAttribute("forum", editForum);
+        return "forums/update";
+    }
+
+    @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
+    public String editSubmit(@PathVariable long id,
+                                  @Valid Forum forum, BindingResult result) throws Exception{
+        if(result.hasErrors()) {
+            return "forums/update";
+        }
+        if(!service.updateForum(forum)){
+            return "forums/update";
+        }
+        return "redirect:/forums/forum/" + id;
+    }
+
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    public String deleteSubmit(@PathVariable long id, HttpSession session) throws Exception{
+        Member member = (Member) session.getAttribute("USER");
+        Forum forum = service.findOne(id);
+        if(!forum.userNameMatching(member.getUserName())) {
+            return "redirect:/";
+        }
+        if(!service.deleteForum(id)) {
+            return "forums/forum";
+        }
+        return "redirect:/forums/list?type=" + forum.getType();
     }
 }

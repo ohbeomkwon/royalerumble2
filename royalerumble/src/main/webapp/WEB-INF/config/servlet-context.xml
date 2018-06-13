@@ -18,8 +18,21 @@
     <!-- Annotation 활성화 -->
     <mvc:annotation-driven/>
 
-    <!-- 리소스 관련 -->
+    <!-- 리소스 업데이트 관련 -->
     <mvc:resources mapping="/resources/**" location="/resources/" cache-period="0"/>
+
+    <!-- 인터셉터 설정 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/logout"/>
+            <mvc:mapping path="/profile/*"/>
+            <mvc:mapping path="/forums/write"/>
+            <mvc:mapping path="/forums/update/*"/>
+            <mvc:mapping path="/forums/delete/*"/>
+            <ref bean="loginInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
         <property name="order" value="1"/>

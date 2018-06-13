@@ -29,4 +29,16 @@
             </when>
         </choose>
     </update>
+
+    <update id="updateForumName" parameterType="Member">
+        UPDATE FORUMS SET
+        USER_NAME = #{userName}
+        WHERE ID = #{id}
+    </update>
+    
+    <update id="updateCommentName" parameterType="Member">
+        UPDATE COMMENTS SET
+        USER_NAME = #{userName}
+        WHERE ID = #{id}
+    </update>
 </mapper>

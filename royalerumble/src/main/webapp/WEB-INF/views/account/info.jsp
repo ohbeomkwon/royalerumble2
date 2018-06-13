@@ -11,40 +11,51 @@
     .card-header.royale-account {
 
     }
-    .table{
-        margin:auto;
+
+    .table {
+        margin: auto;
         width: 600px;
     }
 
-    .avatar {
-        width: 200px;
+    ._current-image, ._upload-image {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
     }
-    .user-avatar {
+
+    ._profile, ._upload {
         position: relative;
     }
 
-    .avatar-button {
+    .profile-image-button {
         position: relative;
-        top :  -35px;
-        left: 60px;
+        top: -35px;
+        left: 40px;
     }
 
 </style>
 <script>
-    $(function(){
+    $(function () {
         var validation = {
-            edit : false,
-            name : '',
-            nameDupl : false,
+            edit: false,
+            name: $('#userName').val(),
+            nameDupl: false,
         };
 
-        $('.check').click(e =>{
-            $(':input').prop('disabled', false);
+        $('.check').click(e => {
+            $('#userName').prop('disabled', false);
+            $('#checkName').prop('disabled', false);
+            $('#saveName').prop('disabled', false);
         });
 
         $('#checkName').click(e => {
             var userName = $('#userName').val();
-            validation.name = userName;
+
+            if (validation.name === userName) {
+                alert("같은 이름으로 변경할수 없습니다.");
+                return;
+            }
+
             if (!userName.trim()) {
                 alert("이름을 입력해주세요");
                 return;
@@ -55,6 +66,7 @@
                     validation.nameDupl = false;
                 } else {
                     alert("사용 가능한 이름입니다.");
+                    validation.name = userName;
                     validation.nameDupl = true;
                 }
             })
@@ -62,17 +74,34 @@
 
         $(':submit').click(e => {
             var userName = $('#userName').val();
-
             if (validation.nameDupl == false) {
                 alert("이름 중복체크를 해주세요.");
                 e.preventDefault();
+                return;
             }
             if (validation.name !== userName) {
                 validation.nameDupl = false;
-                alert("다시 검사해주세요.");
+                alert("이름 중복체크를 해주세요.");
                 e.preventDefault();
+                return;
             }
+
         })
+        var uploadImage = document.getElementById('uploadImage')
+        uploadImage.onchange = function (event1) {
+
+            var file = uploadImage.files[0];
+            var reader = new FileReader();
+            reader.onload = function (event2) {
+                var img = new Image();
+                console.log(img);
+                img.src = event2.target.result;
+                img.setAttribute('class', 'mx-auto d-block rounded-circle _upload-image');
+                $('._upload').html(img);
+            };
+            reader.readAsDataURL(file);
+            return false;
+        };
     });
 </script>
 <div class="card royale-account">
@@ -83,49 +112,87 @@
     </div>
     <div class="card-body royale-account">
         <form:form commandName="member">
-        <div>
-            <div class="user-avatar ">
-                <image class="mx-auto d-block avatar" src="${root}resources/images/anonymous.png"
-                       alt="placeholder"/>
+            <div>
+                <div class="_profile">
+                    <image class="mx-auto d-block rounded-circle _current-image"
+                           src="${root}resources/img/anonymous.png"
+                           alt="placeholder"/>
+                </div>
+                <div class="profile-image-button">
+                    <a data-toggle="modal" data-target="#profileImageModal">
+                        <i class="fas fa-camera fa-2x mx-auto d-block"></i>
+                    </a>
+                </div>
             </div>
-            <div class="avatar-button">
-                <i class="fas fa-camera fa-2x mx-auto d-block"></i>
-            </div>
-        </div>
-        <table class="table table-bordered mt-3">
-            <tbody>
-            <tr style="height: 60px;">
-                <th scope="row" class="blue-grey lighten-5" style="width: 100px;text-align: center; vertical-align: middle">
-                    <span class="h6">E-MAIL</span>
-                </th>
-                <td>
-                    <span class="font-weight-bold grey-darker-hover">${USER.email}</span>
-                </td>
-            </tr>
-            <tr style="vertical-align: middle">
-                <th scope="row" class="blue-grey lighten-5" style="width: 100px;text-align: center; vertical-align: middle">
-                    <span class="h6">NAME</span>
-                </th>
-                <td>
-                    <div class="input-group">
-                        <form:input path="userName" cssClass="form-control" placeholder="${USER.userName}" disabled="true"/>
-                        <div class="input-group-append">
-                            <button type="button" class="check input-group-text"><i class="fas fa-edit"></i></button>
+            <table class="table table-bordered mt-3">
+                <tbody>
+                <tr style="height: 60px;">
+                    <th scope="row" class="blue-grey lighten-5"
+                        style="width: 100px;text-align: center; vertical-align: middle">
+                        <span class="h6">E-MAIL</span>
+                    </th>
+                    <td>
+                        <span class="font-weight-bold grey-darker-hover">${USER.email}</span>
+                    </td>
+                </tr>
+                <tr style="vertical-align: middle">
+                    <th scope="row" class="blue-grey lighten-5"
+                        style="width: 100px;text-align: center; vertical-align: middle">
+                        <span class="h6">NAME</span>
+                    </th>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <button type="button" class="check input-group-text"><i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                            <form:input path="userName" cssClass="form-control" placeholder="${USER.userName}"
+                                        disabled="true" value="${USER.userName}"/>
+                            <div class="input-group-append">
+                                <button type="button" class="input-group-text" id="checkName" disabled>중복체크</button>
+                            </div>
+                            <div class="input-group-append">
+                                <button type="submit" class="input-group-text" id="saveName" disabled>저장</button>
+                            </div>
                         </div>
-                        <div class="input-group-append">
-                            <button type="button" class="input-group-text" id="checkName">중복체크</button>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div>
-            <div class="text-center mt-3">
-                <button type="submit" class="btn btn-primary btn-md">저장</button>
-                <a href="javascript:history.back()" class="btn btn-primary btn-md">취소</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div>
+                <div class="text-center mt-3">
+                    <a href="javascript:history.back()" class="btn btn-primary btn-md">취소</a>
+                </div>
             </div>
-        </div>
         </form:form>
+    </div>
+</div>
+
+<div class="modal fade" id="profileImageModal" tabindex="-1" role="dialog" aria-labelledby="profileImageModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold" id="profileImageModalLabel">프로필 사진 업로드</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="_upload">
+                    <img src="${root}resources/img/anonymous.png" class="mx-auto d-block rounded-circle _upload-image"
+                         alt="placeholder"/>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <span class="btn btn-white">
+                        <input type="file" id="uploadImage">
+                    </span>
+                </div>
+            </div>
+            <div class="modal-footer mx-auto">
+                <button type="button" class="btn btn-primary">저장</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
+            </div>
+        </div>
     </div>
 </div>

@@ -12,7 +12,7 @@
     }
 
     .card-header.forum-write {
-        background: #2979ff;
+        background: #448aff;
         color: #fff;
     }
 </style>
@@ -30,13 +30,13 @@
             var content = tinyMCE.activeEditor.getContent({
                 format : 'text'
             });
-            if(subject.trim().length < 5){
-                alert("제목은 5글자 이상입니다.");
+            if(subject.trim().length < 3){
+                alert("제목은 3글자 이상입니다.");
                 e.preventDefault();
                 return;
             }
-            if(content.trim().length < 10){
-                alert("본문은 10글자 이상입니다.");
+            if(content.trim().length < 5){
+                alert("본문은 5글자 이상입니다.");
                 e.preventDefault();
                 return;
             }
@@ -45,9 +45,10 @@
 </script>
 <div class="card forum-write">
     <div class="card-header forum-write">
-        <c:if test="${type == 'free'}"><h3 class="my-2">[포럼] 자유</h3></c:if>
-        <c:if test="${type == 'info'}"><h3 class="my-2">[포럼] 정보</h3></c:if>
-        <c:if test="${type == 'strategy'}"><h3 class="my-2">[포럼] 전략</h3></c:if>
+        <c:if test="${type == 'free'}"><h3 class="my-2">고블린 광장</h3></c:if>
+        <c:if test="${type == 'info'}"><h3 class="my-2">정보/소식</h3></c:if>
+        <c:if test="${type == 'strategy'}"><h3 class="my-2">전략오두막</h3></c:if>
+        <p>${USER.userName}</p>
     </div>
     <div class="card-body forum-write">
         <%--<form:form commandName="forum" enctype="multipart/form-data">--%>

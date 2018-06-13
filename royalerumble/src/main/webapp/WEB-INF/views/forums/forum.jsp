@@ -11,7 +11,7 @@
     }
 
     .card-header.forum-view{
-        background: #2979ff;
+        background: #448aff;
         color: #fff;
     }
 
@@ -40,8 +40,8 @@
     }
 
 </style>
-<script src="${root}resources/js/comment.templ.js"></script>
-<script src="${root}resources/js/comment.js"></script>
+<script src="${root}resources/js/comment/comment.templ.js"></script>
+<script src="${root}resources/js/comment/comment.js"></script>
 <script src="${root}resources/js/rest.js"></script>
 <script>
     <c:url value="/api/comment/${forum.id}" var="url"/>
@@ -58,11 +58,18 @@
 
         var created = $('.parse-time').text();
         $('.parse-time').text(parseTime(new Date(created)));
+
+        $('#deleteConfirm').click(e =>{
+            if(confirm("삭제하시겠습니까?") == false){
+                e.preventDefault(); //???
+                return; //???
+            }
+        });
     });
 </script>
 <div class="card forum-view">
     <div class="card-header forum-view">
-        <h4>${forum.subject}</h4>
+        <h4><c:if test="${forum.modified == 1}">[포럼수정]</c:if> ${forum.subject}</h4>
         <span>${forum.userName}</span>
         <span class="parse-time"><fmt:formatDate value="${forum.regDate}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
         <div class="row">
@@ -81,10 +88,10 @@
         <div class="row">
             <div class="col-sm-12 text-right">
                 <c:if test="${USER.userName == forum.userName}">
-                    <a href="#" class="mr-4">
+                    <a href="${root}forums/update/${forum.id}" class="mr-4">
                         <i class="fa fa-edit mr-2"></i> 수정
                     </a>
-                    <a href="#" class="mr-4">
+                    <a href="${root}forums/delete/${forum.id}" class="mr-4" id="deleteConfirm">
                         <i class="fa fa-trash mr-2"></i> 삭제
                     </a>
                 </c:if>

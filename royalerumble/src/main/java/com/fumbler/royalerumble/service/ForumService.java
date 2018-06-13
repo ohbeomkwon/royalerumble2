@@ -16,4 +16,8 @@ public interface ForumService {
     List<Forum> findList(Pagination pagination) throws Exception;
 
     boolean insertForum(Forum forum) throws Exception;
+
+    boolean updateForum(Forum forum) throws Exception;
+
+    boolean deleteForum(long id) throws Exception;
 }

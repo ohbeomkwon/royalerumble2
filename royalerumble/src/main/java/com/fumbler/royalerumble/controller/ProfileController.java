@@ -35,6 +35,7 @@ public class ProfileController {
         if(result.hasErrors()){
             return "account/info";
         }
+
         member.setId(sessionMember.getId());
         if(!service.memberUpdate(member)){
             model.addAttribute("result", "다시 시도해 주세요.");
@@ -62,7 +63,7 @@ public class ProfileController {
             return "account/password";
         }
         member.setId(sessionMember.getId());
-        if(!service.memberUpdate(member)){
+        if(!service.passwordUpdate(member)){
             model.addAttribute("result", "기존 비밀번호가 맞지 않습니다.");
             return "account/password";
         }

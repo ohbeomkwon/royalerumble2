@@ -15,7 +15,7 @@
     }
 
     .comment-cnt {
-        color: #2979ff;
+        color: #448aff;
     }
 </style>
 <script>
@@ -26,8 +26,9 @@
             $(element).text(parseTime(created));
             $(element).closest('tr').find('td').eq(1).append(newBadge(created));
         });
+
         $(':submit').click(e => {
-            var keyword = $('#searchKeyword').val();
+            var keyword = $('#keyword').val();
             if (!keyword.trim()) {
                 alert("검색어를 입력해주세요");
                 e.preventDefault();
@@ -47,11 +48,11 @@
             <div class="col-auto mr-auto">
                 <div class="btn-group">
                     <a class="btn btn-primary <c:if test="${pagination.type == 'free'}">active</c:if>"
-                       href="${root}forums/list">자유</a>
+                       href="${root}forums/list">고블린광장</a>
                     <a class="btn btn-primary <c:if test="${pagination.type == 'info'}">active</c:if>"
-                       href="${root}forums/list?type=info">정보</a>
+                       href="${root}forums/list?type=info">정보/소식</a>
                     <a class="btn btn-primary <c:if test="${pagination.type == 'strategy'}">active</c:if>"
-                       href="${root}forums/list?type=strategy">전략</a>
+                       href="${root}forums/list?type=strategy">전략오두막</a>
                 </div>
             </div>
             <div class="col-auto">
@@ -108,7 +109,14 @@
                         <tr>
                             <td class="text-center">${forum.id}</td>
                             <td>
-                                <a href="${root}forums/forum/${forum.id}"><span>${forum.subject}</span></a>
+                                <a href="${root}forums/forum/${forum.id}">
+                                    <span>
+                                        <c:if test="${forum.modified == 1}">
+                                            [포럼수정]
+                                        </c:if>
+                                             ${forum.subject}
+                                    </span>
+                                </a>
                                 <c:if test="${forum.commentCnt >0}">
                                     <a href="#">
                                         <span class="comment-cnt font-weight-bold">

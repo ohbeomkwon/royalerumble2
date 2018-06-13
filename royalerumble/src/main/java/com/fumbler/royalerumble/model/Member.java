@@ -27,6 +27,8 @@ public class Member {
 
     private Date updateDate;
 
+    private String url;
+
     public boolean passwordMatching(String password){
         return this.password.equals(password);
     }

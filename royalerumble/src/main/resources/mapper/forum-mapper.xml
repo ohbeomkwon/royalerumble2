@@ -22,21 +22,23 @@
     <select id="selectList" parameterType="Pagination" resultType="Forum">
         SELECT
         f.ID,
+        f.TYPE,
         f.USER_NAME,
         f.SUBJECT,
         f.CONTENT,
         f.REG_DATE,
+        f.MODIFIED,
         f.HITS,
-        f.TYPE,
         c.COMMENT_CNT
         FROM (SELECT ROW_NUMBER() OVER (ORDER BY ID DESC) AS SEQ,
         ID,
         USER_NAME,
+        TYPE,
         SUBJECT,
         CONTENT,
         REG_DATE,
-        HITS,
-        TYPE
+        MODIFIED,
+        HITS
         FROM FORUMS WHERE TYPE = #{type}
         <if test="keyword != ''">
             <choose>
@@ -62,4 +64,17 @@
         INSERT INTO FORUMS (ID, USER_NAME, SUBJECT, CONTENT, TYPE)
         VALUES (FORUM_SEQ.nextval, #{userName}, #{subject}, #{content}, #{insertType})
     </insert>
+
+    <update id="update" parameterType="forum">
+        UPDATE FORUMS SET
+        SUBJECT = #{subject},
+        CONTENT = #{content},
+        MODIFIED = 1
+        WHERE ID = #{id} AND USER_NAME = #{userName}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        DELETE FROM FORUMS
+        WHERE ID = #{id}
+    </delete>
 </mapper>

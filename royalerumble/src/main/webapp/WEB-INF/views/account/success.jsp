@@ -23,12 +23,12 @@
         <p class="h4 font-weight-bold">${member.email}</p>
         <span class="h5">${member.userName}님 가입을 환영합니다.</span>
         <p class="mt-5 font-small">
-            저희는 Clash Royale 전적검색 서비스를 제공하고 있습니다.
+            Fumbler는 Clash Royale 전적검색 서비스입니다.
         </p>
         <p class="font-small">
-            보다 나은서비스를 제공하기 위해 열심히 노력하겠습니다.
+            보다 나은 서비스를 제공할 수 있도록 열심히 노력하겠습니다.
         </p>
-        <p class="h5 mt-5 text-center">
+        <p class="h5 font-weight-bold mt-5 text-center">
             감사합니다.
         </p>
     </div>

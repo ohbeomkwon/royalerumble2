@@ -1,7 +1,6 @@
 package com.fumbler.royalerumble.service;
 
 import com.fumbler.royalerumble.dao.MemberDao;
-import com.fumbler.royalerumble.exception.loginFailException;
 import com.fumbler.royalerumble.model.Authenticate;
 import com.fumbler.royalerumble.model.Member;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +45,18 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional
     public boolean memberUpdate(Member member) throws Exception {
+        dao.updateForumName(member);
+        dao.updateCommentName(member);
         return dao.update(member) == 1;
     }
+
+    @Override
+    @Transactional
+    public boolean passwordUpdate(Member member) throws Exception {
+        return dao.update(member) == 1;
+    }
+
+
 }

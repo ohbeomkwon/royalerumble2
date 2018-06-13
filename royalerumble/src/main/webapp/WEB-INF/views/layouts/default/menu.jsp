@@ -7,14 +7,14 @@
     }
 
     .dropdown-menu a:hover {
-        background: #2979ff !important;
+        background: #448aff  !important;
         color: #f8f9fa !important;
         -webkit-transition: all 0.2s ease-in-out;
         -moz-transition: all 0.2s ease-in-out;
         transition: all 0.2s ease-in-out;
     }
 </style>
-<nav class="navbar navbar-expand-lg navbar-dark blue accent-3 sticky-top scrolling-navbar">
+<nav class="navbar navbar-expand-lg navbar-dark blue accent-2 sticky-top scrolling-navbar">
     <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarTogglerMenu" aria-controls="navbarTogglerMenu"
@@ -22,7 +22,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerMenu">
-            <a class="navbar-brand h5 font-weight-bold" href="${root}">FUMBLER</a>
+            <a class="navbar-brand h5 font-weight-bold" href="${root}">
+                <img src="${root}/resources/img/mark.png" height="30" alt=""> FUMBLER
+            </a>
             <ul class="navbar-nav mr-auto mt-lg-0">
                 <li class="nav-item <c:if test="${home == 'active'}">active</c:if>">
                     <a class="nav-link font-weight-bold" href="${root}">홈</a>
@@ -31,21 +33,25 @@
                     <a class="nav-link font-weight-bold" href="#">카드</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link font-weight-bold" href="#">랭킹</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link font-weight-bold" href="#" data-toggle="modal"
-                       data-target="#fullHeightModalRight">토크</a>
+                    <a class="nav-link font-weight-bold" href="#">랭크</a>
                 </li>
                 <li class="nav-item dropdown <c:if test="${forum == 'active'}">active</c:if>">
                     <a class="nav-link dropdown-toggle font-weight-bold" id="dropdownForum" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">포럼</a>
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="dropdownForum">
-                        <a class="dropdown-item font-weight-bold" href="${root}forums/list">자유</a>
-                        <a class="dropdown-item font-weight-bold" href="${root}forums/list?type=info">정보</a>
-                        <a class="dropdown-item font-weight-bold" href="${root}forums/list?type=strategy">전략</a>
+                        <a class="dropdown-item font-weight-bold" href="${root}forums/list">고블린광장</a>
+                        <a class="dropdown-item font-weight-bold" href="${root}forums/list?type=info">정보/소식</a>
+                        <a class="dropdown-item font-weight-bold" href="${root}forums/list?type=strategy">전략오두막</a>
                     </div>
                 </li>
+                <c:if test="${not empty USER}">
+                    <li class="nav-item">
+                        <a class="nav-link font-weight-bold" href="#" data-toggle="modal"
+                           data-target="#fullHeightModalRight">
+                            <img src="${root}/resources/img/cards-png8/sparky.png" height="30" alt=""> 스파키
+                        </a>
+                    </li>
+                </c:if>
             </ul>
             <ul class="navbar-nav mt-lg-0">
                 <c:choose>
@@ -65,16 +71,14 @@
                         <li class="nav-item dropdown <c:if test="${account == 'active'}">active</c:if>">
                             <a class="nav-link dropdown-toggle font-weight-bold" id="dropdownAccount"
                                data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">${USER.userName}</a>
+                               aria-haspopup="true" aria-expanded="false"><img src="${root}/resources/img/anonymous.png" height="30"/><span class="ml-2">${USER.userName}</span></a>
                             <div class="dropdown-menu dropdown-primary" aria-labelledby="dropdownAccount">
                                 <a class="dropdown-item font-weight-bold" href="${root}profile/account">회원정보</a>
                                 <a class="dropdown-item font-weight-bold" href="${root}profile/password">비밀번호 변경</a>
+                                <a class="dropdown-item font-weight-bold" href="${root}logout">로그아웃</a>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link font-weight-bold " href="${root}logout">
-                                <i class="fas fa-sign-out-alt"></i> 로그아웃
-                            </a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -88,17 +92,17 @@
     <div class="modal-dialog modal-full-height modal-right" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title font-weight-bold" id="exampleModalLabel">스파키</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <p class="font-weight-bold">스파키는?</p>
+                <p>FUMBLER에서 제공하는 실시간 토크 서비스입니다.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
             </div>
         </div>
     </div>

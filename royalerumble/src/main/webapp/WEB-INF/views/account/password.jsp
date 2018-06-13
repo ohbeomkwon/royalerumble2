@@ -26,13 +26,18 @@
             var password = $(':password').eq(0).val();
             var newPassword = $(':password').eq(1).val();
             var passwordConfirm = $(':password').eq(2).val();
-            if(password == newPassword) {
+
+            if(password === '' || newPassword === '' || passwordConfirm === ''){
+                return;
+            }
+
+            if(password === newPassword) {
                 alert("기존 비밀번호와 새로운 비밀번호를 다르게 입력해주세요.");
-                e.preventDefault()
+                e.preventDefault();
                 return;
             }
             if(newPassword !== passwordConfirm) {
-                alert("비밀번호 확인이 맞지 않습니다.")
+                alert("비밀번호 확인이 맞지 않습니다.");
                 e.preventDefault();
                 return;
             }
@@ -55,7 +60,7 @@
                 </th>
                 <td>
                     <div class="input-group">
-                        <input:password path="password" cssClass="form-control" aria-describedby="passwordHelpBlock"/>
+                        <input:password path="password" cssClass="form-control" aria-describedby="passwordHelpBlock" required="ture"/>
                     </div>
                 </td>
             </tr>
@@ -65,7 +70,7 @@
                 </th>
                 <td>
                     <div class="input-group">
-                        <input:password path="newPassword" cssClass="form-control"/>
+                        <input:password path="newPassword" cssClass="form-control" required="ture"/>
                     </div>
                 </td>
             </tr>
@@ -75,7 +80,7 @@
                 </th>
                 <td>
                     <div class="input-group">
-                        <input type="password" class="form-control" id="newPasswordConfirm">
+                        <input type="password" class="form-control" id="newPasswordConfirm" required="ture">
                     </div>
                 </td>
             </tr>

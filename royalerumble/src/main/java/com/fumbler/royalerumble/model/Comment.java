@@ -14,6 +14,8 @@ public class Comment {
 
     private long id;
 
+//    private long memberId;
+
     private long forumId;
 
     private String userName;
@@ -27,4 +29,6 @@ public class Comment {
     private int commentCnt;
 
     private Date regDate;
+
+    private int modified;
 }

@@ -19,4 +19,8 @@ public class Authenticate {
     @NotBlank
     @Length(min = 4, max = 20 , message = "비밀번호 양식에 맞지 않습니다.")
     private String password;
+
+    private String url;
+
+    private String interceptorMessage;
 }

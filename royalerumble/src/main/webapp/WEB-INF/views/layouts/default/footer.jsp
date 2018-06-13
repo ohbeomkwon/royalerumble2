@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!--하단-->
-<footer class="page-footer font-small blue accent-3 pt-4 mt-0">
+<footer class="page-footer font-small elegant-color pt-4 mt-0">
     <!--하단 링크-->
     <div class="container-fluid text-center text-md-left">
         <div class="row">
@@ -42,7 +42,7 @@
     <!--Copyright-->
     <div class="footer-copyright py-3 text-center">
         © 2018 Copyright:
-        <a href="/butter"> fumbler.com </a>
+        <a href="${root}"> fumbler.com </a>
     </div>
     <!--/.Copyright-->
 </footer>

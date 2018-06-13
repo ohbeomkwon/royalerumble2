@@ -1,0 +1,31 @@
+._card {
+    margin: auto;
+}
+
+._card div{
+    display: table;
+    width:130px;
+    height:150px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    text-align: left;
+}
+
+._card div p, .information {
+    font-family: Supercell-magic;
+    font-size: 25px;
+    color: #fff;
+    display: table-cell;
+    vertical-align: bottom;
+    text-align: center;
+    margin-bottom:5px;
+    text-shadow : 
+	    -1px -1px 0 #000,
+	    1px -1px 0 #000,
+	    -1px 1px 0 #000,
+	    1px 1px 0 #000;
+}
+
+div._archers {
+	background-image:url("/royalerumble/resources/img/cards-png8/archers.png");
+}

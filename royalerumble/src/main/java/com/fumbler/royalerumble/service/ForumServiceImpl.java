@@ -7,6 +7,7 @@ import com.fumbler.royalerumble.model.Query;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -39,7 +40,21 @@ public class ForumServiceImpl implements ForumService{
     }
 
     @Override
+    @Transactional
     public boolean insertForum(Forum forum) throws Exception {
         return dao.insert(forum) == 1;
     }
+
+    @Override
+    @Transactional
+    public boolean updateForum(Forum forum) throws Exception {
+        return dao.update(forum) == 1;
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteForum(long id) throws Exception {
+        return dao.delete(id) == 1;
+    }
+
 }
