@@ -44,6 +44,36 @@
     <script src="${root}resources/node_modules/mdbootstrap/js/jquery-3.3.1.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <script src="${root}resources/js/common.js"></script>
+
+
+    <script src="${root}resources/js/royaleapi/royale.api.js"></script>
+    <script src="${root}resources/js/royaleapi/profile.js"></script>
+    <script src="${root}resources/js/royaleapi/profile.templ.js"></script>
+    <script src="${root}resources/js/royaleapi/rank.js"></script>
+    <script src="${root}resources/js/royaleapi/rank.templ.js"></script>
+
+    <link href="${root}resources/css/font_setting.css" rel="stylesheet" />
+    <link href="${root}resources/css/chests.css" rel="stylesheet" />
+    <link href="${root}resources/css/cards.css" rel="stylesheet" />
+    <link href="${root}resources/css/profile.css" rel="stylesheet" />
+    <link href="${root}resources/css/rank.css" rel="stylesheet" />
+
+    <c:url value="/resources/img/arenas/" var="arenasImg"/>
+    <c:url value="/resources/img/badges/" var="badgesImg"/>
+    <c:url value="/resources/img/cards-png8/" var="cardsImg"/>
+    <c:url value="/resources/img/chests/" var="chestsImg"/>
+    <c:url value="/resources/img/etc/" var="etcImg" />
+    <script>
+        var root="${root}";
+        var badgesImg="${badgesImg}";
+        var arenasImg="${arenasImg}";
+        var cardsImg="${cardsImg}";
+        var chestsImg = "${chestsImg}";
+        var etcImg="${etcImg}";
+
+        var projectName = "ROYALERUMPLE";
+        var api = new RoyaleApi();
+    </script>
 </head>
 <body>
 <tiles:insertAttribute name="menu" />

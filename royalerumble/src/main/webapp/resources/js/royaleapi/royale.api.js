@@ -75,8 +75,19 @@ class RoyaleApi {
 		};
 		$.ajax(param);
 	}
-
 	
-	
+	// clan 랭크 불러오기
+	getClanRank(callback) {
+		var param = {
+				type: "get",
+				url : this.url+"top/clans",
+				headers : {
+					auth : this.apiKey
+				},
+				dataType : this.dataType,
+				success : callback
+		};
+		$.ajax(param);
+	}
 	
 }

@@ -27,27 +27,27 @@ public class AccountController {
     @Autowired
     MemberService service;
 
-    private String uriTokenizer(String uri) {
+    private String urlTokenizer(String url) {
         //TODO 정규표현식도 생각해보기...
-        String rootURI = "";
-        String requestURL = "";
-        log.info("테스트 uri " + uri);
-        if(uri != null && !uri.isEmpty()) {
-            StringTokenizer tokenizer = new StringTokenizer(uri, "/");
+        StringBuilder rootURL= new StringBuilder();
+        String requestURI = "";
+        log.info("테스트 url : " + url);
+        if(url != null && !url.isEmpty()) {
+            StringTokenizer tokenizer = new StringTokenizer(url, "/");
             // "/" 네번째 까지만 자르기
             for (int i = 0; i < 4; i++) {
                 if (i != 3) {
-                    rootURI += tokenizer.nextToken();
+                    rootURL.append(tokenizer.nextToken());
                 } else if(tokenizer.hasMoreTokens()){
-                    requestURL = tokenizer.nextToken();
+                    requestURI = tokenizer.nextToken();
                 }
             }
-            log.info("분리된 이전 URL" + requestURL);
-            if(requestURL.equals("/") || requestURL.equals("login") || requestURL.equals("join")){
+            log.info("분리된 이전 URI : " + requestURI);
+            if(requestURI.equals("/") || requestURI.equals("login") || requestURI.equals("join")){
                 return "/";
             }
-            log.info("쿼리포함 URL 경로" + uri.substring(rootURI.length() + 3));
-            return uri.substring(rootURI.length() + 3);
+            log.info("쿼리포함 이전 URI 경로 : " + url.substring(rootURL.toString().length() + 3));
+            return url.substring(rootURL.toString().length() + 3);
         }
         return "/";
     }
@@ -60,7 +60,7 @@ public class AccountController {
             authenticate.setInterceptorMessage("로그인이 필요한 서비스입니다.");
         } else {
             //로그인 버튼을 누른경우
-            url = uriTokenizer(request.getHeader("referer"));
+            url = urlTokenizer(request.getHeader("referer"));
         }
         authenticate.setUrl(url);
         model.addAttribute("login", "active");

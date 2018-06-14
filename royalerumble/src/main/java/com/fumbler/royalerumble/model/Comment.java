@@ -28,6 +28,10 @@ public class Comment {
 
     private int commentCnt;
 
+    private int likeCnt;
+
+    private int hateCnt;
+
     private Date regDate;
 
     private int modified;

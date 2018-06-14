@@ -39,20 +39,25 @@
         padding: 20px;
     }
 
+    .reply.list-group-item {
+        background-color: #eeeeee;
+    }
+
 </style>
 <script src="${root}resources/js/comment/comment.templ.js"></script>
 <script src="${root}resources/js/comment/comment.js"></script>
-<script src="${root}resources/js/rest.js"></script>
+<script src="${root}resources/js/rest.api.js"></script>
 <script>
     <c:url value="/api/comment/${forum.id}" var="url"/>
     $(function () {
         //기본 옵션
-        var api = new Rest('${url}');
+        var api = new RestApi('${url}');
         var opt = {
             api : api,
             userName: '${USER.userName}',
             forumId:${forum.id},
-            sort:'default'
+            sort:'default',
+            url:${root}
         };
         $('.comments').makeComments(opt);
 
@@ -88,7 +93,7 @@
         <div class="row">
             <div class="col-sm-12 text-right">
                 <c:if test="${USER.userName == forum.userName}">
-                    <a href="${root}forums/update/${forum.id}" class="mr-4">
+                    <a href="${root}forums/edit/${forum.id}" class="mr-4">
                         <i class="fa fa-edit mr-2"></i> 수정
                     </a>
                     <a href="${root}forums/delete/${forum.id}" class="mr-4" id="deleteConfirm">

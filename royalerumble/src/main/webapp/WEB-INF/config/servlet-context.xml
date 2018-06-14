@@ -27,7 +27,7 @@
             <mvc:mapping path="/logout"/>
             <mvc:mapping path="/profile/*"/>
             <mvc:mapping path="/forums/write"/>
-            <mvc:mapping path="/forums/update/*"/>
+            <mvc:mapping path="/forums/edit/*"/>
             <mvc:mapping path="/forums/delete/*"/>
             <ref bean="loginInterceptor" />
         </mvc:interceptor>

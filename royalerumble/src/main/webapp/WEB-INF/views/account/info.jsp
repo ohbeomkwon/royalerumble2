@@ -43,13 +43,13 @@
         };
 
         $('.check').click(e => {
-            $('#userName').prop('disabled', false);
+            $('#newName').prop('disabled', false);
             $('#checkName').prop('disabled', false);
             $('#saveName').prop('disabled', false);
         });
 
         $('#checkName').click(e => {
-            var userName = $('#userName').val();
+            var userName = $('#newName').val();
 
             if (validation.name === userName) {
                 alert("같은 이름으로 변경할수 없습니다.");
@@ -73,7 +73,7 @@
         });
 
         $(':submit').click(e => {
-            var userName = $('#userName').val();
+            var userName = $('#newName').val();
             if (validation.nameDupl == false) {
                 alert("이름 중복체크를 해주세요.");
                 e.preventDefault();
@@ -146,8 +146,9 @@
                                 <button type="button" class="check input-group-text"><i class="fas fa-edit"></i>
                                 </button>
                             </div>
-                            <form:input path="userName" cssClass="form-control" placeholder="${USER.userName}"
-                                        disabled="true" value="${USER.userName}"/>
+                            <form:input path="newName" cssClass="form-control" placeholder="${USER.userName}"
+                                        disabled="true" />
+                            <form:hidden path="userName" value="${USER.userName}"/>
                             <div class="input-group-append">
                                 <button type="button" class="input-group-text" id="checkName" disabled>중복체크</button>
                             </div>

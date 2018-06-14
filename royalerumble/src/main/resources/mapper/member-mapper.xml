@@ -19,8 +19,8 @@
     <update id="update" parameterType="Member" >
         UPDATE MEMBERS SET
         <choose>
-            <when test="userName != null">
-                USER_NAME = #{userName}
+            <when test="newName != null">
+                USER_NAME = #{newName}
                 WHERE ID = #{id}
             </when>
             <when test="password != null">
@@ -32,13 +32,13 @@
 
     <update id="updateForumName" parameterType="Member">
         UPDATE FORUMS SET
-        USER_NAME = #{userName}
-        WHERE ID = #{id}
+        USER_NAME = #{newName}
+        WHERE USER_NAME = #{userName}
     </update>
     
     <update id="updateCommentName" parameterType="Member">
         UPDATE COMMENTS SET
-        USER_NAME = #{userName}
-        WHERE ID = #{id}
+        USER_NAME = #{newName}
+        WHERE USER_NAME = #{userName}
     </update>
 </mapper>

@@ -9,7 +9,7 @@ $.fn.makePlayerRankList = function() {
 $.fn.makeClanRankList = function() {
 	$("#rank").html(rankTempl.clanRank);
 	api.getClanRank(function(data){
-		
+		$(".clanRank").append(rankTempl.clanRankListTitle);
 		$(".clanRank").append(rankTempl.clanRankList(data));
 	});
 }

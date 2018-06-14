@@ -1,8 +1,14 @@
 // 프로토타입 메서드를 통해서 player 와 clan 프로필을 로드한다.
+$.fn.makeSearchWindow = function() {
+	var templ = search.searchWindow;
+	console.log(templ);
+	$("#clash").html(templ);
+//	$(this).makePopularDecks();
+}
 
 $.fn.makePlayerProfile = function(playerTag) {
 	$("#clash").html(profileTempl.player);
-	var self = this;
+//	var self = this;
 	api.getPlayer(playerTag, function(data){
 		// success callback 함수를 만들어준다.
 		$(".playerProfile").append(profileTempl.playerProfile(data));
@@ -18,7 +24,7 @@ $.fn.makePlayerProfile = function(playerTag) {
 
 $.fn.makeClanProfile = function(clanTag) {
 	$("#clash").html(profileTempl.clan);
-	var self = this;
+//	var self = this;
 	api.getClan(clanTag, function(data) {
 		$(".clanProfile").append(profileTempl.clanProfile(data));
 		$(".clanDescription").append(profileTempl.clanDescription(data));

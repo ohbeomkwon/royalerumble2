@@ -1,4 +1,4 @@
-class Rest  {
+class RestApi  {
     constructor(url) {
         this.url = url;
     }

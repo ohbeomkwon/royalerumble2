@@ -87,7 +87,7 @@
                 </form>
             </div>
             <div class="col-auto">
-                <a class="btn btn-primary btn-sm" href="${root}forums/writing?type=${pagination.type}">글쓰기</a>
+                <a class="btn btn-primary btn-sm" href="${root}forums/write?type=${pagination.type}">글쓰기</a>
             </div>
         </div>
     </div>

@@ -19,6 +19,8 @@ public class Member {
 
     private String userName;
 
+    private String newName;
+
     private String password;
 
     private String newPassword;

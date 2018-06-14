@@ -5,7 +5,7 @@ var commentTmpl = {
 				<div class="d-flex justify-content-between border-bottom border-gray" style="padding:10px">
 					<div class="p-1">
 						<i class="fas fa-comment ml-1"></i>
-						<span class="ml-1">댓글</span>
+						<span class="ml-1">전체 댓글</span>
 						<strong class="ml-1 total"style="color:#f95534">${total}</strong>
 					</div>
 					<div class="p-1">
@@ -30,7 +30,7 @@ var commentTmpl = {
         var tmpl = ''
         if (userName === "") {
             tmpl = `
-				<a href="#">
+				<a href="/royalerumble/login">
 					<textarea class="form-control" rows="5"
 					placeholder="로그인이 필요한 서비스 입니다." disabled></textarea>
 				</a>`;
@@ -71,27 +71,27 @@ var commentTmpl = {
                                 <span class="comment-content">${comment.content}</span>
                             </div>
                         </div>
-                        <div class="comment-footer row">
-                            <div class="col-sm-6">
+                        <div class="comment-footer row mt-2">
+                            <div class="col-sm-6 text-left">
                                 <button type="button" class="btn btn-primary btn-sm action" 
-                                data-action="reply#list#off" data-id="${comment.id}"style="font-size:12px">답글</button>
+                                data-action="reply#list#off" data-id="${comment.id}"style="font-size:12px">${comment.commentCnt} 답글</button>
                             </div>
-                            <div class="col-sm-6 text-right">
-                                <button type="button" class="btn btn-red btn-sm action"  
-                                data-action="like#add" style="font-size:12px">
-                                    <i class="fa fa-thumbs-up fa"></i>
+                            <div class="col-sm-6 text-right" style="position: relative; top:-15px">
+                                <button type="button" class="btn btn-pink btn-sm action"  
+                                data-action="like#add" style="font-size:13px; width: 90px">
+                                    ${comment.likeCnt} <i class="fa fa-chevron-up"></i>
                                 </button>
-                                <button type="button" class="btn btn-primary btn-sm action" 
-                                data-action="hate#add" style="font-size:12px">
-                                    <i class="fa fa-thumbs-down fa"></i>
-                                </button>
+                                <button type="button" class="btn btn-indigo btn-sm action" 
+                                data-action="hate#add" style="font-size:13px; width: 90px">
+                                    ${comment.hateCnt} <i class="fa fa-chevron-down"></i>
+                                </button>   
                             </div>
                         </div>
                     </div>
 				</div>
-				<div class="replies" style="display:none">
-					<ul class="replies-area list-group list-group-flush"></ul>
-					<div class="reply-write" style="width: 95%; margin:auto;"></div>
+				<div class="replies">
+					<ul class="replies-area list-group list-group-flush""></ul>
+					<div class="reply-write mx-auto mt-3" style="width: 95%;"></div>
 				</div>
 			</li>`;
         return tmpl;
@@ -108,7 +108,10 @@ var commentTmpl = {
                         <div class="reply-header row">
                             <div class="col-sm-4">
                                 <span class="reply-writer font-weight-bold">${reply.userName}</span>
-                                <span class="reply-date" style="color:gray; margin-left:5px">${parseTime(new Date(reply.regDate))}</span>
+                                <span class="reply-date" style="color:gray; margin-left:5px">
+                                    ${parseTime(reply.regDate)}
+                                </span>
+                                    ${newBadge(reply.regDate)}
                             </div>
                             <div class="col-sm-8 text-right">
                                 <span class="reply-report" style="color:gray; margin-right:5px">신고</span>

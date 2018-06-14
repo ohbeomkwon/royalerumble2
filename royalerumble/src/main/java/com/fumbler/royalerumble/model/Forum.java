@@ -1,6 +1,8 @@
 package com.fumbler.royalerumble.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -39,4 +41,5 @@ public class Forum {
     public boolean userNameMatching(String userName) {
         return this.userName.equals(userName);
     }
+
 }

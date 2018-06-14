@@ -41,6 +41,7 @@ public class ProfileController {
             model.addAttribute("result", "다시 시도해 주세요.");
             return "account/info";
         }
+        service.writerUpdate(member);
         Member newMember = service.getMember(sessionMember.getEmail());
         session.setAttribute("USER", newMember);
         redirectAttributes.addFlashAttribute("result", "변경 완료");

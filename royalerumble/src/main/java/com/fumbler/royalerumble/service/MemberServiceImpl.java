@@ -47,9 +47,14 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public boolean memberUpdate(Member member) throws Exception {
+        return dao.update(member) == 1;
+    }
+
+    @Override
+    @Transactional
+    public void writerUpdate(Member member) throws Exception{
         dao.updateForumName(member);
         dao.updateCommentName(member);
-        return dao.update(member) == 1;
     }
 
     @Override

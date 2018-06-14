@@ -10,13 +10,14 @@ public class Pagination {
 
     //댓글 관련
     private long forumId; //게시글 번호
+    private long commentRef;
     private String sort; //정렬
+    private int commentCount;
 
     //게시판 관련
     private String type;
     private int select;
     private String keyword; //검색어
-    private String likeKeyword;
 
     //paging 관련
     private int totalCount; //전체 데이터 건 수

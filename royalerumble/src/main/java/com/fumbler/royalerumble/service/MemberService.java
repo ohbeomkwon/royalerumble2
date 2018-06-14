@@ -15,7 +15,10 @@ public interface MemberService {
 
     boolean memberUpdate(Member member) throws Exception;
 
+    void writerUpdate(Member member) throws Exception;
+
     boolean passwordUpdate(Member member) throws Exception;
+
 
 
 }

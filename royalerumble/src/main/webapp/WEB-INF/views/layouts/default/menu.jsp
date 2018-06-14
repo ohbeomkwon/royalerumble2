@@ -14,7 +14,7 @@
         transition: all 0.2s ease-in-out;
     }
 </style>
-<nav class="navbar navbar-expand-lg navbar-dark blue accent-2 sticky-top scrolling-navbar">
+<nav class="navbar navbar-expand-lg navbar-dark blue accent-2 sticky-top">
     <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarTogglerMenu" aria-controls="navbarTogglerMenu"
@@ -22,18 +22,20 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerMenu">
-            <a class="navbar-brand h5 font-weight-bold" href="${root}">
+            <%--<a class="navbar-brand h5 font-weight-bold" href="${root}">--%>
+            <a class="navbar-brand h5 font-weight-bold home" href="${root}">
                 <img src="${root}/resources/img/mark.png" height="30" alt=""> FUMBLER
             </a>
             <ul class="navbar-nav mr-auto mt-lg-0">
                 <li class="nav-item <c:if test="${home == 'active'}">active</c:if>">
-                    <a class="nav-link font-weight-bold" href="${root}">홈</a>
+                    <%--<a class="nav-link font-weight-bold" href="${root}">홈</a>--%>
+                    <a class="nav-link font-weight-bold home" href="">홈</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link font-weight-bold" href="#">카드</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link font-weight-bold" href="#">랭크</a>
+                    <a class="nav-link font-weight-bold rank" href="#">랭크</a>
                 </li>
                 <li class="nav-item dropdown <c:if test="${forum == 'active'}">active</c:if>">
                     <a class="nav-link dropdown-toggle font-weight-bold" id="dropdownForum" data-toggle="dropdown"

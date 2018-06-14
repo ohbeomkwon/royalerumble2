@@ -1,33 +1,26 @@
-var mainTempl = {
-	init : `
-		<div id="clash" class="mb-4">
-
-		<div class="card-deck">
-			<div class="card mb-4">
-				<div class="card-body">
+var search = {
+		searchWindow : `
+			<div class="card-deck">
+				<div class="card mb-4">
 					<h4 class="card-title">플레이어 검색</h4>
-					<div class="card-text">
+					<div class="card-body">
 						<input type="text" id="playerTag">
 						<button class="btn btn-primary btn-sm" id="playerSearch">검색</button>
-					</div>
-				</div>	
-			</div>
-			<div class="card mb-4">
-				<div class="card-body">
-					<h4 class="card-title">클랜 검색	</h4>
-					<div class="card-text">
+					</div>	
+				</div>
+				<div class="card mb-4">
+					<h4 class="card-title">클랜 검색</h4>
+					<div class="card-body">
 						<input type="text" id="clanTag">
 						<button class="btn btn-primary btn-sm" id="clanSearch">검색</button>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="card mb-4" id="popularDecks">		
-		</div>
-	</div> 
-	`
+			
+			<div class="card mb-4" id="popularDecks">		
+			</div>
+		`
 };
-
 
 var profileTempl = {
 		player : `
@@ -95,7 +88,7 @@ var profileTempl = {
 				<div class="card-body" >
 			`;
 			for(var i=0; i<chests.length; i++) {
-//				<img src="/clash/resources/img/chests/chest-${chests[i].value}.png" width="100px"/>
+//				<img src="/royalerumble/resources/img/chests/chest-${chests[i].value}.png" width="100px"/>
 				var index = chests[i].key==0? "Next" : "+"+chests[i].key;
 				var obj = `
 				<div class="d-inline-block _chest">
@@ -106,13 +99,9 @@ var profileTempl = {
 				`;
 				sum += obj;
 			}
-			
-			
 			sum += "</div>";
 			return sum;
 		},
-		
-		statsTempl : `aa`,
 		
 		playerGames : function(data) {
 			var winsPercent = (data.games.winsPercent * 100).toFixed(2);
@@ -161,7 +150,7 @@ var profileTempl = {
 			`;
 			for(var i=0; i<data.currentDeck.length; i++) {
 				var card = data.currentDeck[i];
-				// var cardIcon = "/clash/resources/img/cards-png8/"+data.currentDeck[i].key+".png";
+				// var cardIcon = "/royalerumble/resources/img/cards-png8/"+data.currentDeck[i].key+".png";
 				// ${card.icon}을 통해서 인터넷에서 불러오는 방법도 있음
 				// <img src="${card.icon}" width="110em"/>
 				// <img src="${cardIcon}" width="130px"/>
@@ -189,7 +178,6 @@ var profileTempl = {
 					<div class="card-body">
 						<div class="card-text">
 							<table class="table clanMembers">
-				
 							</table>
 						</div>
 					</div>
@@ -250,13 +238,10 @@ var profileTempl = {
 			*/
 		// member data가 for문을 돌면서 반복적으로 들어오게 하자
 		clanMember : function (data) {
-//			var sum="<tbody>";
-			var sum = "";
+			var sum="<tbody>";
 			for (var i=0; i<data.members.length; i++) {
 				var member = data.members[i];
-				console.log(member);
 				var obj = `
-					<tbody>
 				        <tr>
 				            <th scope="row">${i+1}</th>
 				            <td class="playerName" data-tag="${member.tag}">
@@ -289,7 +274,6 @@ var profileTempl = {
 			};
 			sum +="</tbody>";
 			return sum;
-			
 		}
 };
 
@@ -301,7 +285,7 @@ var decksTempl = {
 			`;
 			
 			for(var i=0; i<3; i++) {		// 3가지 경우만 보여준다.
-				// console.log(data[i].cards);	// console 출력은 정상적으로 일어남. 그런데 페이지에 붙지를 않음..
+//				console.log(data[i].cards);	// console 출력은 정상적으로 일어남. 그런데 페이지에 붙지를 않음..
 				sum += `<div class="card mb-2">
 									<div class="card-body">
 									<p class="information">Popularity : ${data[i].popularity}/10</p>
@@ -311,7 +295,7 @@ var decksTempl = {
 //					console.log(data[i].cards.length);
 					var card = data[i].cards[j];
 					var elixir = data[i].cards[j].elixir;
-					console.log(elixir);
+//					console.log(elixir);
 					AverageElixir += elixir;
 					console.log(card.key);
 					var obj=`
@@ -319,11 +303,11 @@ var decksTempl = {
 							<img src="/royalerumble/resources/img/cards-png8/${card.key}.png" width="120px" height="140px"/>
 						</div>
 					`;
-					/*<div style="background-image:url('/clash/resources/img/cards-png8/${card.key}.png')">
+					/*<div style="background-image:url('/royalerumble/resources/img/cards-png8/${card.key}.png')">
 								<p>elixir:${elixir}</p>
 						</div>
 					*/
-					/*<img src="/clash/resources/img/cards-png8/${card.key}.png" width="130px" height="150px"/>*/
+					/*<img src="/royalerumble/resources/img/cards-png8/${card.key}.png" width="130px" height="150px"/>*/
 					sum += obj;
 				}
 				AverageElixir = (AverageElixir/8).toFixed(1); 
