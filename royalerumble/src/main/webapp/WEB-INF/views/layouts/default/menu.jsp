@@ -14,6 +14,14 @@
         transition: all 0.2s ease-in-out;
     }
 </style>
+<script>
+    $(function(){
+        $('.nav-link').click(function(){
+            $('.nav-item').removeClass('active');
+            $(this).closest('.nav-item').addClass('active');
+        });
+    })
+</script>
 <nav class="navbar navbar-expand-lg navbar-dark blue accent-2 sticky-top">
     <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -29,13 +37,13 @@
             <ul class="navbar-nav mr-auto mt-lg-0">
                 <li class="nav-item <c:if test="${home == 'active'}">active</c:if>">
                     <%--<a class="nav-link font-weight-bold" href="${root}">홈</a>--%>
-                    <a class="nav-link font-weight-bold home" href="">홈</a>
+                    <a class="nav-link font-weight-bold home">홈</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link font-weight-bold" href="#">카드</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link font-weight-bold rank" href="#">랭크</a>
+                    <a class="nav-link font-weight-bold rank">랭크</a>
                 </li>
                 <li class="nav-item dropdown <c:if test="${forum == 'active'}">active</c:if>">
                     <a class="nav-link dropdown-toggle font-weight-bold" id="dropdownForum" data-toggle="dropdown"
@@ -73,7 +81,7 @@
                         <li class="nav-item dropdown <c:if test="${account == 'active'}">active</c:if>">
                             <a class="nav-link dropdown-toggle font-weight-bold" id="dropdownAccount"
                                data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false"><img src="${root}/resources/img/anonymous.png" height="30"/><span class="ml-2">${USER.userName}</span></a>
+                               aria-haspopup="true" aria-expanded="false"><img src="${root}profile/avatar/${USER.userName}" class="rounded-circle" height="30"/><span class="ml-2">${USER.userName}</span></a>
                             <div class="dropdown-menu dropdown-primary" aria-labelledby="dropdownAccount">
                                 <a class="dropdown-item font-weight-bold" href="${root}profile/account">회원정보</a>
                                 <a class="dropdown-item font-weight-bold" href="${root}profile/password">비밀번호 변경</a>

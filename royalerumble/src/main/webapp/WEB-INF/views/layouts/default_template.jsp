@@ -73,6 +73,84 @@
 
         var projectName = "ROYALERUMPLE";
         var api = new RoyaleApi();
+        // $(function(){
+        //
+        //     $(this).makePopularDecks();
+        //     $(".home").on("click", function() {
+        //         //rank 비운다.
+        //         $(".root.container").empty();
+        //         $(this).makeSearchWindow();
+        //         $(this).makePopularDecks();
+        //     });
+        //     // id=clash 태그 에 대한 코드
+        //     // 검색창을 구성
+        //     // 플레이어 검색버튼
+        //     $("#playerSearch").on("click",function() {
+        //         var playerTag = $("#playerTag").val().toUpperCase();
+        //         $("#clash").makePlayerProfile(playerTag);
+        //     });
+        //     // 클랜 검색버튼
+        //     $("#clanSearch").on("click", function() {
+        //         var clanTag = $("#clanTag").val().toUpperCase();
+        //         $("#clash").makeClanProfile(clanTag);
+        //     });
+        //
+        //     // playerName을 클릭하면 playerProfile로 이동
+        //     $("#clash").on("click",".playerName",function() {
+        //         var playerTag = $(this).data("tag");
+        //         console.log(playerTag);
+        //         $("#clash").makePlayerProfile(playerTag);
+        //     });
+        //     // clanName을 클릭하면 clanProfile로 이동
+        //     $("#clash").on("click", ".clanTag", function(){
+        //         var clanTag = $(this).data("tag");
+        //         console.log(clanTag);
+        //         if(clanTag=="") {	// 클랜이 없으면
+        //             return;
+        //         }
+        //         else {	// 클랜이 있으면..
+        //             // 앞에있는 #을 잘라준다.
+        //             var subClanTag = clanTag.substring(1);
+        //             $("#clash").makeClanProfile(subClanTag);
+        //         }
+        //
+        //     });
+        //     // clash 코드
+        //
+        //     $(".rank").on("click", function() {
+        //         //clash를 비운다.
+        //         $(".root.container").empty();
+        //         $(this).makePlayerRankList();
+        //     });
+        //
+        //     // playerName을 클릭하면 playerProfile로 이동
+        //     $("#rank").on("click",".playerName",function() {
+        //         var playerTag = $(this).data("tag");
+        //         console.log(playerTag);
+        //         $("#rank").empty();
+        //         $("#clash").makePlayerProfile(playerTag);
+        //     });
+        //     // clanName을 클릭하면 clanProfile로 이동
+        //     $("#rank").on("click", ".clanTag", function(){
+        //         var clanTag = $(this).data("tag");
+        //         console.log(clanTag);
+        //         if(clanTag=="") {	// 클랜이 없으면
+        //             return;
+        //         }
+        //         else {	// 클랜이 있으면..
+        //             $("#rank").empty();
+        //             $("#clash").makeClanProfile(clanTag);
+        //         }
+        //     });
+        //
+        //     $("#rank").on("click", ".topPlayers",function(){
+        //         $(this).makePlayerRankList();
+        //     });
+        //     $("#rank").on("click", ".topClans", function() {
+        //         $(this).makeClanRankList();
+        //     });
+        //     // rank 코드 끝
+        // });
     </script>
 </head>
 <body>
@@ -87,3 +165,86 @@
 <script src="${root}resources/node_modules/mdbootstrap/js/mdb.min.js"></script>
 </body>
 </html>
+
+<script>
+    $(document).ready(function() {
+
+        // $(this).makePopularDecks();
+        // $(".home").on("click", function() {
+        //     //rank 비운다.
+        //     $(".root.container").empty();
+        //     $(this).makeSearchWindow();
+        //     $(this).makePopularDecks();
+        // });
+        // // id=clash 태그 에 대한 코드
+        // // 검색창을 구성
+        // // 플레이어 검색버튼
+        // $(document).on("click", '#playerSearch',function() {
+        //     var playerTag = $("#playerTag").val().toUpperCase();
+        //     $("#clash").makePlayerProfile(playerTag);
+        // });
+        // // 클랜 검색버튼
+        // $(document).on("click", '#clanSearch', function() {
+        //     var clanTag = $("#clanTag").val().toUpperCase();
+        //     $("#clash").makeClanProfile(clanTag);
+        // });
+        //
+        // // playerName을 클릭하면 playerProfile로 이동
+        // $(document).on("click",".playerName",function() {
+        //     var playerTag = $(this).data("tag");
+        //     console.log(playerTag);
+        //     $("#clash").makePlayerProfile(playerTag);
+        // });
+        // // clanName을 클릭하면 clanProfile로 이동
+        // $(document).on("click", ".clanTag", function(){
+        //     var clanTag = $(this).data("tag");
+        //     console.log(clanTag);
+        //     if(clanTag=="") {	// 클랜이 없으면
+        //         return;
+        //     }
+        //     else {	// 클랜이 있으면..
+        //         // 앞에있는 #을 잘라준다.
+        //         var subClanTag = clanTag.substring(1);
+        //         $("#clash").makeClanProfile(subClanTag);
+        //     }
+        //
+        // });
+        // // clash 코드
+        //
+        // $(".rank").on("click", function() {
+        //     //clash를 비운다.
+        //     $(".root.container").empty();
+        //     $(this).makePlayerRankList();
+        // });
+        //
+        // // playerName을 클릭하면 playerProfile로 이동
+        // $(document).on("click",".playerName",function() {
+        //     var playerTag = $(this).data("tag");
+        //     console.log(playerTag);
+        //     $("#rank").empty();
+        //     $("#clash").makePlayerProfile(playerTag);
+        // });
+        // // clanName을 클릭하면 clanProfile로 이동
+        // $(document).on("click", ".clanTag", function(){
+        //     var clanTag = $(this).data("tag");
+        //     console.log(clanTag);
+        //     if(clanTag=="") {	// 클랜이 없으면
+        //         return;
+        //     }
+        //     else {	// 클랜이 있으면..
+        //         $("#rank").empty();
+        //         $("#clash").makeClanProfile(clanTag);
+        //     }
+        // });
+        //
+        // $(document).on("click", ".topPlayers",function(){
+        //     $(this).makePlayerRankList();
+        // });
+        // $(document).on("click", ".topClans", function() {
+        //     $(this).makeClanRankList();
+        // });
+        // rank 코드 끝
+
+    });
+
+</script>

@@ -18,6 +18,7 @@ Date.prototype.toDateTime = function () {
     return this.toString() + ' ' + hour + ':' + minute + ':' + second;
 };
 
+//TODO 기능 오류 있음 나중에 수정 하자...
 function parseTime(time) {
     var now = new Date();
     var created = new Date(time);
@@ -46,6 +47,8 @@ function parseTime(time) {
     }
 }
 
+
+//TODO 기능 오류 있음
 function newBadge(time) {
     var now = new Date();
     var created = new Date(time);

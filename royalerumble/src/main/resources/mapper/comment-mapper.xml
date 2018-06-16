@@ -8,7 +8,7 @@
         WHERE FORUM_ID = #{forumId}
     </select>
 
-    <select id="getPageCount" parameterType="CommentParams" resultType="int">
+    <select id="getPageCount" parameterType="Params" resultType="int">
         SELECT COUNT(*) AS TOTAL FROM COMMENTS
         <choose>
             <when test="ref != 0">

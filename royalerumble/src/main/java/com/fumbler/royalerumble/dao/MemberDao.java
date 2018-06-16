@@ -11,4 +11,6 @@ public interface MemberDao extends BaseDao<Member, String> {
 
     int updateCommentName(Member member) throws Exception;
 
+    int updateAvatarName(Member member) throws Exception;
+
 }

@@ -27,31 +27,6 @@ public class AccountController {
     @Autowired
     MemberService service;
 
-    private String urlTokenizer(String url) {
-        //TODO 정규표현식도 생각해보기...
-        StringBuilder rootURL= new StringBuilder();
-        String requestURI = "";
-        log.info("테스트 url : " + url);
-        if(url != null && !url.isEmpty()) {
-            StringTokenizer tokenizer = new StringTokenizer(url, "/");
-            // "/" 네번째 까지만 자르기
-            for (int i = 0; i < 4; i++) {
-                if (i != 3) {
-                    rootURL.append(tokenizer.nextToken());
-                } else if(tokenizer.hasMoreTokens()){
-                    requestURI = tokenizer.nextToken();
-                }
-            }
-            log.info("분리된 이전 URI : " + requestURI);
-            if(requestURI.equals("/") || requestURI.equals("login") || requestURI.equals("join")){
-                return "/";
-            }
-            log.info("쿼리포함 이전 URI 경로 : " + url.substring(rootURL.toString().length() + 3));
-            return url.substring(rootURL.toString().length() + 3);
-        }
-        return "/";
-    }
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@ModelAttribute("url") String url, Authenticate authenticate,
                         HttpServletRequest request, Model model) {
@@ -119,6 +94,30 @@ public class AccountController {
             @RequestParam(value = "email", defaultValue = "null") String email,
             @RequestParam(value = "name", defaultValue = "null") String userName) throws Exception {
         return service.duplication(email, userName);
+    }
+
+
+    private String urlTokenizer(String url) {
+        //TODO 정규표현식도 생각해보기...
+        //TODO 수정 필요...
+        StringBuilder rootURL= new StringBuilder();
+        String requestURI = "";
+        if(url != null && !url.isEmpty()) {
+            StringTokenizer tokenizer = new StringTokenizer(url, "/");
+            // "/" 네번째 까지만 자르기
+            for (int i = 0; i < 4; i++) {
+                if (i != 3) {
+                    rootURL.append(tokenizer.nextToken());
+                } else if(tokenizer.hasMoreTokens()){
+                    requestURI = tokenizer.nextToken();
+                }
+            }
+            if(requestURI.equals("/") || requestURI.equals("login") || requestURI.equals("join")){
+                return "/";
+            }
+            return url.substring(rootURL.toString().length() + 3);
+        }
+        return "/";
     }
 
 }

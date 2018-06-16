@@ -51,8 +51,7 @@
         <p>${USER.userName}</p>
     </div>
     <div class="card-body forum-write">
-        <%--<form:form commandName="forum" enctype="multipart/form-data">--%>
-        <form:form commandName="forum">
+        <form:form commandName="forum" enctype="multipart/form-data">
             <div class="mb-3">
                 <form:hidden path="userName" value="${USER.userName}"/>
             </div>
@@ -63,7 +62,7 @@
             </div>
             <br>
             <div>
-                    <%--<input type="file" id="upload" name="files" multiple="multiple"/>--%>
+                <input type="file" id="upload" name="files" multiple="multiple"/>
             </div>
             <br>
             <form:textarea path="content"/>

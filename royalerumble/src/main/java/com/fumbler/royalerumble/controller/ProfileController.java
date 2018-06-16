@@ -1,14 +1,22 @@
 package com.fumbler.royalerumble.controller;
 
 import com.fumbler.royalerumble.dao.MemberDao;
+import com.fumbler.royalerumble.model.Avatar;
 import com.fumbler.royalerumble.model.Member;
+import com.fumbler.royalerumble.model.Message;
 import com.fumbler.royalerumble.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -22,7 +30,7 @@ public class ProfileController {
     MemberService service;
 
     @GetMapping(value = "/account")
-    public String accountInfo(Member member, HttpSession session, Model model){
+    public String accountInfo(Avatar avatar, Member member, HttpSession session, Model model){
         model.addAttribute("account", "active");
         return "account/info";
     }
@@ -45,6 +53,27 @@ public class ProfileController {
         Member newMember = service.getMember(sessionMember.getEmail());
         session.setAttribute("USER", newMember);
         redirectAttributes.addFlashAttribute("result", "변경 완료");
+        return "redirect:/profile/account";
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/avatar/{userName}")
+    public ResponseEntity getAvatar(@PathVariable String userName) throws Exception{
+        HttpHeaders headers = new HttpHeaders();
+        Avatar avatar = service.findAvatar(userName);
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        return new ResponseEntity<>(avatar.getImage(), headers, HttpStatus.OK);
+    }
+
+
+    @PostMapping("/avatar/upload")
+    public String changeAvatar(@RequestParam("avatar") MultipartFile mFile,
+                               HttpSession session, RedirectAttributes redirectAttributes) throws Exception{
+        Member member = (Member) session.getAttribute("USER");
+        if(mFile != null && !mFile.isEmpty()){
+            service.avatarUpdate(new Avatar(member.getUserName(), mFile.getBytes()));
+            redirectAttributes.addFlashAttribute("result", "변경 완료");
+        }
         return "redirect:/profile/account";
     }
 
@@ -73,4 +102,5 @@ public class ProfileController {
         redirectAttributes.addFlashAttribute("result", "변경 완료");
         return "redirect:/profile/password";
     }
+
 }

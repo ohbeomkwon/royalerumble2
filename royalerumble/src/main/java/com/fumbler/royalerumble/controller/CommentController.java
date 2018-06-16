@@ -1,12 +1,11 @@
 package com.fumbler.royalerumble.controller;
 
-import com.fumbler.royalerumble.model.Comment;
-import com.fumbler.royalerumble.model.CommentParams;
-import com.fumbler.royalerumble.model.Pagination;
+import com.fumbler.royalerumble.model.*;
 import com.fumbler.royalerumble.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -27,59 +26,41 @@ public class CommentController {
     @Autowired
     CommentService service;
 
-//    @GetMapping
-//    public Map<String, Object> getCommentList(
-//            @PathVariable long forumId,
-//            @RequestParam(value = "page", defaultValue = "1") int page,
-//            @RequestParam(value = "sort", defaultValue = "default") String sort,
-//            @RequestParam(value = "ref", defaultValue = "0") long commentRef) throws Exception{
-//        Map<String, Object> map = new HashMap<>();
-//        int total = service.totalComment(forumId);
-//        Pagination pagination;
-//        List<Comment> list;
-//        if(commentRef == 0) {
-//            pagination = service.makePagination(page, 1, params);
-//            list = service.findListComment(pagination);
-//        } else {
-//            pagination = service.makePagination(page, 5, params);
-//            list = service.findListReply(pagination);
-//        }
-//        map.put("pagination", pagination);
-//        map.put("list", list);
-//        map.put("total", total);
-//        return map;
-//    }
 
     @GetMapping
-    public ResponseEntity getCommentList(@PathVariable long forumId,
-                                         @ModelAttribute CommentParams params) throws Exception{
+    public ResponseEntity getList(@PathVariable long forumId, Params params) throws Exception {
         params.setForumId(forumId);
-        Map<String, Object> map = service.makeMap(params);
-        return new ResponseEntity<>(map, HttpStatus.OK);
+        Map<String, Object> model = service.makeModel(params);
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity write(@RequestBody @Valid Comment comment,
-                                BindingResult result) throws Exception {
-        if(result.hasErrors()){
-            return new ResponseEntity<>("유효성 에러",HttpStatus.BAD_REQUEST);
+    public ResponseEntity write(@RequestBody @Valid Comment comment, BindingResult result) throws Exception {
+        Message message = new Message();
+        if (result.hasErrors()) {
+            message.setMessage("유효성 오류");
+            message.setCode("bad_request");
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
         }
-        if(!service.insert(comment)){
-            return new ResponseEntity<>("SQL 에러", HttpStatus.NOT_ACCEPTABLE);
+        if (!service.createComment(comment)) {
+            message.setMessage("sql 오류");
+            message.setCode("bad_request");
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("성공",HttpStatus.CREATED);
+        message.setMessage("작성 성공");
+        message.setCode("created");
+        return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity edit(@RequestBody @Valid Comment comment,
                                BindingResult result) throws Exception {
-        return new ResponseEntity<>("성공",HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable("id") long id) throws Exception {
-        return new ResponseEntity<>("성공",HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

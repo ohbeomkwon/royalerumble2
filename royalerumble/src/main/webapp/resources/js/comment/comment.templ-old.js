@@ -1,4 +1,5 @@
-var commentTempl = {
+
+var commentTmpl = {
     header: function (total) {
         var tmpl = `
 			<div class="comments-header">
@@ -6,7 +7,7 @@ var commentTempl = {
 					<div class="p-1">
 						<i class="fas fa-comment ml-1"></i>
 						<span class="ml-1">전체 댓글</span>
-						<strong class="ml-1" id="total" style="color:#f95534">${total}</strong>
+						<strong class="ml-1 total"style="color:#f95534">${total}</strong>
 					</div>
 					<div class="p-1">
 						<a class="like-sort ml-1 action" data-action="like#sort">좋아요순</a>
@@ -27,7 +28,7 @@ var commentTempl = {
 	`,
 
     write: function (userName, mode) {
-        var tmpl = ``;
+        var tmpl = ''
         if (userName === "") {
             tmpl = `
 				<a href="/royalerumble/login">
@@ -46,22 +47,12 @@ var commentTempl = {
         return tmpl;
     },
 
-    comment: function (userName, list) {
-        var tmpl = ``;
-        list.forEach(comment=>{
-            var menu = ``;
-            if(comment.userName === userName) {
-                menu = `
-                    <a href="#"><span class="reply-delete" style="color:gray; margin-right:5px">삭제</span></a>`
-            } else {
-                menu = `
-                    <a href="#"><span class="reply-report" style="color:gray; margin-right:5px">신고</span></a>`
-            }
-        tmpl += `
+    comment: function (comment) {
+        var tmpl = `
 			<li class="comment list-group-item">
 				<div class="comment-area row">
 					<div class="col-sm-1">
-						<img class="float-left rounded" width="60" src="/royalerumble/profile/avatar/${comment.userName}">
+						<img class="float-left rounded" width="60" src="/butter/member/avata?userId=${comment.userName}">
 					</div>
 					<div class="col-sm-11">
                         <div class="comment-header row">
@@ -73,7 +64,7 @@ var commentTempl = {
                                     ${newBadge(comment.regDate)}
                             </div>
                             <div class="col-sm-8 text-right">
-                                ${menu}
+                                <span class="comment-report" style="color:gray; margin-right:5px">신고</span>
                             </div>
                         </div>
                         <div class="comment-body row">
@@ -83,15 +74,15 @@ var commentTempl = {
                         </div>
                         <div class="comment-footer row mt-2">
                             <div class="col-sm-6 text-left">
-                                <button type="button" class="btn btn-primary btn-sm action" name="reply-button"
+                                <button type="button" class="btn btn-primary btn-sm action" 
                                 data-action="reply#list#off" data-id="${comment.id}"style="font-size:12px">${comment.commentCnt} 답글</button>
                             </div>
                             <div class="col-sm-6 text-right" style="position: relative; top:-15px">
-                                <button type="button" class="btn btn-white btn-sm action"  
+                                <button type="button" class="btn btn-pink btn-sm action"  
                                 data-action="like#add" style="font-size:13px; width: 90px">
                                     ${comment.likeCnt} <i class="fa fa-chevron-up"></i>
                                 </button>
-                                <button type="button" class="btn btn-white btn-sm action" 
+                                <button type="button" class="btn btn-indigo btn-sm action" 
                                 data-action="hate#add" style="font-size:13px; width: 90px">
                                     ${comment.hateCnt} <i class="fa fa-chevron-down"></i>
                                 </button>   
@@ -104,22 +95,11 @@ var commentTempl = {
 					<div class="reply-write mx-auto mt-3" style="width: 95%;"></div>
 				</div>
 			</li>`;
-        });
         return tmpl;
     },
 
-    reply: function (userName, list) {
-        var tmpl = ``;
-        list.forEach(reply => {
-            var menu = ``;
-            if(reply.userName === userName) {
-                menu = `
-                    <a href="#"><span class="reply-delete" style="color:gray; margin-right:5px">삭제</span></a>`
-            } else {
-                menu = `
-                    <a href="#"><span class="reply-report" style="color:gray; margin-right:5px">신고</span></a>`
-            }
-        tmpl += `
+    reply: function (reply) {
+        var tmpl = `
 			<li class="reply list-group-item">
 			    <div class="reply-area row">
                     <div class="col-sm-1">
@@ -135,7 +115,7 @@ var commentTempl = {
                                     ${newBadge(reply.regDate)}
                             </div>
                             <div class="col-sm-8 text-right">
-                                ${menu}
+                                <span class="reply-report" style="color:gray; margin-right:5px">신고</span>
                             </div>
                         </div>
                         <div class="reply-body row">
@@ -148,28 +128,15 @@ var commentTempl = {
                     </div>
 				</div>
 			</li>`;
-        });
         return tmpl;
     },
 
-    footer: function (pagination) {
-        var button = ``;
-        if (pagination.page < pagination.totalPage) {
-            button = `
-                <button class="btn btn-primary btn-lg btn-block action" type="button" data-action="comments#next">
-					더보기 <i class="fas fa-arrow-down"></i>
-				</button>
-            `;
-        } else if(pagination.totalPage === pagination.endPage) {
-            button = `
-                <button class="btn btn-primary btn-lg btn-block action" type="button" data-action="comments#end">
-					처음으로 <i class="fas fa-arrow-up"></i>
-				</button>
-            `;
-        }
+    footer: function () {
         var tmpl = `
 			<div class="comments-footer">
-			    ${button}
+				<button class="btn btn-primary btn-lg btn-block action" type="button" data-action="comments#next">
+					더보기 <i class="fas fa-arrow-down"></i>
+				</button>
 			</div>
 		`;
         return tmpl;
