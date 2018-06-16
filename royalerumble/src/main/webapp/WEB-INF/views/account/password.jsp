@@ -34,12 +34,10 @@
             if(password === newPassword) {
                 alert("기존 비밀번호와 새로운 비밀번호를 다르게 입력해주세요.");
                 e.preventDefault();
-                return;
             }
             if(newPassword !== passwordConfirm) {
                 alert("비밀번호 확인이 맞지 않습니다.");
                 e.preventDefault();
-                return;
             }
         });
     });

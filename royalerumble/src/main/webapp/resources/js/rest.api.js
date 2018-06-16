@@ -4,7 +4,7 @@ class RestApi  {
     }
 
     list(params, callback) {
-        $.get(this.url + params, callback)
+        $.get(this.url + '?' +params, callback)
     }
 
     get(id, callback) {
@@ -12,7 +12,6 @@ class RestApi  {
     }
 
     create(data, callback) {
-        console.log(this.url)
         $.ajax({
             url : this.url,
             type : 'post',

@@ -2,12 +2,12 @@
 $.fn.makeSearchWindow = function() {
 	var templ = search.searchWindow;
 	console.log(templ);
-	$("#clash").html(templ);
-//	$(this).makePopularDecks();
-}
+	$(".root.container").html(templ);
+
+};
 
 $.fn.makePlayerProfile = function(playerTag) {
-	$("#clash").html(profileTempl.player);
+	$(".root.container").html(profileTempl.player);
 //	var self = this;
 	api.getPlayer(playerTag, function(data){
 		// success callback 함수를 만들어준다.
@@ -23,7 +23,7 @@ $.fn.makePlayerProfile = function(playerTag) {
 }
 
 $.fn.makeClanProfile = function(clanTag) {
-	$("#clash").html(profileTempl.clan);
+	$(".root.container").html(profileTempl.clan);
 //	var self = this;
 	api.getClan(clanTag, function(data) {
 		$(".clanProfile").append(profileTempl.clanProfile(data));
@@ -35,7 +35,9 @@ $.fn.makeClanProfile = function(clanTag) {
 }
 
 $.fn.makePopularDecks = function() {
+    $("#popularDecks").append('<img src="resources/img/material-spinner2.gif" style="width: 300px; margin:auto"/>');
 	api.getPopularDecks(function(data) {
+        $("#popularDecks").empty();
 		$("#popularDecks").append(decksTempl.popularDecks(data));
 	});
 }

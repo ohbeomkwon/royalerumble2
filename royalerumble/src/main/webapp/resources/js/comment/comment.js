@@ -1,235 +1,173 @@
 $.fn.makeComments = function(opt) {
     var self = $(this);
-    var params = `?page=1&sort=${opt.sort}`;
-    opt.api.list(params, response => {
-        console.log(response);
-        var list = response.list;
-        opt.total = response.total;
-        opt.pagination = response.pagination;
-        self.commentsPanel(opt, list);
+    var params = `page=1&sort=${opt.sort}`;
+    api.list(params, response => {
+        opt.currentPage = response.pagination.page;
+
+        var $commentPanel = {
+            header : $(commentTempl.header(response.total)),
+            body : $(commentTempl.body),
+            footer : $(commentTempl.footer(response.pagination)),
+        };
+
+        self.append($commentPanel.header);
+        self.append($commentPanel.body);
+        self.append($commentPanel.footer);
+
+        $commentPanel.header
+            .find('.comment-write')
+            .append(commentTempl.write(opt.userName, 'comment'));
+        $commentPanel.body
+            .find('.comments-area')
+            .append(commentTempl.comment(opt.userName, response.list));
+
+        self.on('click', '.action', function() {
+            var actionType = $(this).data('action');
+            switch (actionType) {
+                case 'comments#next' :
+                    opt.currentPage += 1;
+                    commentFactory($commentPanel, 'paging');
+                    break;
+                case 'comments#end' :
+                    scrollTop();
+                    break;
+                case 'comments#refresh' :
+                    opt.currentPage = 1;
+                    commentFactory($commentPanel, 'refresh');
+                    break;
+                case 'comment#add' :
+                    opt.currentPage = 1;
+                    commentAdd($commentPanel, 'add');
+                    break;
+                case 'reply#list#off' :
+                    opt.currentReplyPage= 1;
+                    $(this).makeReplies('replyMake');
+                    break;
+                case 'reply#list#on' :
+                    $(this).makeReplies('replyClean');
+                    break;
+                case 'reply#add' :
+                    opt.currentReplyPage = 1;
+                    $(this).makeReplies('replyAdd');
+                    break;
+            }
+        });
     });
-};
 
-$.fn.commentsPanel = function (opt, list) {
-    var $commentPanel = {
-        header : $(commentTmpl.header(opt.total)),
-        body : $(commentTmpl.body),
-        footer : $(commentTmpl.footer()),
-    };
-
-    $(this).append($commentPanel.header);
-    $(this).append($commentPanel.body);
-    $(this).append($commentPanel.footer);
-
-    $commentPanel.header.find('.comment-write').append(commentTmpl.write(opt.userName, 'comment'));
-    $commentPanel.body.find('.comments-area').commentList(list, 'make');
-
-    if (opt.pagination.totalCount < opt.pagination.PER_PAGE+1) {
-        $commentPanel.footer.find('.action').hide();
-    }
-
-    $(this).on('click', '.action', function() {
-        var actionType = $(this).data('action');
-        switch (actionType) {
-            case 'comments#next' :
-                commentPagination(opt, $commentPanel, 'make');
-                break;
-
-            case 'comments#end' :
-                scrollTop();
-                break;
-
-            case 'comments#refresh' :
-                refresh(opt, $commentPanel, 'refresh');
-                break;
-
-            case 'comment#add' :
-                $commentPanel.header.commentAdd(opt, $commentPanel);
-                break;
-
-            case 'reply#list#off' :
-                $(this).makeReplies(opt, 'replyMake');
-                break;
-
-            case 'reply#list#on' :
-                $(this).makeReplies(opt, 'replyClean');
-                break;
-
-            case 'reply#add' :
-                $(this).replyAdd(opt);
-                break;
-
+    function commentAdd ($commentPanel, mode) {
+        var $content = $commentPanel.header.find('.content');
+        if ($content.val() === '') {
+            alert('내용을 입력해주세요');
+            return;
         }
-    });
-};
 
-function refresh(opt, $commentPanel, mode) {
-    var params = `?page=1&sort=${opt.sort}`;
-    opt.api.list(params, response => {
-        var list = response.list;
-        opt.total = response.total;
-        opt.pagination = response.pagination;
-        $('.total').text(opt.total);
-        $commentPanel.body.find('.comments-area').commentList(list, mode);
-        if (opt.pagination.totalCount >= opt.pagination.PER_PAGE+1) {
-            $commentPanel.footer.find('.action').show();
+        var data = {
+            forumId: opt.forumId,
+            userName: opt.userName,
+            content: $content.val(),
+            ref: 0,
+            commentLevel: 0
+        };
+        opt.api.create(data, result => {
+            $content.val('');
+            commentFactory($commentPanel, mode);
+        });
+    };
+
+    function commentFactory($commentPanel, mode) {
+        var params = `page=${opt.currentPage}&sort=${opt.sort}`;
+        opt.api.list(params, response => {
+            $('#total').text(response.total);
+            var $area = $commentPanel.body.find('.comments-area');
+            var template = commentTempl.comment(opt.userName, response.list);
+            switch (mode){
+                case 'paging' :
+                    $area.append(template);
+                    break;
+                case 'refresh' :
+                    $area.html(template);
+                    break;
+                case 'add' :
+                    $area.html(template);
+                    $('.comments-area li').eq(0).hide().fadeIn(1000);
+                    break;
+            }
+            $commentPanel.footer.html(commentTempl.footer(response.pagination));
+        });
+    }
+
+    function scrollTop() {
+        var offset = $('.comments').offset();
+        offset.top -= 70;
+        $('html').animate({scrollTop: offset.top}, 700);
+    }
+
+    $.fn.makeReplies = function (mode) {
+        var $comment = $(this).closest('.comment');
+
+        var $repliesPanel = {
+            replies : $comment.find('.replies'),
+            button : $comment.find('.action[name="reply-button"]'),
+            content : $comment.find('.content')
+        };
+
+        var ref = $repliesPanel.button.data('id');
+
+        switch (mode){
+            case 'replyMake' :
+                $(this).data('action', 'reply#list#on');
+                replyFactory($repliesPanel, ref, 'replyPaging');
+                break;
+            case 'replyClean' :
+                $(this).data('action', 'reply#list#off');
+                $repliesPanel.replies.children('.replies-area').empty();
+                $repliesPanel.replies.children('.reply-write').empty();
+                break;
+            case 'replyAdd' :
+                replyAdd($repliesPanel, ref);
+                break;
         }
-        $commentPanel.footer.children('.action').data('action', 'comments#next');
-        $commentPanel.footer.children('.action').html('더보기 <i class="fas fa-arrow-down"></i>');
-    });
-}
+    };
 
-function commentPagination(opt, $commentPanel, mode) {
-    var params = `?page=${++opt.pagination.page}&sort=${opt.sort}`;
-    opt.api.list(params, response => {
-        var list = response.list;
-        opt.pagination = response.pagination;
-        $('.total').text(response.total);
-        $commentPanel.body.find('.comments-area').commentList(list, mode);
-        if (opt.pagination.page >= opt.pagination.totalPage) {
-            $commentPanel.footer.children('.action').data('action', 'comments#end');
-            $commentPanel.footer.children('.action').html('처음으로 <i class="fas fa-arrow-up"></i>');
+    function replyFactory($repliesPanel, ref, mode) {
+        var params = `page=${opt.currentReplyPage}&ref=${ref}`;
+        opt.api.list(params, response => {
+            $('#total').text(response.total);
+            var $repliesPanelArea = $repliesPanel.replies.children('.replies-area');
+            var template = commentTempl.reply(opt.userName, response.list);
+            switch (mode){
+                case 'replyPaging' :
+                    $repliesPanelArea.append(template);
+                    break;
+
+                case 'replyAdd' :
+                    $repliesPanelArea.html(template);
+                    $repliesPanelArea.children('li').last().hide().fadeIn(1000);
+                    break;
+            }
+            $repliesPanel.button.html(response.pagination.totalCount + ' 답글');
+            $repliesPanel.replies.children('.reply-write')
+                .empty().append(commentTempl.write(opt.userName, 'reply'));
+        });
+    }
+
+    function replyAdd($repliesPanel, ref) {
+        if ($repliesPanel.content.val() === '') {
+            alert('내용을 입력해주세요');
+            return;
         }
-    });
-}
 
-function scrollTop() {
-    var offset = $('.comments').offset();
-    offset.top -= 70;
-    $('html').animate({scrollTop: offset.top}, 700);
-}
+        var data = {
+            forumId: opt.forumId,
+            userName: opt.userName,
+            content: $repliesPanel.content.val(),
+            commentRef: ref,
+            commentLevel: 1
+        };
 
-$.fn.commentList = function (list, mode) {
-    var template = '';
-    list.forEach(comment=> {
-        template += commentTmpl.comment(comment);
-    });
-    switch (mode){
-        case 'make' :
-            $(this).append(template);
-            break;
-
-        case 'refresh' :
-            $(this).html(template);
-            break;
-
-        case 'add' :
-            $(this).html(template);
-            $('.comments-area li').eq(0).hide().fadeIn(1000);
-            break;
-    }
-};
-
-$.fn.commentAdd = function (opt, panel) {
-    var $content = $(this).find('.content');
-    if ($content.val() == '') {
-        alert('내용을 입력해주세요');
-        return;
-    }
-
-    var data = {
-        forumId: opt.forumId,
-        userName: opt.userName,
-        content: $content.val(),
-        ref: 0,
-        commentLevel: 0
+        opt.api.create(data, function(result){
+            $repliesPanel.content.val();
+            replyFactory($repliesPanel, ref, 'replyAdd');
+        });
     };
-    opt.api.create(data, result => {
-        $content.val('');
-        refresh(opt, panel, 'add');
-    });
 };
-
-$.fn.makeReplies = function (opt, mode) {
-    var self = $(this);
-    var $replies = {
-        reply : self.closest('.comment').find('.replies'),
-        button : self,
-    };
-    var ref = $(this).data('id');
-
-    switch (mode){
-        case 'replyMake' :
-            $(this).data('action', 'reply#list#on');
-            replies(opt, $replies, ref, 'make');
-            break;
-
-        case 'replyClean' :
-            $(this).data('action', 'reply#list#off');
-            $replies.reply.children('.replies-area').empty();
-            $replies.reply.children('.reply-write').empty();
-            break;
-    }
-};
-
-function replies(opt, $replies, ref, mode) {
-    var params = `?page=1&ref=${ref}`; //${commentRef}
-    opt.api.list(params, response => {
-        var list = response.list;
-        opt.replyPagination = response.pagination;
-        $('.total').text(response.total);
-        $replies.reply.replyList(opt, list, mode);
-        $replies.button.html(opt.replyPagination.totalCount + ' 답글');
-        $replies.reply.children('.reply-write').append(commentTmpl.write(opt.userName, 'reply'));
-    });
-}
-
-function replyPagination(opt, $replies, ref, mode) {
-    var params = `?page=1&ref=${ref}`;
-    opt.api.list(params, response => {
-        var list = response.list;
-        opt.replyPagination = response.pagination;
-        $('.total').text(response.total);
-        $replies.reply.replyList(opt, list, mode);
-        $replies.button.html(opt.replyPagination.totalCount + ' 답글');
-        $replies.reply.children('.reply-write').empty();
-        $replies.reply.children('.reply-write').append(commentTmpl.write(opt.userName, 'reply'));
-    });
-}
-
-$.fn.replyList = function (opt, list, mode) {
-    var $repliesArea = $(this).children('.replies-area');
-    var template = '';
-    list.forEach(reply => {
-        template += commentTmpl.reply(reply);
-    });
-    switch (mode){
-        case 'make' :
-            $repliesArea.append(template);
-            break;
-
-        case 'add' :
-            $repliesArea.html(template);
-            $repliesArea.children('li').eq(opt.replyPagination.totalCount - 1).hide().fadeIn(1000);
-            break;
-    }
-};
-
-$.fn.replyAdd = function (opt) {
-    var $replies = {
-        reply : $(this).closest('.comment').find('.replies'),
-        button : $(this).closest('.comment').find('.action').eq(0),
-        content : $(this).closest('.comment').find('.content')
-    };
-
-    var ref = $replies.button.data('id');
-    console.log(ref);
-    if ($replies.content.val() == '') {
-        alert('내용을 입력해주세요');
-        return;
-    }
-
-    var data = {
-        forumId: opt.forumId,
-        userName: opt.userName,
-        content: $replies.content.val(),
-        commentRef: ref,
-        commentLevel: 1
-    };
-
-    opt.api.create(data, result => {
-        $replies.content.val();
-        replyPagination(opt, $replies, ref, 'add');
-    });
-};
-

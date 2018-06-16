@@ -1,25 +1,29 @@
 package com.fumbler.royalerumble.service;
 
+import com.fumbler.royalerumble.model.Attachment;
 import com.fumbler.royalerumble.model.Forum;
-import com.fumbler.royalerumble.model.ForumParams;
+import com.fumbler.royalerumble.model.Params;
 import com.fumbler.royalerumble.model.Pagination;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.util.List;
 
 public interface ForumService {
 
-//    Pagination makePagination(int page, ForumParams params) throws Exception;
-
-    Pagination makePagination(ForumParams params) throws Exception;
+    Pagination makePagination(Params params) throws Exception;
 
     Forum findOne(long id) throws Exception;
 
     List<Forum> findList(Pagination pagination) throws Exception;
 
-    boolean insertForum(Forum forum) throws Exception;
+    boolean createForum(Forum forum, List<MultipartFile> fileList) throws Exception;
 
-    boolean updateForum(Forum forum) throws Exception;
+    boolean editForum(Forum forum, List<MultipartFile> fileList) throws Exception;
 
     boolean deleteForum(long id) throws Exception;
+
+    Attachment getAttachment(long attachmentId) throws Exception;
+
+    boolean deleteAttachment(long attachmentId) throws Exception;
 }

@@ -10,7 +10,7 @@
         margin: 2em auto;
     }
 
-    .card-header.forum-view{
+    .card-header.forum-view {
         background: #448aff;
         color: #fff;
     }
@@ -51,21 +51,21 @@
     <c:url value="/api/comment/${forum.id}" var="url"/>
     $(function () {
         //기본 옵션
-        var api = new RestApi('${url}');
-        var opt = {
-            api : api,
-            userName: '${USER.userName}',
-            forumId:${forum.id},
-            sort:'default',
-            url:${root}
-        };
-        $('.comments').makeComments(opt);
+        $('.comments').makeComments({
+            api: api = new RestApi('${url}'),
+            <%--userId : '${USER.id}',--%>
+            userName : '${USER.userName}',
+            forumId : ${forum.id},
+            sort : 'default',
+            url : ${root},
+            currentPage : 1
+        });
 
         var created = $('.parse-time').text();
         $('.parse-time').text(parseTime(new Date(created)));
 
-        $('#deleteConfirm').click(e =>{
-            if(confirm("삭제하시겠습니까?") == false){
+        $('#deleteConfirm').click(e => {
+            if (confirm("삭제하시겠습니까?") == false) {
                 e.preventDefault(); //???
                 return; //???
             }
@@ -79,14 +79,28 @@
         <span class="parse-time"><fmt:formatDate value="${forum.regDate}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
         <div class="row">
             <div class="col-sm text-right">
+                <c:if test="${not empty forum.attachmentList}">
+                    <c:forEach var="attachment" items="${forum.attachmentList}">
+                        <a class="text-white small" href="${root}forums/image/${attachment.id}"><i
+                                class="fa fa-download"></i> ${attachment.fileName}</a>
+                    </c:forEach>
+                </c:if>
             </div>
         </div>
     </div>
     <div class="card-body forum-view">
         <div class="forum-content">
+            <c:if test="${not empty forum.attachmentList}">
+                <c:forEach var="attachment" items="${forum.attachmentList}">
+                    <div>
+                        <img src="data:image/jpeg;base64,${attachment.encode}" style="width: 50%"/>
+                    </div>
+                    <br>
+                </c:forEach>
+            </c:if>
             ${forum.content}
         </div>
-        <div class="comments z-depth-2">
+        <div class="comments z-depth-2 mt-5">
         </div>
     </div>
     <div class="card-footer forum-view">

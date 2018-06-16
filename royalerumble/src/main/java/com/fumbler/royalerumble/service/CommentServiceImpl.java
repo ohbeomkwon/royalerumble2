@@ -2,8 +2,8 @@ package com.fumbler.royalerumble.service;
 
 import com.fumbler.royalerumble.dao.CommentDao;
 import com.fumbler.royalerumble.model.Comment;
-import com.fumbler.royalerumble.model.CommentParams;
 import com.fumbler.royalerumble.model.Pagination;
+import com.fumbler.royalerumble.model.Params;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,31 +21,12 @@ public class CommentServiceImpl implements CommentService {
     CommentDao dao;
 
     @Override
-    public Map<String, Object> makeMap(CommentParams params) throws Exception {
-        Map<String, Object> map = new HashMap<>();
-        int total = totalComment(params.getForumId());
-        Pagination pagination;
-        List<Comment> list;
-        if(params.getRef() == 0) {
-            pagination = makePagination(params, 20,1);
-            list = findListComment(pagination);
-        } else {
-            pagination = makePagination(params, 30,5);
-            list = findListReply(pagination);
-        }
-        map.put("pagination", pagination);
-        map.put("list", list);
-        map.put("total", total);
-        return map;
-    }
-
-    @Override
     public int totalComment(long forumId) throws Exception {
         return dao.getCount(forumId);
     }
 
     @Override
-    public Pagination makePagination(CommentParams params, int perPage, int perBlock) throws Exception {
+    public Pagination makePagination(Params params, int perPage, int perBlock) throws Exception {
         int total = dao.getPageCount(params);
         Pagination pagination = new Pagination(params.getPage(), total, perPage, perBlock);
         pagination.setForumId(params.getForumId());
@@ -66,25 +47,45 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public Map<String, Object> makeModel(Params params) throws Exception {
+        Map<String, Object> model = new HashMap<>();
+        int total = totalComment(params.getForumId());
+        Pagination pagination;
+        List<Comment> list;
+        if(params.getRef() == 0) {
+            pagination = makePagination(params, 20,1);
+            list = findListComment(pagination);
+        } else {
+            pagination = makePagination(params, 30,5);
+            list = findListReply(pagination);
+        }
+        model.put("pagination", pagination);
+        model.put("list", list);
+        model.put("total", total);
+        return model;
+    }
+
+
+    @Override
     public List<Comment> findListReply(Pagination pagination) throws Exception {
         return dao.selectListReply(pagination);
     }
 
     @Override
     @Transactional
-    public boolean insert(Comment comment) throws Exception {
+    public boolean createComment(Comment comment) throws Exception {
         return dao.insert(comment) == 1;
     }
 
     @Override
     @Transactional
-    public boolean update(Comment comment) throws Exception {
+    public boolean editComment(Comment comment) throws Exception {
         return false;
     }
 
     @Override
     @Transactional
-    public boolean delete(long id) throws Exception {
+    public boolean deleteComment(long id) throws Exception {
         return false;
     }
 }

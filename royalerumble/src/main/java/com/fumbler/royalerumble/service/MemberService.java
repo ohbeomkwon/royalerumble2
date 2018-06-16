@@ -1,6 +1,7 @@
 package com.fumbler.royalerumble.service;
 
 import com.fumbler.royalerumble.model.Authenticate;
+import com.fumbler.royalerumble.model.Avatar;
 import com.fumbler.royalerumble.model.Member;
 
 public interface MemberService {
@@ -12,6 +13,12 @@ public interface MemberService {
     boolean memberJoin(Member member) throws Exception;
 
     boolean duplication(String email, String userName) throws Exception;
+
+    Avatar findAvatar(String userName) throws Exception;
+
+    boolean avatarUpdate(Avatar avatar) throws Exception;
+
+    boolean avatarDelete(String userName) throws Exception;
 
     boolean memberUpdate(Member member) throws Exception;
 

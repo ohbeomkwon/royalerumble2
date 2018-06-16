@@ -41,4 +41,10 @@
         USER_NAME = #{newName}
         WHERE USER_NAME = #{userName}
     </update>
+
+    <update id="updateAvatarName" parameterType="Member">
+        UPDATE AVATARS SET
+        USER_NAME = #{newName}
+        WHERE USER_NAME = #{userName}
+    </update>
 </mapper>

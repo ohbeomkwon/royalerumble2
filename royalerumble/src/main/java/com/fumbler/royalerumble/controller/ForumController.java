@@ -1,16 +1,19 @@
 package com.fumbler.royalerumble.controller;
 
-import com.fumbler.royalerumble.model.Forum;
-import com.fumbler.royalerumble.model.ForumParams;
-import com.fumbler.royalerumble.model.Member;
-import com.fumbler.royalerumble.model.Pagination;
+import com.fumbler.royalerumble.model.*;
 import com.fumbler.royalerumble.service.ForumService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -23,26 +26,8 @@ public class ForumController {
     @Autowired
     ForumService service;
 
-//    @RequestMapping(value = "/list", method = RequestMethod.GET)
-//    public String getForumList(
-//            @RequestParam(value = "page", defaultValue = "1") int page,
-//            @RequestParam(value = "type", defaultValue = "free") String type,
-//            @RequestParam(value = "select", defaultValue = "0") int select,
-//            @RequestParam(value = "keyword", defaultValue = "") String keyword,
-//            Model model) throws Exception {
-//        //TODO Pagination 에 type,select,keyword 정보 추가하기...
-//        ForumParams params = new ForumParams(type, select, keyword);
-//        Pagination pagination = service.makePagination(page, params);
-//        List<Forum> list = service.findList(pagination);
-//        model.addAttribute("pagination", pagination);
-//        model.addAttribute("list", list);
-//        model.addAttribute("forum", "active");
-//        return "forums/list";
-//    }
-
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String getForumList(@ModelAttribute ForumParams params, Model model) throws Exception {
-        log.info(params.toString());
+    public String getForumList(@ModelAttribute("params") Params params, Model model) throws Exception {
         Pagination pagination = service.makePagination(params);
         List<Forum> list = service.findList(pagination);
         model.addAttribute("pagination", pagination);
@@ -63,16 +48,19 @@ public class ForumController {
     public String write(@RequestParam(value = "type", defaultValue = "free") String type,
                           Forum forum, Model model){
         model.addAttribute("type", type);
-        return "forums/writing";
+        return "forums/write";
     }
 
+    //TODO 업로드를 이용한 서버 공격 생각해보기
     @RequestMapping(value = "/write", method = RequestMethod.POST)
-    public String writeSubmit(@Valid Forum forum, BindingResult result) throws Exception {
+    public String writeSubmit(@Valid Forum forum, BindingResult result,
+                              MultipartHttpServletRequest mRequest) throws Exception {
         if(result.hasErrors()){
-            return "forums/writing";
+            return "forums/write";
         }
-        if(!service.insertForum(forum)){
-            return "forums/writing";
+        List<MultipartFile> fileList = mRequest.getFiles("files");
+        if(!service.createForum(forum, fileList)){
+            return "forums/write";
         }
         return "redirect:/forums/list?type=" + forum.getType();
     }
@@ -90,12 +78,13 @@ public class ForumController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String editSubmit(@PathVariable long id,
-                                  @Valid Forum forum, BindingResult result) throws Exception{
+    public String editSubmit(@PathVariable long id, @Valid Forum forum,
+                             BindingResult result, MultipartHttpServletRequest mRequest) throws Exception{
         if(result.hasErrors()) {
             return "forums/update";
         }
-        if(!service.updateForum(forum)){
+        List<MultipartFile> fileList = mRequest.getFiles("files");
+        if(!service.editForum(forum, fileList)){
             return "forums/update";
         }
         return "redirect:/forums/forum/" + id;
@@ -112,5 +101,14 @@ public class ForumController {
             return "forums/forum";
         }
         return "redirect:/forums/list?type=" + forum.getType();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/image/{attachmentId}", method = RequestMethod.GET)
+    public ResponseEntity imageView(@PathVariable long attachmentId, Model model) throws Exception{
+        Attachment attachment = service.getAttachment(attachmentId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        return new ResponseEntity<>(attachment.getFileBinary(), headers, HttpStatus.OK);
     }
 }
