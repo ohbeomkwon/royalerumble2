@@ -88,7 +88,7 @@
             </div>
         </div>
     </div>
-    <div class="card-body forum-view">
+    <div class="card-body forum-view" oncontextmenu="return false">
         <div class="forum-content">
             <c:if test="${not empty forum.attachmentList}">
                 <c:forEach var="attachment" items="${forum.attachmentList}">

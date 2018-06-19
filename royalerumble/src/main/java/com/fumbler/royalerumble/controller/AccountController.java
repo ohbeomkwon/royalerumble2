@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,14 +29,20 @@ public class AccountController {
     MemberService service;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(@ModelAttribute("url") String url, Authenticate authenticate,
-                        HttpServletRequest request, Model model) {
+    public String login(@ModelAttribute("url") String url,
+                        @CookieValue (value = "_USER_EMAIL", required = false) Cookie cookie,
+                        Authenticate authenticate, HttpServletRequest request, Model model ) {
         if (url != null && !url.isEmpty()) {
             //인터셉터일 경우
             authenticate.setInterceptorMessage("로그인이 필요한 서비스입니다.");
         } else {
             //로그인 버튼을 누른경우
             url = urlTokenizer(request.getHeader("referer"));
+        }
+        if(cookie != null) {
+            log.info("쿠키에 저장된 값은 ?" + cookie.getValue());
+            authenticate.setEmail(cookie.getValue());
+            authenticate.setRemember(true);
         }
         authenticate.setUrl(url);
         model.addAttribute("login", "active");
@@ -45,6 +52,7 @@ public class AccountController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String loginSubmit(@Valid Authenticate authenticate,
                               BindingResult result,
+                              HttpServletResponse response,
                               HttpSession session) throws Exception {
         String url = authenticate.getUrl();
         if (result.hasErrors()) {
@@ -55,6 +63,15 @@ public class AccountController {
             result.reject("loginFail", "아이디 또는 비밀번호가 틀립니다.");
             return "account/login";
         }
+        Cookie cookie = new Cookie("_USER_EMAIL", member.getEmail());
+        cookie.setPath("/");
+        if(authenticate.isRemember()){
+            cookie.setMaxAge(60*60*24*365);
+            log.info("쿠키에 저장된 값은 ?" + cookie.getValue());
+        } else {
+            cookie.setMaxAge(0);
+        }
+        response.addCookie(cookie);
         session.setAttribute("USER", member);
         if (url != null && !url.isEmpty()) {
             return "redirect:" + url;

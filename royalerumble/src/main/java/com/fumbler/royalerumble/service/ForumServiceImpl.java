@@ -1,6 +1,5 @@
 package com.fumbler.royalerumble.service;
 
-import com.fasterxml.jackson.databind.JsonSerializable;
 import com.fumbler.royalerumble.dao.AttachmentDao;
 import com.fumbler.royalerumble.dao.ForumDao;
 import com.fumbler.royalerumble.model.Attachment;
@@ -38,6 +37,7 @@ public class ForumServiceImpl implements ForumService {
 
     @Override
     public Forum findOne(long id) throws Exception {
+        dao.increaseHits(id);
         Forum forum = dao.selectOne(id);
         List<Attachment> list = attachmentDao.selectList(id);
         for (Attachment attachment : list) {

@@ -7,7 +7,7 @@
         <div class="row">
             <!--하단 브랜드-->
             <div class="col-md-12 text-center">
-                <span class="h4 font-weight-bold">FUMBLER</span>
+                <span class="h4 font-weight-bold _app_font">FUMBLER</span>
             </div>
             <div class="mx-auto">
                 <ul class="nav md-fills">

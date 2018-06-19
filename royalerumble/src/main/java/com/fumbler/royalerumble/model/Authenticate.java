@@ -22,5 +22,7 @@ public class Authenticate {
 
     private String url;
 
+    private boolean remember;
+
     private String interceptorMessage;
 }

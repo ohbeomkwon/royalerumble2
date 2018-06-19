@@ -110,16 +110,14 @@
                             <td class="text-center">${forum.id}</td>
                             <td>
                                 <a href="${root}forums/forum/${forum.id}">
-                                    <span>
                                         <c:if test="${forum.modified == 1}">
-                                            [포럼수정]
+                                            <span class="font-weight-bold text-primary">[수정됨]</span>
                                         </c:if>
-                                             ${forum.subject}
-                                    </span>
+                                    <span>${forum.subject}</span>
                                 </a>
                                 <c:if test="${forum.attachmentCheck == 1}">
                                     <span>
-                                        <i class="far fa-image"></i>
+                                        <i class="far fa-image text-default"></i>
                                     </span>
                                 </c:if>
                                 <c:if test="${forum.commentCnt >0}">
