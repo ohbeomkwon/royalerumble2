@@ -52,6 +52,7 @@ var commentTempl = {
             var menu = ``;
             if(comment.userName === userName) {
                 menu = `
+                    <a href="#"><span class="reply-update" style="color:gray; margin-right:5px">수정</span></a>
                     <a href="#"><span class="reply-delete" style="color:gray; margin-right:5px">삭제</span></a>`
             } else {
                 menu = `
@@ -86,15 +87,13 @@ var commentTempl = {
                                 <button type="button" class="btn btn-primary btn-sm action" name="reply-button"
                                 data-action="reply#list#off" data-id="${comment.id}"style="font-size:12px">${comment.commentCnt} 답글</button>
                             </div>
-                            <div class="col-sm-6 text-right" style="position: relative; top:-15px">
-                                <button type="button" class="btn btn-white btn-sm action"  
-                                data-action="like#add" style="font-size:13px; width: 90px">
-                                    ${comment.likeCnt} <i class="fa fa-chevron-up"></i>
-                                </button>
-                                <button type="button" class="btn btn-white btn-sm action" 
-                                data-action="hate#add" style="font-size:13px; width: 90px">
-                                    ${comment.hateCnt} <i class="fa fa-chevron-down"></i>
-                                </button>   
+                            <div class="col-sm-6 text-right">
+                                <a class="btn-floating btn-red btn-sm action mr-1 text-right" data-action="like#add">
+                                    <i class="fa fa-chevron-up mr-3"></i><span>50</span>
+                                </a>         
+                                <a class="btn-floating btn-indigo btn-sm action text-right" data-action="hate#add">
+                                    <i class="fa fa-chevron-down mr-3"></i><span>10</span>
+                                </a>   
                             </div>
                         </div>
                     </div>
@@ -114,6 +113,7 @@ var commentTempl = {
             var menu = ``;
             if(reply.userName === userName) {
                 menu = `
+                    <a href="#"><span class="reply-update" style="color:gray; margin-right:5px">수정</span></a>
                     <a href="#"><span class="reply-delete" style="color:gray; margin-right:5px">삭제</span></a>`
             } else {
                 menu = `
@@ -152,7 +152,12 @@ var commentTempl = {
         return tmpl;
     },
 
-    footer: function (pagination) {
+    footer : `
+        <div class="comments-footer">
+        </div>
+    `,
+
+    commentPaging : function(pagination) {
         var button = ``;
         if (pagination.page < pagination.totalPage) {
             button = `
@@ -167,11 +172,7 @@ var commentTempl = {
 				</button>
             `;
         }
-        var tmpl = `
-			<div class="comments-footer">
-			    ${button}
-			</div>
-		`;
-        return tmpl;
+        return button;
     }
+
 };

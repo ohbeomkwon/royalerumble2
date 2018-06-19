@@ -29,8 +29,8 @@
 
     .profile-image-button {
         position: relative;
-        top: -15px;
-        left: 370px;
+        top: -30px;
+        left: 400px;
     }
 
     input[type="file"] {
@@ -124,7 +124,7 @@
                 </div>
                 <div class="profile-image-button">
                     <a class="btn-floating btn-pink btn-sm" data-toggle="modal" data-target="#profileImageModal">
-                        <i class="fas fa-camera fa"></i></i></i>
+                        <i class="fas fa-camera fa"></i>
                     </a>
                 </div>
             </div>

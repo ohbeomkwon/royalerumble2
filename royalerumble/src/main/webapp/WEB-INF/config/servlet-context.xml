@@ -20,7 +20,6 @@
 
     <!-- 리소스 업데이트 관련 -->
     <mvc:resources mapping="/resources/**" location="/resources/" cache-period="0"/>
-
     <!-- 인터셉터 설정 -->
     <mvc:interceptors>
         <mvc:interceptor>

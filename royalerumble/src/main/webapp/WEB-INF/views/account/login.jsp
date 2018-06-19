@@ -42,8 +42,8 @@
             </div>
             <div class="row">
                 <div class="form-check col-sm-5">
-                    <input class="form-check-input" type="checkbox" value="" id="save">
-                    <label class="form-check-label font-small" for="save">
+                    <form:checkbox path="remember" cssClass="form-check-input"/>
+                    <label class="form-check-label font-small" for="remember">
                         이메일 저장
                     </label>
                 </div>

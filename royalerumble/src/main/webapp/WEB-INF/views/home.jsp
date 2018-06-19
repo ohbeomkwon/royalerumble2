@@ -2,14 +2,7 @@
          pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
-    // $(function(){
-    //     $(this).makeSearchWindow();
-    //     // 인기있는 덱을 처음에 불러옴
-    //     $(this).makePopularDecks();
-    // })
-
-    $(function(){
-
-    });
+    $(function () {
+        $(document).royaleHome(opt);
+    })
 </script>
-

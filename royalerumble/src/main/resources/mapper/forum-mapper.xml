@@ -26,6 +26,13 @@
         SELECT * FROM FORUMS WHERE id = #{id}
     </select>
 
+    <update id="increaseHits" parameterType="int">
+        UPDATE FORUMS
+        SET
+            HITS = HITS + 1
+        WHERE ID = #{id}
+    </update>
+
     <select id="selectList" parameterType="Pagination" resultType="Forum">
         SELECT
         f.ID,
@@ -70,8 +77,8 @@
     </select>
 
     <insert id="insert" parameterType="forum" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO FORUMS (ID, USER_NAME, SUBJECT, CONTENT, TYPE, ATTACHMENT_CHECK)
-        VALUES (FORUM_SEQ.nextval, #{userName}, #{subject}, #{content}, #{insertType}, #{attachmentCheck})
+        INSERT INTO FORUMS (ID, USER_NAME, SUBJECT, CONTENT, HITS, TYPE, ATTACHMENT_CHECK)
+        VALUES (FORUM_SEQ.nextval, #{userName}, #{subject}, #{content}, #{hits}, #{insertType}, #{attachmentCheck})
     </insert>
 
     <update id="update" parameterType="forum">

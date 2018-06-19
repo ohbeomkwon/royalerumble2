@@ -30,33 +30,32 @@ div._silver {
     width: 90px;
     height: 90px;
     margin: 5px auto;
-    background-image: url("/royalerumble/resources/img/chests/chest-silver.png");
+    background-image: url("/clash/resources/img/chests/chest-silver.png");
 }
 
 div._gold {
     width: 90px;
     height: 90px;
     margin: 5px auto;
-    background-image: url("/royalerumble/resources/img/chests/chest-gold.png");
+    background-image: url("/clash/resources/img/chests/chest-gold.png");
 }
 
 div._superMagical {
-    /*background-image: url("https://royaleapi.com/static/img/chests/chest-supermagical.png");*/
-    background-image: url("/royalerumble/resources/img/chests/chest-supermagical.png");
+    background-image: url("https://royaleapi.com/static/img/chests/chest-supermagical.png");
 }
 
 div._magical {
-    background-image: url("/royalerumble/resources/img/chests/chest-magical.png");
+    background-image: url("/clash/resources/img/chests/chest-magical.png");
 }
 
 div._legendary {
-    background-image: url("/royalerumble/resources/img/chests/chest-legendary.png");
+    background-image: url("/clash/resources/img/chests/chest-legendary.png");
 }
 
 div._epic {
-    background-image: url("/royalerumble/resources/img/chests/chest-epic.png");
+    background-image: url("/clash/resources/img/chests/chest-epic.png");
 }
 
 div._giant {
-    background-image: url("/royalerumble/resources/img/chests/chest-giant.png");
+    background-image: url("/clash/resources/img/chests/chest-giant.png");
 }

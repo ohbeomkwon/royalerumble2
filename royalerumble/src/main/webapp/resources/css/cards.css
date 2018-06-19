@@ -26,6 +26,7 @@
 	    1px 1px 0 #000;
 }
 
+/* 카드 별 클래스 지정이 필요한가?? */
 div._archers {
-	background-image:url("/royalerumble/resources/img/cards-png8/archers.png");
+	background-image:url("/clash/resources/img/cards-png8/archers.png");
 }

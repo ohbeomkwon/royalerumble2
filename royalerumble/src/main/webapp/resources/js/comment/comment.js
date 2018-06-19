@@ -7,7 +7,7 @@ $.fn.makeComments = function(opt) {
         var $commentPanel = {
             header : $(commentTempl.header(response.total)),
             body : $(commentTempl.body),
-            footer : $(commentTempl.footer(response.pagination)),
+            footer : $(commentTempl.footer),
         };
 
         self.append($commentPanel.header);
@@ -20,6 +20,7 @@ $.fn.makeComments = function(opt) {
         $commentPanel.body
             .find('.comments-area')
             .append(commentTempl.comment(opt.userName, response.list));
+        $commentPanel.footer.append(commentTempl.commentPaging(response.pagination));
 
         self.on('click', '.action', function() {
             var actionType = $(this).data('action');
@@ -92,7 +93,7 @@ $.fn.makeComments = function(opt) {
                     $('.comments-area li').eq(0).hide().fadeIn(1000);
                     break;
             }
-            $commentPanel.footer.html(commentTempl.footer(response.pagination));
+            $commentPanel.footer.html(commentTempl.commentPaging(response.pagination));
         });
     }
 

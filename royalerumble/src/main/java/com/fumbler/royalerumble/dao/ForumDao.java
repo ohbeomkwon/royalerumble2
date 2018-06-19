@@ -6,6 +6,8 @@ import com.fumbler.royalerumble.model.Params;
 
 public interface ForumDao extends BaseDao<Forum, Long> {
 
+    int increaseHits(long id) throws Exception;
+
     int getPageCount(Params params) throws Exception;
 
     int deleteComment(long id) throws Exception;
