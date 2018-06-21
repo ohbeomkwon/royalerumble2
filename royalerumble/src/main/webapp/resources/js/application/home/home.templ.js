@@ -188,4 +188,4 @@ var homeTempl = {
         }
         return rank;
     }
-}
+};

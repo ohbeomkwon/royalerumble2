@@ -3,6 +3,9 @@ $.fn.royaleServiceInit = function(opt) {
     $('head').append(`<script src="${opt.context}resources/js/application/home/home.templ.js"><\/script>`);
     $('head').append(`<script src="${opt.context}resources/js/application/search/profile.js"><\/script>`);
     $('head').append(`<script src="${opt.context}resources/js/application/search/profile.templ.js"><\/script>`);
+    $('head').append(`<script src="${opt.context}resources/js/application/search/battle.templ.js"><\/script>`);
+    $('head').append(`<script src="${opt.context}resources/js/application/rank/rank.js"><\/script>`);
+    $('head').append(`<script src="${opt.context}resources/js/application/rank/rank.templ.js"><\/script>`);
 
     var self = this;
     self.on('click', '._item_action', function(event){
@@ -35,6 +38,7 @@ $.fn.royaleServiceInit = function(opt) {
                 break;
         }
     });
-}
+};
+
 
 

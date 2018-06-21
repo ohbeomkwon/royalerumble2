@@ -1,19 +1,17 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fumbler.royalerumble.model.Authenticate;
-import com.fumbler.royalerumble.model.Comment;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -22,30 +20,32 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         "classpath:servlet-context.xml",
         "classpath:database-context.xml"})
 @WebAppConfiguration
-public class AccountControllerTest {
+public class ForumApiControllerTest {
 
     @Autowired
     WebApplicationContext webApplicationContext;
 
-    @Autowired
-    ObjectMapper objectMapper;
 
+    @Before
+    public void before() {
 
+    }
     @Test
-    public void login() throws Exception{
-        MockMvc mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
-                .build();
-
-        Authenticate authenticate = new Authenticate();
-        authenticate.setEmail("admin");
-        authenticate.setPassword("1234");
-
-        ResultActions result = mockMvc.perform(post("/api/account/login")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(authenticate)));
+    public void getListTest() throws Exception {
+        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        ResultActions result = mockMvc.perform(get("/api/forums?page=2"));
 
         result.andDo(print());
         result.andExpect(status().isOk());
     }
+
+    @Test
+    public void getForumTest() throws Exception {
+        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        ResultActions result = mockMvc.perform(get("/api/forums/57"));
+
+        result.andDo(print());
+        result.andExpect(status().isOk());
+    }
+
 }

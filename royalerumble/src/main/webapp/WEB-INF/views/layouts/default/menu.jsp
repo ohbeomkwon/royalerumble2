@@ -20,14 +20,17 @@
             $('.nav-item').removeClass('active');
             $(this).closest('.nav-item').addClass('active');
 
-        });$('#home').on('click', function(e){
+        });
+        $('#home').on('click', function(e){
             $(document).royaleHome(opt);
         });
 
         $('#card').on('click', function(e){
+
         });
 
         $('#rank').on('click', function(e){
+            $(document).royalePlayerRank(opt);
         });
     });
 </script>
@@ -46,13 +49,13 @@
             <ul class="navbar-nav mr-auto mt-lg-0">
                 <li class="nav-item <c:if test="${home == 'active'}">active</c:if>">
                     <%--<a class="nav-link font-weight-bold" href="${root}">홈</a>--%>
-                    <a class="nav-link font-weight-bold" id="home">홈</a>
+                    <a href="#" class="nav-link font-weight-bold" id="home">홈</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link font-weight-bold" id="card">카드</a>
+                    <a href="#" class="nav-link font-weight-bold" id="card">카드</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link font-weight-bold" id="rank">랭크</a>
+                    <a href="#" class="nav-link font-weight-bold" id="rank">랭크</a>
                 </li>
                 <li class="nav-item dropdown <c:if test="${forum == 'active'}">active</c:if>">
                     <a class="nav-link dropdown-toggle font-weight-bold" id="dropdownForum" data-toggle="dropdown"

@@ -1,5 +1,6 @@
 var profileTempl = {
     player : function(data) {
+        console.log(data);
     var arenaLevel = data.arena.arena;
     var arena = arenaLevel.replace(/(\s*)/g,""); // 모든 공백 제거
     var clan="";
@@ -31,7 +32,7 @@ var profileTempl = {
     }
     
     var templ = `
-    <div class="header" style="height:220px;background-image: url('${opt.context}resources/image/etc/top.png')">
+    <div class="header" style="height:220px;background-image: url('${opt.context}resources/image/etc/top_blue.png')">
     </div>
     <div class="row justify-content-center">
         <section class="position-relative" style="top:-110px; left:-40px">
@@ -62,7 +63,9 @@ var profileTempl = {
                     <div class="col-6 text-left">
                         <h6 class="mt-1" style="left:-30px">
                             <img src="${opt.context}resources/image/badges/${clanImg}.png" style="left: -50px; height: 30px;">
-                            <span class="font-weight-bold text-white">${clan}</span>
+                            <a href="#" class="text-white">
+                                <span class="font-weight-bold _item_action" data-action="clan-click" data-tag="${clanTag}">${clan}</span>
+                            </a>
                         </h6>
                     </div>
                     <div class="col-6 text-center">
@@ -161,34 +164,43 @@ var profileTempl = {
                     ${cardList}
                 </div>
             </div>
-            <div class="card ml-3" style="width:725px; height: 150px;">
-            </div>
-        </div>
-        <div class="row justify-content-center mt-2">
-            <div class="card" style="width:370px; height: 320px;">
-                <div class="card-header">
-                    <h5 class="font-weight-bold">최근 사용한 덱</h5>
-                    <div class="row">
-                        <div class="col-6">
-                            평균 엘릭서
-                            <img src="${opt.context}resources/image/icon/elixir.png" style="width: 20px" />
-                            <span class="font-weight-bold _app_font">2.3</span>
+            <section class="ml-3">
+                <div class="card _battle_summary" style="width:725px; height: 200px;">
+                    <div style="width:725px; height: 46px; border-bottom: 1px solid #DDDDDD">
+                        <div class="_menu_item _active">
+                            <a class="text-dark _item_action" href="#">전체</a>
                         </div>
-                        <div class="col-6 text-right">
-                            <span class="font-weight-bold">덱 복사</span>
-                            <a class="btn-link" href="#">
-                                <img src="${opt.context}resources/image/icon/cardcopy.png" style="width:25px" />
-                            </a>
+                        <div class="_menu_divide"></div>
+                        <div class="_menu_item">
+                            <a class="text-dark _item_action" href="#">랭킹전</a>
+                        </div>
+                        <div class="_menu_divide"></div>
+                        <div class="_menu_item ">
+                            <a class="text-dark _item_action" href="#">도전</a>
+                        </div>
+                        <div class="_menu_divide"></div>
+                        <div class="_menu_item">
+                            <a class="text-dark _item_action" href="#">토너먼트</a>
+                        </div>
+                        <div class="_menu_divide"></div>
+                        <div class="_menu_item">
+                            <a class="text-dark _item_action" href="#">2 v 2</a>
+                        </div>
+                        <div class="_menu_divide"></div>
+                        <div class="_menu_item">
+                            <a class="text-dark _item_action" href="#">이벤트</a>
+                        </div>
+                        <div class="_menu_divide"></div>
+                    </div>
+                    <div class="_battle_summary_info mt-3" id="battleSummary">
+                        <div class="row justify-content-center">
+                        <img src="${opt.context}resources/image/etc/spin2.gif" style="width:23%; height: 23%;"/>
                         </div>
                     </div>
                 </div>
-                <div class="row card-body">
-                    ${cardList}
-                </div>
-            </div>
-            <div class="card ml-3" style="width:725px; height: 100%;">
-                <img src="${opt.context}resources/image/etc/spin2.gif" style="width : 270px; margin: -100px auto" />
-            </div>
+                <ul class="list-group list-group-flush _battle_list" id="battleList">
+                </ul>
+            </section>
         </div>
     </div>`
     return templ;
@@ -237,7 +249,7 @@ var profileTempl = {
                 <h6 class="font-weight-bold">
                     ${member.name}
                 </h6>
-                <span>${member.tag}</span>
+                <span>#${member.tag}</span>
             </a>
             </td>
             <td style="height: 20px; vertical-align: middle">
