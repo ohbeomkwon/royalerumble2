@@ -6,7 +6,7 @@ class RoyaleApi {
 	}
 	
 	// callback함수를 입력받아 사용한다. 리턴없음
-	getPlayer(tag, callback) {
+	getPlayer(tag, callback, error) {
 		var param = {
 				type : "get",
 				url : this.url+"player/"+tag,
@@ -14,6 +14,7 @@ class RoyaleApi {
 					auth: this.apiKey
 				},
 				dataType : this.dataType,
+            	error : error,
 				success : callback
 		};
 		$.ajax(param);
@@ -32,10 +33,8 @@ class RoyaleApi {
 		};
 		$.ajax(param);
 	}
-	
-	
-	// jsp 페이지에서 ajax를 통해서 callback 함수를 정의한다.
-	getClan(tag, callback) {
+
+	getClan(tag, callback, error) {
 		var param={
 			type : "get",
 			url : this.url+"clan/"+tag,
@@ -43,6 +42,7 @@ class RoyaleApi {
 				auth : this.apiKey
 			},
 			dataType : this.dataType,
+            error : error,
 			success : callback
 		};
 		$.ajax(param);
@@ -63,7 +63,7 @@ class RoyaleApi {
 	}
 	
 	// 플레이어 랭크 불러오기
-	getPlayerRank(callback) {
+	getPlayerRank(callback, error) {
 		var param = {
 				type : "get",
 				url: this.url+"top/players",
@@ -71,13 +71,14 @@ class RoyaleApi {
 					auth : this.apiKey
 				},
 				dataType : this.dataType,
+            	error : error,
 				success : callback
 		};
 		$.ajax(param);
 	}
 	
 	// clan 랭크 불러오기
-	getClanRank(callback) {
+	getClanRank(callback, error) {
 		var param = {
 				type: "get",
 				url : this.url+"top/clans",
@@ -85,6 +86,7 @@ class RoyaleApi {
 					auth : this.apiKey
 				},
 				dataType : this.dataType,
+            	error : error,
 				success : callback
 		};
 		$.ajax(param);
@@ -115,5 +117,19 @@ class RoyaleApi {
 		};
 		$.ajax(param);
 	}
-	
+
+    getBattleLog(tag, callback, error) {
+        var param = {
+            type: "get",
+            url : this.url+"player/"+tag+"/battle?max=20",
+            headers : {
+                auth : this.apiKey
+            },
+            dataType : this.dataType,
+            error : error,
+            success : callback
+        };
+        $.ajax(param);
+    }
+
 }

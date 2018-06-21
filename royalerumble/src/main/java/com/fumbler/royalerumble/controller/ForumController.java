@@ -27,7 +27,7 @@ public class ForumController {
     ForumService service;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String getForumList(@ModelAttribute("params") Params params, Model model) throws Exception {
+    public String getForumList(@ModelAttribute Params params, Model model) throws Exception {
         Pagination pagination = service.makePagination(params);
         List<Forum> list = service.findList(pagination);
         model.addAttribute("pagination", pagination);

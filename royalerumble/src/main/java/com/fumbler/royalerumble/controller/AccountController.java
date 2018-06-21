@@ -63,6 +63,7 @@ public class AccountController {
             result.reject("loginFail", "아이디 또는 비밀번호가 틀립니다.");
             return "account/login";
         }
+
         Cookie cookie = new Cookie("_USER_EMAIL", member.getEmail());
         cookie.setPath("/");
         if(authenticate.isRemember()){

@@ -136,6 +136,10 @@ body,
     background-repeat: no-repeat;
 }
 
+._rank_button.active {
+    border-bottom: solid 2px dodgerblue;
+}
+
 ._chest p {
     font-family: Supercell-magic;
     font-size: 20px;
@@ -148,4 +152,53 @@ body,
     1px -1px 0 #000,
     -1px 1px 0 #000,
     1px 1px 0 #000;
+}
+
+._active {
+    color: dodgerblue;
+    border-bottom: 2px solid dodgerblue;
+}
+
+._battle_font {
+    font-family: Supercell-magic;
+    color: #000;
+}
+._battle_card {
+    width: 40px;
+    height: 48px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+
+._battle_elixir {
+    width: 25px;
+    height: 30px;
+    background-size: 75%;
+    background-repeat: no-repeat;
+}
+
+._battle_blue {
+    background-color: #f0f7fe
+}
+
+._battle_red {
+    background-color: #fff8f9
+}
+
+._menu_item {
+    float: left;
+    min-width: 70px;
+    height: 35px;
+    margin-top: 12px;
+    margin-left: 10px;
+    text-align: center;
+}
+
+._menu_divide {
+    float: left;
+    width: 10px;
+    height: 10px;
+    margin-top: 16px;
+    border-right: 1px solid #DDDDDD;
 }
