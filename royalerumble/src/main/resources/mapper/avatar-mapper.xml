@@ -26,4 +26,10 @@
         WHERE USER_NAME = #{userName}
     </delete>
 
+    <update id="updateUserName" parameterType="Member">
+        UPDATE AVATARS SET
+        USER_NAME = #{newName}
+        WHERE USER_NAME = #{userName}
+    </update>
+
 </mapper>

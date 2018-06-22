@@ -18,4 +18,5 @@ public interface AttachmentDao {
 
     int delete(long id) throws Exception;
 
+    int deleteAll(long forumId) throws Exception;
 }

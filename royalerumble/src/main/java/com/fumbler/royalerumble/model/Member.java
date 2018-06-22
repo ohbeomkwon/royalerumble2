@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -30,6 +31,8 @@ public class Member {
     private Date updateDate;
 
     private String url;
+
+    private List<Friend> list;
 
     public boolean passwordMatching(String password){
         return this.password.equals(password);

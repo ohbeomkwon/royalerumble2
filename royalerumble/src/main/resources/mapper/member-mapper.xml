@@ -30,21 +30,7 @@
         </choose>
     </update>
 
-    <update id="updateForumName" parameterType="Member">
-        UPDATE FORUMS SET
-        USER_NAME = #{newName}
-        WHERE USER_NAME = #{userName}
-    </update>
-    
-    <update id="updateCommentName" parameterType="Member">
-        UPDATE COMMENTS SET
-        USER_NAME = #{newName}
-        WHERE USER_NAME = #{userName}
-    </update>
-
-    <update id="updateAvatarName" parameterType="Member">
-        UPDATE AVATARS SET
-        USER_NAME = #{newName}
-        WHERE USER_NAME = #{userName}
-    </update>
+    <select id="searchList" parameterType="String" resultType="String">
+        SELECT USER_NAME FROM MEMBERS WHERE USER_NAME LIKE #{userName}||'%'
+    </select>
 </mapper>

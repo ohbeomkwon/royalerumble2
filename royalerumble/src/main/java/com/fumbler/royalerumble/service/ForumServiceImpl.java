@@ -1,6 +1,7 @@
 package com.fumbler.royalerumble.service;
 
 import com.fumbler.royalerumble.dao.AttachmentDao;
+import com.fumbler.royalerumble.dao.CommentDao;
 import com.fumbler.royalerumble.dao.ForumDao;
 import com.fumbler.royalerumble.model.Attachment;
 import com.fumbler.royalerumble.model.Forum;
@@ -21,6 +22,9 @@ public class ForumServiceImpl implements ForumService {
 
     @Autowired
     ForumDao dao;
+
+    @Autowired
+    CommentDao commentDao;
 
     @Autowired
     AttachmentDao attachmentDao;
@@ -64,7 +68,7 @@ public class ForumServiceImpl implements ForumService {
     @Transactional
     public boolean editForum(Forum forum, List<MultipartFile> fileList) throws Exception {
         int result = dao.update(forum);
-        dao.deleteAttachment(forum.getId());
+        attachmentDao.deleteAll(forum.getId());
         attachmentUpload(forum, fileList);
         return result == 1;
     }
@@ -72,8 +76,8 @@ public class ForumServiceImpl implements ForumService {
     @Override
     @Transactional
     public boolean deleteForum(long id) throws Exception {
-        dao.deleteAttachment(id);
-        dao.deleteComment(id);
+        attachmentDao.deleteAll(id);
+        commentDao.deleteAll(id);
         return dao.delete(id) == 1;
     }
 

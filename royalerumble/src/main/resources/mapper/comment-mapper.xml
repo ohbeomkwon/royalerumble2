@@ -104,4 +104,15 @@
         VALUES (COMMENTS_SEQ.NEXTVAL, #{forumId}, #{userName}, #{content},
         #{commentRef}, #{commentLevel}, 0, 0)
     </insert>
+
+    <update id="updateUserName" parameterType="Member">
+        UPDATE COMMENTS SET
+        USER_NAME = #{newName}
+        WHERE USER_NAME = #{userName}
+    </update>
+
+    <delete id="deleteAll">
+        DELETE FROM COMMENTS
+        WHERE FORUM_ID = #{id}
+    </delete>
 </mapper>

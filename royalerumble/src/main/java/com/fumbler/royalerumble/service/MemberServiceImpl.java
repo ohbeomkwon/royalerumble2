@@ -1,7 +1,10 @@
 package com.fumbler.royalerumble.service;
 
 import com.fumbler.royalerumble.dao.AvatarDao;
+import com.fumbler.royalerumble.dao.CommentDao;
+import com.fumbler.royalerumble.dao.ForumDao;
 import com.fumbler.royalerumble.dao.MemberDao;
+import com.fumbler.royalerumble.model.Attachment;
 import com.fumbler.royalerumble.model.Authenticate;
 import com.fumbler.royalerumble.model.Avatar;
 import com.fumbler.royalerumble.model.Member;
@@ -11,12 +14,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class MemberServiceImpl implements MemberService {
 
     @Autowired
     MemberDao dao;
+
+    @Autowired
+    ForumDao forumDao;
+
+    @Autowired
+    CommentDao commentDao;
 
     @Autowired
     AvatarDao avatarDao;
@@ -88,9 +99,9 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public void writerUpdate(Member member) throws Exception{
-        dao.updateAvatarName(member);
-        dao.updateForumName(member);
-        dao.updateCommentName(member);
+        avatarDao.updateUserName(member);
+        forumDao.updateUserName(member);
+        commentDao.updateUserName(member);
     }
 
     @Override
@@ -99,5 +110,8 @@ public class MemberServiceImpl implements MemberService {
         return dao.update(member) == 1;
     }
 
-
+    @Override
+    public List<String> findFriend(String userName) throws Exception {
+        return dao.searchList(userName);
+    }
 }

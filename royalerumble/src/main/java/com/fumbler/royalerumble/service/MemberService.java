@@ -4,6 +4,8 @@ import com.fumbler.royalerumble.model.Authenticate;
 import com.fumbler.royalerumble.model.Avatar;
 import com.fumbler.royalerumble.model.Member;
 
+import java.util.List;
+
 public interface MemberService {
 
     Member getMember(String email) throws Exception;
@@ -26,6 +28,6 @@ public interface MemberService {
 
     boolean passwordUpdate(Member member) throws Exception;
 
-
+    List<String> findFriend(String userName) throws Exception;
 
 }

@@ -7,31 +7,90 @@
     }
 
     .dropdown-menu a:hover {
-        background: #448aff  !important;
+        background: #448aff !important;
         color: #f8f9fa !important;
         -webkit-transition: all 0.2s ease-in-out;
         -moz-transition: all 0.2s ease-in-out;
         transition: all 0.2s ease-in-out;
     }
+
+    .autocomplete-suggestions {
+        border: 1px solid #999;
+        background: #FFF;
+        overflow: auto;
+    }
+
+    .autocomplete-suggestion {
+        padding: 2px 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .autocomplete-selected {
+        background: blue;
+        color: white;
+    }
+
+    .autocomplete-suggestions strong {
+        font-weight: bold;
+        color: orange;
+    }
+
+    .autocomplete-group {
+        padding: 2px 5px;
+    }
+
+    .autocomplete-group strong {
+        display: block;
+        border-bottom: 1px solid #000;
+    }
 </style>
 <script>
-    $(function(){
+    $(function () {
         $('.nav-link').click(function () {
             $('.nav-item').removeClass('active');
             $(this).closest('.nav-item').addClass('active');
 
         });
-        $('#home').on('click', function(e){
+        $('#home').on('click', function (e) {
             $(document).royaleHome(opt);
         });
 
-        $('#card').on('click', function(e){
+        $('#card').on('click', function (e) {
             alert("준비중 입니다.")
         });
 
-        $('#rank').on('click', function(e){
+        $('#rank').on('click', function (e) {
             $(document).royalePlayerRank(opt);
         });
+
+        var searchList = [];
+
+
+        $('#friendSearch').autocomplete({
+            serviceUrl: '${root}api/sparky/find',
+            lookup: searchList,
+            onSelect: function (suggestion) {
+            }
+        });
+
+        $('#friendCheck').on('click', function (e) {
+
+            console.log(name);
+            $.ajax({
+                url: '${root}api/sparky/friend',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(name),
+                success: function (data) {
+                    alert("친구추가 결과" + data);
+                },
+                error: function (data) {
+                    alert("에러" + data);
+                }
+            });
+        })
     });
 </script>
 <nav class="navbar navbar-expand-lg navbar-dark blue accent-2 sticky-top">
@@ -93,7 +152,9 @@
                         <li class="nav-item dropdown <c:if test="${account == 'active'}">active</c:if>">
                             <a class="nav-link dropdown-toggle font-weight-bold" id="dropdownAccount"
                                data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false"><img src="${root}profile/avatar/${USER.userName}" class="rounded-circle" height="30"/><span class="ml-2">${USER.userName}</span></a>
+                               aria-haspopup="true" aria-expanded="false"><img
+                                    src="${root}profile/avatar/${USER.userName}" class="rounded-circle"
+                                    height="30"/><span class="ml-2">${USER.userName}</span></a>
                             <div class="dropdown-menu dropdown-primary" aria-labelledby="dropdownAccount">
                                 <a class="dropdown-item font-weight-bold" href="${root}profile/account">회원정보</a>
                                 <a class="dropdown-item font-weight-bold" href="${root}profile/password">비밀번호 변경</a>
@@ -122,6 +183,21 @@
             <div class="modal-body">
                 <p class="font-weight-bold">스파키는?</p>
                 <p>FUMBLER에서 제공하는 실시간 토크 서비스입니다.</p>
+                <div class="input-group">
+                    <input type="text" id="friendSearch" class="form-control py-0" placeholder="친구검색"/>
+                    <div class="input-group-append">
+                        <button type="button" class="input-group-text" id="friendCheck">검색</button>
+                    </div>
+                </div>
+                <p id="outputContent">결과가 출력됨</p>
+                <%--<ul class="list-group">--%>
+                <%--<c:forEach var="friend" items="${USER.list}">--%>
+                <%--<li class="list-group-item d-flex justify-content-between align-items-center">--%>
+                <%--${friend.friendId}--%>
+                <%--<span class="badge badge-primary badge-pill">12</span>--%>
+                <%--</li>--%>
+                <%--</c:forEach>--%>
+                <%--</ul>--%>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>

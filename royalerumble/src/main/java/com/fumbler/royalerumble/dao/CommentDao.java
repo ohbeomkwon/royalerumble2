@@ -2,6 +2,7 @@ package com.fumbler.royalerumble.dao;
 
 
 import com.fumbler.royalerumble.model.Comment;
+import com.fumbler.royalerumble.model.Member;
 import com.fumbler.royalerumble.model.Pagination;
 import com.fumbler.royalerumble.model.Params;
 
@@ -14,5 +15,9 @@ public interface CommentDao extends BaseDao<Comment, Long> {
     int getPageCount(Params params) throws Exception;
 
     List<Comment> selectListReply(Pagination pagination) throws Exception;
+
+    int updateUserName(Member member) throws Exception;
+
+    int deleteAll(long forumId) throws Exception;
 
 }
