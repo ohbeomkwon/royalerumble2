@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="${root}resources/css/main.css"/>
 
     <script src="${root}resources/node_modules/mdbootstrap/js/jquery-3.3.1.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.26/jquery.autocomplete.min.js'></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <script src="${root}resources/js/common.js"></script>
     <script src="${root}resources/js/application/royale.api.js"></script>

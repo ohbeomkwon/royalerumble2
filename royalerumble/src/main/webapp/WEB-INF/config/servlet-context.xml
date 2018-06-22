@@ -30,6 +30,10 @@
             <mvc:mapping path="/forums/delete/*"/>
             <ref bean="loginInterceptor" />
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/"/>
+            <ref bean="sparkyInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
     <!-- multipart -->

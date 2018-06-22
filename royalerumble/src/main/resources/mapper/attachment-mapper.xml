@@ -38,4 +38,9 @@
         DELETE FROM ATTACHMENTS
         WHERE ID = #{id}
     </delete>
+
+    <delete id="deleteAll">
+        DELETE FROM ATTACHMENTS
+        WHERE FORUM_ID = #{id}
+    </delete>
 </mapper>

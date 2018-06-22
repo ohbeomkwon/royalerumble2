@@ -95,19 +95,16 @@
         ATTACHMENT_CHECK = #{attachmentCheck}
         WHERE ID = #{id}
     </update>
+
+    <update id="updateUserName" parameterType="Member">
+        UPDATE FORUMS SET
+        USER_NAME = #{newName}
+        WHERE USER_NAME = #{userName}
+    </update>
+
     <delete id="delete">
         DELETE FROM FORUMS
         WHERE ID = #{id}
     </delete>
-    
-    <delete id="deleteComment">
-        DELETE FROM COMMENTS
-        WHERE FORUM_ID = #{id}
-    </delete>
 
-
-    <delete id="deleteAttachment">
-        DELETE FROM ATTACHMENTS
-        WHERE FORUM_ID = #{id}
-    </delete>
 </mapper>
