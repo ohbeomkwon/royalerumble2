@@ -36,21 +36,12 @@
             api: new RoyaleApi(),
             context : '${root}',
             prevElement: '.navbar',
+            ajax_last_num : 0
         };
         $(function () {
             $(document).royaleServiceInit(opt);
         })
 
-        function errorPage() {
-            var _appClass = document.getElementsByClassName("_app");
-            var error = `
-                <div>
-                    <h3 class="font-weight-bold"> API 서버에 접속할 수 없습니다. <h3>
-                    <h5> 잠시후에 다시 이용해주세요.</h5>
-                </div>
-                `;
-            _appClass.innerHTML = error;
-        };
     </script>
 </head>
 <body>

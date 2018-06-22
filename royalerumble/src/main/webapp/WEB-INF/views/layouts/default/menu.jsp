@@ -26,7 +26,7 @@
         });
 
         $('#card').on('click', function(e){
-
+            alert("준비중 입니다.")
         });
 
         $('#rank').on('click', function(e){
