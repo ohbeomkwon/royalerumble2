@@ -66,17 +66,23 @@
             if (validation.emailDupl == false) {
                 alert("이메일 중복체크를 해주세요.");
                 e.preventDefault();
+                return;
             }
             if (validation.nameDupl == false) {
                 alert("이름 중복체크를 해주세요.");
                 e.preventDefault();
+                return;
             }
             if (validation.email !== email || validation.name !== userName) {
                 validation.emailDupl = false;
                 validation.nameDupl = false;
                 alert("다시 검사해주세요.");
                 e.preventDefault();
+                return;
             }
+            // alert("프로젝트용 사이트입니다.");
+            // e.preventDefault();
+            // return;
         })
     });
 </script>

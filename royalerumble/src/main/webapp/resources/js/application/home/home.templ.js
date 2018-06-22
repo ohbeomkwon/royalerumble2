@@ -9,7 +9,8 @@ var homeTempl = {
                 <div class="_top_app_body">
                     <div class="_top_app_title _app_font">
                         <h1 class="display-4 font-weight-bold text-center text-white ">FUMBLER</h1>
-                        <h5 class="text-center text-white">Clash Royale community</h5>
+                        <h5 class="text-center text-white">이사이트는</h5>
+                        <h6 class="text-center text-white">개인 프로젝트 사이트입니다.</h6>
                     </div>
                     <!--검색시작-->
                     <div class="card _search_app">

@@ -12,13 +12,7 @@
             <div class="mx-auto">
                 <ul class="nav md-fills">
                     <li class="nav-item">
-                        <a class="nav-link" href="#!">이용약관</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#!">운영현황</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#!">도움말</a>
+                        <a class="nav-link" href="#!">이 사이트는 개인 프로젝트용 사이트입니다.</a>
                     </li>
                 </ul>
             </div>

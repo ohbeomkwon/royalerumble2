@@ -1,6 +1,5 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fumbler.royalerumble.model.Authenticate;
-import com.fumbler.royalerumble.model.Comment;
+import info.fumbler.royalerumble.model.Authenticate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
