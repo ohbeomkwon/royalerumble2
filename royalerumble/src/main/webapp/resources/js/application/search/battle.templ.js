@@ -377,7 +377,10 @@ var battleLogTempl = {
         var summaryTempl = `
             <div class="row">
                 <canvas id="doughnutChart" style="max-width: 230px;"></canvas>
-                <div class="position-relative text-center" style="left:-30px; top:25px">
+                <div class="position-relative" style="left:-127px; top:45px; height: 30px; width:30px">
+                    <span class="font-weight-bold" style="font-size: 12px">${((winCount/20)*100).toFixed(0)}%</span>
+                </div>
+                <div class="position-relative text-center" style="left:-75px; top:25px">
                     <span class="font-weight-bold">최근 20경기 전적</span>
                     <br>
                     <span style="color:dodgerblue">${winCount}승</span>
@@ -389,7 +392,7 @@ var battleLogTempl = {
                     <span style="font-size:13px; color:dodgerblue">최다연승 : ${resultMax(svMax)}</span>
                     <span style="font-size:13px; color:red">최다연패 : ${resultMax(sdMax)}</span>
                 </div>
-                <table class="mt-3">
+                <table class="position-relative" style="left:-60px; top:19px">
                     <tbody>
                         <tr class="text-center" id="summaryTop">
                         </tr>

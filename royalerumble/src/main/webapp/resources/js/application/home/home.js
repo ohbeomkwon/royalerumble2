@@ -8,12 +8,12 @@ $.fn.royaleHome = function(){
     });
 
     opt.api.getPopularDecks(function(data){
-        $('#popularDecks').html(homeTempl.popularDeckFactory(data)).hide().fadeIn(1000);
+        $('#popularDecks').html(homeTempl.popularDeckFactory(data)).hide().fadeIn(700);
     });
     opt.api.getPlayerRankTop5(function(data){
-        $('#top5Player').html(homeTempl.playerRank(data)).hide().fadeIn(1000);
+        $('#top5Player').html(homeTempl.playerRank(data)).hide().fadeIn(700);
     });
     opt.api.getClanRankTop5(function(data){
-        $('#top5Clan').html(homeTempl.clanRank(data)).hide().fadeIn(1000);
+        $('#top5Clan').html(homeTempl.clanRank(data)).hide().fadeIn(700);
     });
 };

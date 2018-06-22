@@ -65,3 +65,19 @@ function newBadge(time) {
     //     return true;
     // }
 }
+
+
+//TODO 작동안댐 ...왜지 ??
+function errorPage() {
+    console.log("api서비스에 접속할 수 없습니다.");
+    var _appClass = document.getElementsByClassName("_app");
+    var error = `
+                <div>
+                    <h3 class="font-weight-bold"> API 서버에 접속할 수 없습니다. <h3>
+                    <h5> 잠시후에 다시 이용해주세요.</h5>
+                </div>
+                `;
+    _appClass.innerHTML = error;
+    console.log(_appClass);
+    console.log(error);
+};

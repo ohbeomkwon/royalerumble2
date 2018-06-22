@@ -14,6 +14,13 @@ class RoyaleApi {
 					auth: this.apiKey
 				},
 				dataType : this.dataType,
+				beforeSend : function() {
+					opt.ajax_last_num = opt.ajax_last_num + 1;
+                    $('._app').html(`
+						<div class="row">
+							<img class="mx-auto" src="${opt.context}resources/image/etc/spin1.gif" style="width : 400px; margin: auto"/>
+						</div>`);
+				},
             	error : error,
 				success : callback
 		};
@@ -28,6 +35,9 @@ class RoyaleApi {
 				headers : {
 					auth : this.apiKey
 				},
+				beforeSend : function() {
+
+				},
 				dataType : this.dataType,
 				success : callback
 		};
@@ -41,6 +51,13 @@ class RoyaleApi {
 			headers : {
 				auth : this.apiKey
 			},
+            beforeSend : function() {
+                opt.ajax_last_num = opt.ajax_last_num + 1;
+                $('._app').html(`
+					<div class="row">
+						<img class="mx-auto" src="${opt.context}resources/image/etc/spin1.gif" style="width : 400px; margin: auto"/>
+					</div>`);
+            },
 			dataType : this.dataType,
             error : error,
 			success : callback
@@ -56,6 +73,9 @@ class RoyaleApi {
 				headers : {
 					auth: this.apiKey
 				},
+				beforeSend : function() {
+
+				},
 				dataType : this.dataType,
 				success : callback
 		};
@@ -69,6 +89,14 @@ class RoyaleApi {
 				url: this.url+"top/players",
 				headers: {
 					auth : this.apiKey
+				},
+				beforeSend : function() {
+                    opt.ajax_last_num = opt.ajax_last_num + 1;
+                    console.log("2번" + opt.ajax_last_num);
+                    $("#rankTable").html(`
+						<div class="row">
+							<img src="${opt.context}resources/image/etc/spin2.gif" style="width : 270px; margin:auto"/>
+						</div>`);
 				},
 				dataType : this.dataType,
             	error : error,
@@ -85,6 +113,13 @@ class RoyaleApi {
 				headers : {
 					auth : this.apiKey
 				},
+				beforeSend : function() {
+                    opt.ajax_last_num = opt.ajax_last_num + 1;
+                    $("#rankTable").html(`
+						<div class="row">
+							<img src="${opt.context}resources/image/etc/spin2.gif" style="width : 270px; margin:auto"/>
+						</div>`);
+				},
 				dataType : this.dataType,
             	error : error,
 				success : callback
@@ -99,6 +134,9 @@ class RoyaleApi {
 				headers: {
 					auth : this.apiKey
 				},
+				beforeSend : function() {
+
+				},
 				dataType : this.dataType,
 				success : callback
 		};
@@ -111,6 +149,9 @@ class RoyaleApi {
 				url : this.url+"top/clans?max=5",
 				headers : {
 					auth : this.apiKey
+				},
+				beforeSend : function() {
+
 				},
 				dataType : this.dataType,
 				success : callback
@@ -125,11 +166,16 @@ class RoyaleApi {
             headers : {
                 auth : this.apiKey
             },
+            beforeSend : function() {
+
+            },
             dataType : this.dataType,
             error : error,
             success : callback
         };
         $.ajax(param);
     }
+
+
 
 }

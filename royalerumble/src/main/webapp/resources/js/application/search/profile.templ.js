@@ -28,7 +28,7 @@ var profileTempl = {
     }
     else {
         clan = "Not in Clan";
-        clanImg=`{opt.context}resources/img/etc/no_clan.png`;
+        clanImg="no_clan";
     }
     
     var templ = `
@@ -230,7 +230,7 @@ var profileTempl = {
         for(var i=0; i<chests.length; i++) {
             var index = chests[i].key == 0? "Next" : "+"+chests[i].key;
             templ += `
-            <div class="_chest" style="background-image: url('${opt.context}resources/image/chests/chest-${chests[i].value}.png')">
+            <div class="_chest" style="background-image: url('${opt.context}resources/image/chests/chest-${chests[i].value}.png'); margin-right:7px">
                 <p>${index}</p>
             </div>`;
         }
