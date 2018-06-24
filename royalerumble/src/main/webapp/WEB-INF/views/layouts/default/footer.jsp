@@ -12,7 +12,7 @@
             <div class="mx-auto">
                 <ul class="nav md-fills">
                     <li class="nav-item">
-                        <a class="nav-link" href="#!">이 사이트는 개인 프로젝트용 사이트입니다.</a>
+                        <a class="nav-link" href="#!">이 사이트는 팀 프로젝트용으로 개발한 사이트입니다.</a>
                     </li>
                 </ul>
             </div>
@@ -35,8 +35,7 @@
     </div>
     <!--Copyright-->
     <div class="footer-copyright py-3 text-center">
-        © 2018 Copyright:
-        <a href="${root}"> fumbler.com </a>
+        <a href="${root}"> fumbler.info </a>
     </div>
     <!--/.Copyright-->
 </footer>

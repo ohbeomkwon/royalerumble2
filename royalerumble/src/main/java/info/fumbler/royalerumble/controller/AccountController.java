@@ -27,8 +27,8 @@ public class AccountController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@ModelAttribute("url") String url,
-                        @CookieValue (value = "_USER_EMAIL", required = false) Cookie cookie,
-                        Authenticate authenticate, HttpServletRequest request, Model model ) {
+                        @CookieValue(value = "_USER_EMAIL", required = false) Cookie cookie,
+                        Authenticate authenticate, HttpServletRequest request, Model model) {
         if (url != null && !url.isEmpty()) {
             //인터셉터일 경우
             authenticate.setInterceptorMessage("로그인이 필요한 서비스입니다.");
@@ -36,7 +36,7 @@ public class AccountController {
             //로그인 버튼을 누른경우
             url = urlTokenizer(request.getHeader("referer"));
         }
-        if(cookie != null) {
+        if (cookie != null) {
             log.info("쿠키에 저장된 값은 ?" + cookie.getValue());
             authenticate.setEmail(cookie.getValue());
             authenticate.setRemember(true);
@@ -63,8 +63,8 @@ public class AccountController {
 
         Cookie cookie = new Cookie("_USER_EMAIL", member.getEmail());
         cookie.setPath("/");
-        if(authenticate.isRemember()){
-            cookie.setMaxAge(60*60*24*365);
+        if (authenticate.isRemember()) {
+            cookie.setMaxAge(60 * 60 * 24 * 365);
             log.info("쿠키에 저장된 값은 ?" + cookie.getValue());
         } else {
             cookie.setMaxAge(0);
@@ -112,25 +112,48 @@ public class AccountController {
     }
 
 
+//    private String urlTokenizer(String url) {
+//        //TODO 정규표현식도 생각해보기...
+//        //TODO 수정 필요...
+//        StringBuilder rootURL= new StringBuilder();
+//        String requestURI = "";
+//        if(url != null && !url.isEmpty()) {
+//            StringTokenizer tokenizer = new StringTokenizer(url, "/");
+//            // "/" 네번째 까지만 자르기
+//            for (int i = 0; i < 4; i++) {
+//                if (i != 3) {
+//                    rootURL.append(tokenizer.nextToken());
+//                } else if(tokenizer.hasMoreTokens()){
+//                    requestURI = tokenizer.nextToken();
+//                }
+//            }
+//            if(requestURI.equals("/") || requestURI.equals("login") || requestURI.equals("join")){
+//                return "/";
+//            }
+//            return url.substring(rootURL.toString().length() + 3);
+//        }
+//        return "/";
+//    }
+//    직접연결
     private String urlTokenizer(String url) {
         //TODO 정규표현식도 생각해보기...
         //TODO 수정 필요...
-        StringBuilder rootURL= new StringBuilder();
+        StringBuilder rootURL = new StringBuilder();
         String requestURI = "";
-        if(url != null && !url.isEmpty()) {
+        if (url != null && !url.isEmpty()) {
             StringTokenizer tokenizer = new StringTokenizer(url, "/");
             // "/" 네번째 까지만 자르기
-            for (int i = 0; i < 4; i++) {
-                if (i != 3) {
+            for (int i = 0; i < 3; i++) {
+                if (i != 2) {
                     rootURL.append(tokenizer.nextToken());
-                } else if(tokenizer.hasMoreTokens()){
+                } else if (tokenizer.hasMoreTokens()) {
                     requestURI = tokenizer.nextToken();
                 }
             }
-            if(requestURI.equals("/") || requestURI.equals("login") || requestURI.equals("join")){
+            if (requestURI.equals("/") || requestURI.equals("login") || requestURI.equals("join")) {
                 return "/";
             }
-            return url.substring(rootURL.toString().length() + 3);
+            return url.substring(rootURL.toString().length() + 2);
         }
         return "/";
     }

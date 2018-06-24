@@ -12,8 +12,15 @@ var battleLogTempl = {
             var winner = '', pannelColor = '';
             var clanName = '', clanBadge = '';
 
+            if(data[i].type === '2v2') data[i].type = '2 v 2';
+            else if(data[i].type === 'PvP') data[i].type ='랭킹전';
+            else if(data[i].type === 'clanWarCollectionDay') data[i].type ='클랜전';
+            else if(data[i].type === 'clanWarWarDay') data[i].type = '클랜전';
+            else if(data[i].type === 'challenge') data[i].type = '도전';
+            else if(data[i].type === 'friendly') data[i].type = '이벤트';
+
             if (data[i].winner > 0) {
-                winner = '<span style="color:dodgerblue">승</span>'
+                winner = '<span style="color:dodgerblue">승</span>';
                 pannelColor = 'blue'
                 winCount++;
                 svCount++;
@@ -23,13 +30,13 @@ var battleLogTempl = {
                 }
                 prevResult = 'win';
             } else if (data[i].winner == 0) {
-                winner = '<span style="color:gray">무</span>'
+                winner = '<span style="color:gray">무</span>';
                 prevResult = 'draw';
                 drawCount++;
                 svCount = 0;
                 sdCount = 0;
             } else {
-                winner = '<span style="color:red">패</span>'
+                winner = '<span style="color:red">패</span>';
                 pannelColor = 'red'
                 loseCount++;
                 sdCount++;
@@ -76,12 +83,12 @@ var battleLogTempl = {
                             </div>
                             <div style="width:130px; height:100px; margin-top:4px; float: left; padding-left: 10px">
                                 <a>
-                                    <span class="font-weight-bold">
+                                    <span class="font-weight-bold" style="font-size: 14px">
                                         ${data[i].team[j].name}
                                     </span>
                                 </a>
                                 <a>
-                                    <p style="font-size: 13px">
+                                    <p style="font-size: 11px">
                                         ${clanBadge}
                                         ${clanName}
                                     </p>
@@ -112,12 +119,12 @@ var battleLogTempl = {
                             </div>
                             <div style="width:130px; height:100px; margin-top:4px; float: left; padding-left: 10px">
                                 <a>
-                                    <span class="font-weight-bold">
+                                    <span class="font-weight-bold" style="font-size: 14px">
                                         ${data[i].team[j].name}
                                     </span>
                                 </a>
                                 <a>
-                                    <p style="font-size: 13px">
+                                    <p style="font-size: 11px">
                                         ${clanBadge}
                                         ${clanName}
                                     </p>
@@ -150,12 +157,12 @@ var battleLogTempl = {
                             <div class="_battle_inner" style="width:300px; height:100px; float: right;">
                                 <div style="width:130px; height:100px; margin-top:4px; float: left; text-align: right">
                                     <a>
-                                        <span class="font-weight-bold">
+                                        <span class="font-weight-bold" style="font-size: 14px">
                                             ${data[i].opponent[j].name}
                                         </span>
                                     </a>
                                     <a>
-                                        <p style="font-size: 13px">
+                                        <p style="font-size: 11px" >
                                             ${clanBadge}
                                             ${clanName}
                                         </p>
@@ -187,12 +194,12 @@ var battleLogTempl = {
                         <div class="_battle_inner" style="width:300px; height:100px; margin-top: 10px; float: right;">
                             <div style="width:130px; height:100px; margin-top:4px; float: left; text-align: right">
                                 <a>
-                                    <span class="font-weight-bold">
+                                    <span class="font-weight-bold" style="font-size: 14px">
                                         ${data[i].opponent[j].name}
                                     </span>
                                 </a>
                                 <a>
-                                    <p style="font-size: 13px">
+                                    <p style="font-size: 11px">
                                         ${clanBadge}
                                         ${clanName}
                                     </p>
@@ -214,12 +221,12 @@ var battleLogTempl = {
                         ${teamMember}
                     </div>
                     <div class="_battle_info" style="width:80px; height:100px; float:left; margin-top:75px">
-                        <div class="pt-3 text-center" style="width:80px; height: 35px;">
-                            <span class="_app_font mr-2" style="font-size: 18px; width:14px; display:inline-block">${data[i].teamCrowns}</span>
-                            <img class="position-relative" src="resources/image/icon/attack.png" style="top:-4px; height: 18px;">
-                            <span class="_app_font ml-2" style="font-size: 18px; width:14px; display:inline-block">${data[i].opponentCrowns}</span>
+                        <div class="pt-3 text-center" style="height: 35px">
+                            <span class="_app_font mr-2" style="font-size: 18px; width:15px; display:inline-block;">${data[i].teamCrowns}</span>                 
+                            <img class="position-relative" src="${opt.context}resources/image/icon/attack.png" style="top:-4px; height: 20px;">
+                            <span class="_app_font ml-2" style="font-size: 18px; width:15px; display:inline-block;">${data[i].opponentCrowns}</span>  
                         </div>
-                        <div class="font-weight-bold text-center" style="font-size: 16px">
+                        <div class="mt-1 font-weight-bold text-center" style="font-size: 12px;">
                             ${data[i].type}
                         </div>
                         <div class="font-weight-bold text-center" style="font-size: 15px">
@@ -270,12 +277,12 @@ var battleLogTempl = {
                             </div>
                             <div style="width:130px; height:100px; margin-top:4px; float: left; padding-left: 10px">
                                 <a>
-                                    <span class="font-weight-bold">
+                                    <span class="font-weight-bold" style="font-size: 14px">
                                         ${data[i].team[j].name}
                                     </span>
                                 </a>
                                 <a>
-                                    <p style="font-size: 13px">
+                                    <p style="font-size: 11px">
                                         ${clanBadge}
                                         ${clanName}
                                     </p>
@@ -315,12 +322,12 @@ var battleLogTempl = {
                     <div class="_battle_inner" style="width:300px; height:110px; float: left">
                         <div style="width:130px; height:100px; margin-top:4px; float: left; text-align: right">
                             <a>
-                                <span class="font-weight-bold">
+                                <span class="font-weight-bold" style="font-size: 14px">
                                     ${data[i].opponent[j].name}
                                 </span>
                             </a>
                             <a>
-                                <p style="font-size: 13px">
+                                <p style="font-size: 11px">
                                     ${clanBadge}
                                     ${clanName}
                                 </p>
@@ -343,20 +350,18 @@ var battleLogTempl = {
                 templ += `
                 <li class="list-group-item mt-2 z-depth-1 _battle_log _battle_${pannelColor}">
                     ${team}
-                    <div class="_battle_info" style="width:80px; height:100px; float:left; padding-top: 10px">
-                        
-                            <div class="pt-3 text-center" style="height: 35px">                  
-                                <span class="_app_font mr-2" style="font-size: 18px width:14px; display:inline-block">${data[i].teamCrowns}</span>
-                                <img class="position-relative" src="${opt.context}resources/image/icon/attack.png" style="top:-4px; height: 20px;">
-                                <span class="_app_font ml-2" style="font-size: 18px width:14px; display:inline-block">${data[i].opponentCrowns}</span>  
-                            </div>
-                            <div class="font-weight-bold text-center" style="font-size: 16px">
-                                ${data[i].type}
-                            </div>
-                            <div class="font-weight-bold text-center" style="font-size: 15px">
-                                ${winner}
-                            </div>
-                        
+                    <div class="_battle_info" style="width:80px; height:100px; float:left; padding-top: 10px"> 
+                        <div class="pt-3 text-center" style="height: 35px">
+                            <span class="_app_font mr-2" style="font-size: 18px; width:15px; display:inline-block;">${data[i].teamCrowns}</span>                 
+                            <img class="position-relative" src="${opt.context}resources/image/icon/attack.png" style="top:-4px; height: 20px;">
+                            <span class="_app_font ml-2" style="font-size: 18px; width:15px; display:inline-block;">${data[i].opponentCrowns}</span>  
+                        </div>
+                        <div class="mt-1 font-weight-bold text-center" style="font-size: 12px;">
+                            ${data[i].type}
+                        </div>
+                        <div class="font-weight-bold text-center" style="font-size: 15px">
+                            ${winner}
+                        </div>
                     </div>
                     ${opponent}     
                 </li>`
@@ -377,7 +382,7 @@ var battleLogTempl = {
         var summaryTempl = `
             <div class="row">
                 <canvas id="doughnutChart" style="max-width: 230px;"></canvas>
-                <div class="position-relative" style="left:-127px; top:45px; height: 30px; width:30px">
+                <div class="position-relative" style="left:-127px; top:45px; height: 28px; width:28px">
                     <span class="font-weight-bold" style="font-size: 12px">${((winCount/20)*100).toFixed(0)}%</span>
                 </div>
                 <div class="position-relative text-center" style="left:-75px; top:25px">
@@ -389,8 +394,8 @@ var battleLogTempl = {
                     <span> / </span>
                     <span style="color:red">${loseCount}패</span>
                     <br>
-                    <span style="font-size:13px; color:dodgerblue">최다연승 : ${resultMax(svMax)}</span>
-                    <span style="font-size:13px; color:red">최다연패 : ${resultMax(sdMax)}</span>
+                    <span style="font-size:11px; color:dodgerblue">최다연승 : ${resultMax(svMax)}</span>
+                    <span style="font-size:11px; color:red">최다연패 : ${resultMax(sdMax)}</span>
                 </div>
                 <table class="position-relative" style="left:-60px; top:19px">
                     <tbody>
@@ -404,6 +409,7 @@ var battleLogTempl = {
                 </table>
                 </div>
             </div>`
+
         battleSummaryId.innerHTML = summaryTempl;
 
         var summaryTopId = document.getElementById('summaryTop');

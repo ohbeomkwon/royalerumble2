@@ -59,13 +59,14 @@ var rankTempl = {
     
         playerList += `
             <tr>
-                <th scope="row" style="height: 30px; vertical-align: middle; font-size: 17px; text-align: center">
+                <th scope="row" style="height: 30px; vertical-align: bottom; font-size: 17px; text-align: center">
                     <h6 class="position-relative font-italic" style="top:10px">${data[i].rank}</h6>
                     ${delta}
                 </th>
                 <td style="height: 30px; vertical-align: middle">
                     <a href="#" class="_item_action" data-action="player-click" data-tag="${data[i].tag}">
-                        <span class="ml-2 font-weight-bold position-relative" style="top:6px; left: 2px;">${data[i].name}</span>
+                        <h6 class="ml-2 font-weight-bold position-relative" style="top:6px; left: 2px;">${data[i].name}</h6>
+                        <span class="ml-2 position-relative" style="color: gray; top:6px; left: 2px; font-size: 12px;">#${data[i].tag}</span>
                     </a>
                 </td>
                 <td style="height: 30px; vertical-align: middle">
@@ -121,8 +122,11 @@ var rankTempl = {
                     </th>
                     <td style="height: 30px; vertical-align: middle">
                         <a href="#" class="_item_action" data-action="clan-click" data-tag="${data[i].tag}">
-                            <img src="${opt.context}resources/image/badges/${data[i].badge.name}.png" style="height: 25px;">
-                            <span class="ml-2 font-weight-bold position-relative" style="top:6px; left: 2px;">${data[i].name}</span>
+                            <h6 class="ml-2 font-weight-bold position-relative" style="top:6px; left: 2px;">
+                                <img src="${opt.context}resources/image/badges/${data[i].badge.name}.png" style="height: 25px;">
+                                ${data[i].name}
+                            </h6>
+                            <span class="ml-2 position-relative" style="color: gray; top:6px; left: 2px; font-size:12px;">#${data[i].tag}</span>
                         </a>
                     </td>
                     <td style="height: 30px; vertical-align: middle">

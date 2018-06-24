@@ -33,12 +33,12 @@
             <div class="md-form">
                 <%--<i class="fa fa-envelope prefix grey-text"></i>--%>
                 <form:input path="email" cssClass="form-control" required="required"/>
-                <label for="email">E-MAIL</label>
+                <label for="email">Email</label>
             </div>
             <div class="md-form">
                 <%--<i class="fa fa-lock prefix grey-text"></i>--%>
                 <form:password path="password" cssClass="form-control" required="required"/>
-                <label for="password">PASSWORD</label>
+                <label for="password">Password</label>
             </div>
             <div class="row">
                 <div class="form-check col-sm-5">
@@ -53,7 +53,7 @@
             </div>
             <div class="mt-5">
                 <form:hidden path="url"/>
-                <button type="submit" class="btn btn-primary btn-block">로그인</button>
+                <button type="submit" class="btn btn-primary btn-block" style="font-size: 13px">로그인</button>
             </div>
             <div class="error">
                 <form:errors element="p"/>

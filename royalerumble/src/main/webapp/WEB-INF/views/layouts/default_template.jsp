@@ -14,17 +14,19 @@
     <style>
         @font-face {
             font-family: 'Supercell-magic';
-            src: url(${root}/resources/font/Supercell-magic-webfont.otf) format('opentype');
+            src: url(${root}resources/font/Supercell-magic-webfont.otf) format('opentype');
         }
-        body, table, div, p {font-family:'Nanum Gothic';}
+        body, table, div, p {font-family: 'Nanum Gothic', sans-serif;}
+
+
         body {
             overflow-x: hidden;
         }
     </style>
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
     <link rel="stylesheet" href="${root}resources/node_modules/mdbootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="${root}resources/node_modules/mdbootstrap/css/mdb.min.css"/>
     <link rel="stylesheet" href="${root}resources/css/main.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Roboto" rel="stylesheet">
 
     <script src="${root}resources/node_modules/mdbootstrap/js/jquery-3.3.1.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.26/jquery.autocomplete.min.js'></script>
@@ -42,7 +44,6 @@
         $(function () {
             $(document).royaleServiceInit(opt);
         })
-
     </script>
 </head>
 <body>

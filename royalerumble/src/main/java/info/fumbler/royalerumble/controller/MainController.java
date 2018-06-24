@@ -12,12 +12,7 @@ public class MainController {
     public String home (Model model) {
         //TODO URL 기억하기
         model.addAttribute("home", "active");
-        return "home";
-    }
-
-    @RequestMapping(value = "/success")
-    public String success () {
-        return "account/success";
+        return "index";
     }
 
 }

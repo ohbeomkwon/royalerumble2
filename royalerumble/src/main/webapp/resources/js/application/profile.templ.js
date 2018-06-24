@@ -35,20 +35,20 @@ var profileTempl = {
     <div class="header" style="height:220px;background-image: url('${opt.context}resources/image/etc/top_blue.png')">
     </div>
     <div class="row justify-content-center">
-        <section class="position-relative" style="top:-110px; left:-40px">
+        <section class="position-relative" style="top:-110px; left:-30px">
             <div class="card _profile_app" style="width:130px; height:130px">
-                <div class="_large_icon mt-2 mx-auto" style="background-image: url('${opt.context}resources/image/arenas/${arena}.png')"> 
-                    <div class="_medium_icon" style="background-image: url('${opt.context}resources/image/icon/lv.png');">
-                        <span class="ml-2 _app_font">${data.stats.level}</span>
-                    </div>
+                <div class="_large_icon mt-2 mx-auto" style="background-image: url('${opt.context}resources/image/arenas/${arena}.png')">
+                    <div class="_lv2_icon position-relative" style="left: 90px; top:-25px; background-image: url('${opt.context}resources/image/icon/lv.png');">
+                    <span class="_app_font position-relative" style="font-size: 20px; top:4px; left:10px">${data.stats.level}</span>
+                </div>    
                 </div>
             </div>
         </section>
         <section class="position-relative" style="top:-110px; left:0px;">
-            <div class="" style="width:400px">
+            <div class="" style="width:420px">
                 <div class="row">
                     <div class="col-8">
-                        <h2 class="font-weight-bold text-white">${data.name}</h2>
+                        <h3 class="font-weight-bold text-white">${data.name}</h3>
                         <a class="_item_action" data-action="player-click" data-tag="${data.tag}">
                             <span class="font-weight-bold text-light">#${data.tag}</span>
                         </a>
@@ -77,7 +77,7 @@ var profileTempl = {
                 </div>
             </div>
         </section>
-        <section class="position-relative" style="top:-110px; left:40px">
+        <section class="position-relative" style="top:-110px; left:30px">
             <div class="card _profile_app" style="width:500px; height:130px;">
                 <div class="row mt-3 ml-2" style="font-size: 12px">
                     <div class="col-3">
@@ -249,7 +249,7 @@ var profileTempl = {
                 <h6 class="font-weight-bold">
                     ${member.name}
                 </h6>
-                <span>#${member.tag}</span>
+                <span style="font-size: 12px">#${member.tag}</span>
             </a>
             </td>
             <td style="height: 20px; vertical-align: middle">

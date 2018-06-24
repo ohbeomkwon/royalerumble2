@@ -2,15 +2,15 @@ var homeTempl = {
     top: function() {
         var templ = `
         <div class="view full-page-intro _top_app">
-            <video class="video-intro" autoplay="true" loop="loop">
+            <video class="video-intro" autoplay loop>
                 <source src="${opt.context}resources/video/intro.mp4" type="video/mp4" />
             </video>
             <div class="mask justify-content-center align-items-center">
                 <div class="_top_app_body">
                     <div class="_top_app_title _app_font">
                         <h1 class="display-4 font-weight-bold text-center text-white ">FUMBLER</h1>
-                        <h5 class="text-center text-white">이사이트는</h5>
-                        <h6 class="text-center text-white">개인 프로젝트 사이트입니다.</h6>
+                        <h5 class="text-center text-white">이 사이트는</h5>
+                        <h6 class="text-center text-white">팀 프로젝트용으로 개발한 사이트입니다.</h6>
                     </div>
                     <!--검색시작-->
                     <div class="card _search_app">

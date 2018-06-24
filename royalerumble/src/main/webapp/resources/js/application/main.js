@@ -1,11 +1,8 @@
 $.fn.royaleServiceInit = function(opt) {
-    $('head').append(`<script src="${opt.context}resources/js/application/home/home.js"><\/script>`);
-    $('head').append(`<script src="${opt.context}resources/js/application/home/home.templ.js"><\/script>`);
-    $('head').append(`<script src="${opt.context}resources/js/application/search/profile.js"><\/script>`);
-    $('head').append(`<script src="${opt.context}resources/js/application/search/profile.templ.js"><\/script>`);
-    $('head').append(`<script src="${opt.context}resources/js/application/search/battle.templ.js"><\/script>`);
-    $('head').append(`<script src="${opt.context}resources/js/application/rank/rank.js"><\/script>`);
-    $('head').append(`<script src="${opt.context}resources/js/application/rank/rank.templ.js"><\/script>`);
+    $('head').append(`<script src="${opt.context}resources/js/application/home.templ.js"><\/script>`);
+    $('head').append(`<script src="${opt.context}resources/js/application/profile.templ.js"><\/script>`);
+    $('head').append(`<script src="${opt.context}resources/js/application/battle.templ.js"><\/script>`);
+    $('head').append(`<script src="${opt.context}resources/js/application/rank.templ.js"><\/script>`);
 
     var self = this;
     self.on('click', '._item_action', function(event){
@@ -40,5 +37,89 @@ $.fn.royaleServiceInit = function(opt) {
     });
 };
 
+$.fn.royaleHome = function(){
+    $('._search_app').remove();
+    $(`${opt.prevElement}`).after('<div class="_search_app"></div>')
+    $('._search_app').append(homeTempl.top(opt));
+    $('._app').html(homeTempl.bottom(opt));
+    $('html,body,._search_app,.view').css({
+        'height' : '100%'
+    });
+
+    opt.api.getPopularDecks(function(data){
+        $('#popularDecks').html(homeTempl.popularDeckFactory(data)).hide().fadeIn(700);
+    });
+    opt.api.getPlayerRankTop5(function(data){
+        $('#top5Player').html(homeTempl.playerRank(data)).hide().fadeIn(700);
+    });
+    opt.api.getClanRankTop5(function(data){
+        $('#top5Clan').html(homeTempl.clanRank(data)).hide().fadeIn(700);
+    });
+};
+
+$.fn.playerSearch = function() {
+    $('._search_app').remove();
+    var current_ajax_num = opt.ajax_last_num;
+
+    opt.api.getPlayer(opt.keyword, function(player){
+        if(current_ajax_num === opt.ajax_last_num - 1) {
+            opt.api.getChests(opt.keyword, function(chest){
+                $('._app').html(profileTempl.player(player)).hide().fadeIn(700);
+                $('#chests').html(profileTempl.playerChests(chest));
+                opt.api.getBattleLog(opt.keyword, function(data){
+                    $('#battleList').html(battleLogTempl.battleLog(data)).hide().fadeIn(700);
+                }, errorPage)
+            })
+        }
+    },errorPage)
+};
+
+$.fn.clanSearch = function() {
+    $('._search_app').remove();
+    var current_ajax_num = opt.ajax_last_num ;
+
+    opt.api.getClan(opt.keyword, function(data) {
+        if(current_ajax_num === opt.ajax_last_num - 1) {
+            $('._app').html(profileTempl.clan(data)).hide().fadeIn(700);
+        }
+    },errorPage);
+};
+
+
+$.fn.royalePlayerRank = function() {
+    $('._search_app').remove();
+    $("._app").html(rankTempl.rank);
+
+    $('#playerRankPage').on('click', function(e){
+        $('#clanRankPage').removeClass('active');
+        $(this).addClass('active');
+
+        var current_ajax_num = opt.ajax_last_num;
+        opt.api.getPlayerRank(function(data) {
+            if(current_ajax_num === opt.ajax_last_num - 1) {
+                $("#rankTable").html(rankTempl.playerRank(data)).hide().fadeIn(700);
+            }
+        }, errorPage);
+    });
+
+    $('#clanRankPage').on('click', function(e){
+        $('#playerRankPage').removeClass('active');
+        $(this).addClass('active');
+
+        var current_ajax_num = opt.ajax_last_num;
+        opt.api.getClanRank(function(data){
+            if(current_ajax_num === opt.ajax_last_num - 1) {
+                $("#rankTable").html(rankTempl.clanRank(data)).hide().fadeIn(700);
+            }
+        }, errorPage)
+    });
+
+    var current_ajax_num = opt.ajax_last_num;
+    opt.api.getPlayerRank(function(data) {
+        if(current_ajax_num === opt.ajax_last_num - 1) {
+            $("#rankTable").html(rankTempl.playerRank(data)).hide().fadeIn(700);
+        }
+    }, errorPage);
+};
 
 

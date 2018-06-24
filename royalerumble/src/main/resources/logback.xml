@@ -9,7 +9,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.fumbler.royalerumble" level="DEBUG" />
+    <logger name="info.fumbler.royalerumble" level="DEBUG" />
 
     <logger name="org.springframework" level="INFO"/>
     <logger name="org.springframework.security" level="INFO" />

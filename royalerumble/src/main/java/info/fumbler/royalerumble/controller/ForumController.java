@@ -1,6 +1,5 @@
 package info.fumbler.royalerumble.controller;
 
-import com.fumbler.royalerumble.model.*;
 import info.fumbler.royalerumble.model.*;
 import info.fumbler.royalerumble.service.ForumService;
 import lombok.extern.slf4j.Slf4j;
