@@ -1,7 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ attribute name="pagination" required="true"
-              type="com.fumbler.royalerumble.model.Pagination" %>
+              type="info.fumbler.royalerumble.model.Pagination" %>
 <%@ attribute name="link" required="true" type="String" %>
 <%@ attribute name="params" required="false" type="String" %>
 

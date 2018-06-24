@@ -66,17 +66,23 @@
             if (validation.emailDupl == false) {
                 alert("이메일 중복체크를 해주세요.");
                 e.preventDefault();
+                return;
             }
             if (validation.nameDupl == false) {
                 alert("이름 중복체크를 해주세요.");
                 e.preventDefault();
+                return;
             }
             if (validation.email !== email || validation.name !== userName) {
                 validation.emailDupl = false;
                 validation.nameDupl = false;
                 alert("다시 검사해주세요.");
                 e.preventDefault();
+                return;
             }
+            alert("프로젝트용 사이트입니다. 가입하실수 없습니다.");
+            e.preventDefault();
+            return;
         })
     });
 </script>
@@ -90,38 +96,38 @@
             <div class="md-form">
                 <div class="input-group">
                     <form:input path="email" cssClass="form-control" required="required"/>
-                    <label for="email">E-MAIL</label>
-                    <button type="button" class="btn btn-primary btn-sm" id="checkEmail">중복확인</button>
+                    <label for="email">Email</label>
+                    <button type="button" class="btn btn-primary btn-sm" style="font-size: 13px" id="checkEmail">중복확인</button>
                 </div>
                 <div class="error">
-                    <span>벨리데이션 테스트</span>
+                    <%--<span>벨리데이션 테스트</span>--%>
                 </div>
             </div>
             <div class="md-form">
                 <div class="input-group">
                     <form:input path="userName" cssClass="form-control" required="required"/>
-                    <label for="userName">NAME</label>
-                    <button type="button" class="btn btn-primary btn-sm" id="checkName">중복확인</button>
+                    <label for="userName">Name</label>
+                    <button type="button" class="btn btn-primary btn-sm" style="font-size: 13px" id="checkName">중복확인</button>
                 </div>
                 <div class="error">
-                    <span>벨리데이션 테스트</span>
+                    <%--<span>벨리데이션 테스트</span>--%>
                 </div>
             </div>
             <div class="md-form">
                 <div class="input-group">
                     <form:password path="password" cssClass="form-control" required="required"/>
-                    <label for="password">PASSWORD</label>
+                    <label for="password">Password</label>
                 </div>
                 <div class="error">
-                    <span>벨리데이션 테스트</span>
+                    <%--<span>벨리데이션 테스트</span>--%>
                 </div>
             </div>
             <div class="row text-center">
                 <div class="col-sm-6">
-                    <button type="submit" class="btn btn-primary btn-block">가입</button>
+                    <button type="submit" class="btn btn-primary btn-block" style="font-size: 13px">가입</button>
                 </div>
                 <div class="col-sm-6">
-                    <a class="btn btn-primary btn-block">취소</a>
+                    <a class="btn btn-primary btn-block" style="font-size: 13px">취소</a>
                 </div>
             </div>
         </form:form>

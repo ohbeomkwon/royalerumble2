@@ -30,7 +30,7 @@ var commentTempl = {
         var tmpl = ``;
         if (userName === "") {
             tmpl = `
-				<a href="/royalerumble/login">
+				<a href="${opt.context}login">
 					<textarea class="form-control" rows="5"
 					placeholder="로그인이 필요한 서비스 입니다." disabled></textarea>
 				</a>`;
@@ -62,7 +62,7 @@ var commentTempl = {
 			<li class="comment list-group-item">
 				<div class="comment-area row">
 					<div class="col-sm-1">
-						<img class="float-left rounded" width="60" src="/royalerumble/profile/avatar/${comment.userName}">
+						<img class="float-left rounded" width="60" src="${opt.context}profile/avatar/${comment.userName}">
 					</div>
 					<div class="col-sm-11">
                         <div class="comment-header row">
@@ -123,7 +123,7 @@ var commentTempl = {
 			<li class="reply list-group-item">
 			    <div class="reply-area row">
                     <div class="col-sm-1">
-                        <img class="float-left rounded" width="60" src="/royalerumble/profile/avatar/${reply.userName}">
+                        <img class="float-left rounded" width="60" src="${opt.context}profile/avatar/${reply.userName}">
                     </div>
                     <div class="col-sm-11">
                         <div class="reply-header row">

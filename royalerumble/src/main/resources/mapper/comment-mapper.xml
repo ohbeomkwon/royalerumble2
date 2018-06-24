@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fumbler.royalerumble.dao.CommentDao">
+<mapper namespace="info.fumbler.royalerumble.dao.CommentDao">
     <select id="getCount" parameterType="long" resultType="int">
         SELECT COUNT(*) AS TOTAL FROM COMMENTS
         WHERE FORUM_ID = #{forumId}

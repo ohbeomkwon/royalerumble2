@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fumbler.royalerumble.dao.FriendDao">
+<mapper namespace="info.fumbler.royalerumble.dao.FriendDao">
     <select id="selectOne" parameterType="Friend" resultType="Friend">
     SELECT * FROM FRIENDS WHERE USER_ID = #{userId} AND FRIEND_ID = #{friendId}
     </select>

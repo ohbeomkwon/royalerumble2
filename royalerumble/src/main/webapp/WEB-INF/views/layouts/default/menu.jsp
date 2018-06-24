@@ -103,7 +103,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerMenu">
             <%--<a class="navbar-brand h5 font-weight-bold" href="${root}">--%>
             <a class="navbar-brand h5 font-weight-bold home" href="${root}">
-                <img src="${root}/resources/image/main.png" height="30" alt=""> FUMBLER
+                <img src="${root}resources/image/main.png" height="30" alt=""> FUMBLER
             </a>
             <ul class="navbar-nav mr-auto mt-lg-0">
                 <li class="nav-item <c:if test="${home == 'active'}">active</c:if>">
@@ -129,7 +129,7 @@
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold" href="#" data-toggle="modal"
                            data-target="#fullHeightModalRight">
-                            <img src="${root}/resources/image/cards-png8/sparky.png" height="30" alt=""> 스파키
+                            <img src="${root}resources/image/cards-png8/sparky.png" height="30" alt=""> 스파키
                         </a>
                     </li>
                 </c:if>

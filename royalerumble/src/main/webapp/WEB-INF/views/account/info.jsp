@@ -133,7 +133,7 @@
                 <tr style="height: 60px;">
                     <th scope="row" class="blue-grey lighten-5"
                         style="width: 100px;text-align: center; vertical-align: middle">
-                        <span class="h6">E-MAIL</span>
+                        <span class="h6">Email</span>
                     </th>
                     <td>
                         <span class="font-weight-bold grey-darker-hover">${USER.email}</span>
@@ -142,7 +142,7 @@
                 <tr style="vertical-align: middle">
                     <th scope="row" class="blue-grey lighten-5"
                         style="width: 100px;text-align: center; vertical-align: middle">
-                        <span class="h6">NAME</span>
+                        <span class="h6">Name</span>
                     </th>
                     <td>
                         <div class="input-group">

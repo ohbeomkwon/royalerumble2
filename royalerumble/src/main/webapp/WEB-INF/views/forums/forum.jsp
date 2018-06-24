@@ -57,7 +57,7 @@
             userName : '${USER.userName}',
             forumId : ${forum.id},
             sort : 'default',
-            url : ${root},
+            url : '${root}',
             currentPage : 1
         });
 
