@@ -10,12 +10,12 @@ var battleLogTempl = {
         for (var i = 0; i < data.length; i++) {
             var teamPlayer = '', teamMember = '', opponent1 = '', opponent2 = '';
             var winner = '', pannelColor = '';
-            var clanName = '', clanBadge = '';
 
             if(data[i].type === '2v2') data[i].type = '2 v 2';
             else if(data[i].type === 'PvP') data[i].type ='랭킹전';
             else if(data[i].type === 'clanWarCollectionDay') data[i].type ='클랜전';
             else if(data[i].type === 'clanWarWarDay') data[i].type = '클랜전';
+            else if(data[i].type === 'clanMate') data[i].type = '클랜전';
             else if(data[i].type === 'challenge') data[i].type = '도전';
             else if(data[i].type === 'friendly') data[i].type = '이벤트';
 
@@ -59,86 +59,90 @@ var battleLogTempl = {
                 </td>`
             }
 
-            if (data[i].teamSize == 2) {
-                for (var j = 0; j < data[i].team.length; j++) {
-                    if (opt.keyword === data[i].team[j].tag) {
-                        var card = '';
-                        for (var k = 0; k < data[i].team[j].deck.length; k++) {
-                            card += `
+            for (var j = 0; j < data[i].team.length; j++) {
+                var card = '';
+                var clanName = '<br>';
+                var clanBadge = '';
+                var clanTag = '';
+
+                if (!(data[i].team[j].clan === null)) {
+                    clanName = data[i].team[j].clan.name;
+                    clanBadge = `<img src="${opt.context}resources/image/badges/${data[i].team[j].clan.badge.name}.png" style="height: 13px;">`
+                    clanTag = data[i].team[j].clan.tag;
+                }
+
+                if (opt.keyword === data[i].team[j].tag) {
+                    for (var k = 0; k < data[i].team[j].deck.length; k++) {
+                        card += `
                                 <div class="_battle_card" style="float:left; margin-top:4px; background-image: url('${opt.context}resources/image/cards-png8/${data[i].team[j].deck[k].key}.png')">
                                     <div class="_battle_elixir" style="background-image: url('${opt.context}resources/image/icon/elixir.png')">
                                         <div class="ml-2 _app_font position-relative" style="font-size: 10px; left:-2px; top:2px;">${data[i].team[j].deck[k].elixir}</div>
                                         <div class="ml-2 _app_font position-relative" style="font-size: 10px; left:-2px; top:15px;">Lv.${data[i].team[j].deck[k].level}</div>
                                     </div>
                                 </div>`
-                        }
-                        if (!(data[i].team[j].clan === null)) {
-                            clanName = data[i].team[j].clan.name;
-                            clanBadge = `<img src="${opt.context}resources/image/badges/${data[i].team[j].clan.badge.name}.png" style="height: 13px;">`
-                        }
-                        teamPlayer = `
+                    }
+                    teamPlayer = `
                         <div class="_battle_inner" style="width:300px; height:100px;">
                             <div style="width: 160px; height:100px;float:left">
                                 ${card}
                             </div>
                             <div style="width:130px; height:100px; margin-top:4px; float: left; padding-left: 10px">
-                                <a>
-                                    <span class="font-weight-bold" style="font-size: 14px">
-                                        ${data[i].team[j].name}
-                                    </span>
-                                </a>
-                                <a>
-                                    <p style="font-size: 11px">
-                                        ${clanBadge}
-                                        ${clanName}
-                                    </p>
-                                </a>
+                                <span class="font-weight-bold _item_action" data-action="player-click" data-tag="${data[i].team[j].tag}" style="cursor:pointer; font-size: 14px"
+                                    onclick="window.scrollTo(0,0);">
+                                    ${data[i].team[j].name}
+                                </span>
+                                <p class="_item_action" data-action="clan-click" data-tag="${clanTag}" style="cursor:pointer; font-size: 11px"
+                                    onclick="window.scrollTo(0,0);">
+                                    ${clanBadge}
+                                    ${clanName}
+                                </p>
                             </div>
                         </div>`
-                    } else {
-                        var card = '';
-                        var clanName = '<br>';
-                        var clanBadge = '';
-                        for (var k = 0; k < data[i].team[j].deck.length; k++) {
-                            card += `
+                } else {
+                    for (var k = 0; k < data[i].team[j].deck.length; k++) {
+                        card += `
                                 <div class="_battle_card" style="float:left; margin-top:4px; background-image: url('${opt.context}resources/image/cards-png8/${data[i].team[j].deck[k].key}.png')">
                                     <div class="_battle_elixir" style="background-image: url('${opt.context}resources/image/icon/elixir.png')">
                                         <div class="ml-2 _app_font position-relative" style="font-size: 10px; left:-2px; top:2px;">${data[i].team[j].deck[k].elixir}</div>
                                         <div class="ml-2 _app_font position-relative" style="font-size: 10px; left:-2px; top:15px;">Lv.${data[i].team[j].deck[k].level}</div>
                                     </div>
                                 </div>`
-                        }
-                        if (!(data[i].team[j].clan === null)) {
-                            clanName = data[i].team[j].clan.name;
-                            clanBadge = `<img src="${opt.context}resources/image/badges/${data[i].team[j].clan.badge.name}.png" style="height: 13px;">`
-                        }
-                        teamMember = `
+                    }
+
+                    teamMember = `
                         <div class="_battle_inner" style="width:300px; height:100px; margin-top: 10px">
                             <div style="width: 160px; height:100px;float:left">
                                 ${card}
                             </div>
                             <div style="width:130px; height:100px; margin-top:4px; float: left; padding-left: 10px">
-                                <a>
-                                    <span class="font-weight-bold" style="font-size: 14px">
-                                        ${data[i].team[j].name}
-                                    </span>
-                                </a>
-                                <a>
-                                    <p style="font-size: 11px">
-                                        ${clanBadge}
-                                        ${clanName}
-                                    </p>
-                                </a>
+                                 <span class="font-weight-bold _item_action" data-action="player-click" data-tag="${data[i].team[j].tag}" style="cursor:pointer; font-size: 14px"
+                                    onclick="window.scrollTo(0,0);">
+                                    ${data[i].team[j].name}
+                                </span>
+                                <p class="_item_action" data-action="clan-click" data-tag="${clanTag}" style="cursor:pointer; font-size: 11px"
+                                    onclick="window.scrollTo(0,0);">
+                                    ${clanBadge}
+                                    ${clanName}
+                                </p>
                             </div>
                         </div>`
-                    }
                 }
+            }
+            if (data[i].teamSize == 2) {
 
                 for (var j = 0; j < data[i].opponent.length; j++) {
+                    var card = '';
+                    var clanName = '<br>';
+                    var clanBadge = '';
+                    var clanTag = '';
+
+                    if (!(data[i].opponent[j].clan === null)) {
+                        clanName = data[i].opponent[j].clan.name;
+                        clanBadge = `<img src="${opt.context}resources/image/badges/${data[i].opponent[j].clan.badge.name}.png" style="height: 13px;">`
+                        clanTag = data[i].opponent[j].clan.tag;
+                    }
+
                     if (j == 0) {
-                        var card = '';
-                        var clanName = '<br>';
-                        var clanBadge = '';
                         for (var k = 0; k < data[i].opponent[j].deck.length; k++) {
                             card += `
                                 <div class="_battle_card" style="float: right;  margin-top:4px; background-image: url('${opt.context}resources/image/cards-png8/${data[i].opponent[j].deck[k].key}.png')">
@@ -149,33 +153,24 @@ var battleLogTempl = {
                                 </div> 
                             `
                         }
-                        if (!(data[i].opponent[j].clan === null)) {
-                            clanName = data[i].opponent[j].clan.name;
-                            clanBadge = `<img src="${opt.context}resources/image/badges/${data[i].opponent[j].clan.badge.name}.png" style="height: 13px;">`
-                        }
                         opponent1 = `
                             <div class="_battle_inner" style="width:300px; height:100px; float: right;">
                                 <div style="width:130px; height:100px; margin-top:4px; float: left; text-align: right">
-                                    <a>
-                                        <span class="font-weight-bold" style="font-size: 14px">
-                                            ${data[i].opponent[j].name}
-                                        </span>
-                                    </a>
-                                    <a>
-                                        <p style="font-size: 11px" >
-                                            ${clanBadge}
-                                            ${clanName}
-                                        </p>
-                                    </a>
+                                    <span class="font-weight-bold _item_action" data-action="player-click" data-tag="${data[i].opponent[j].tag}" style="cursor:pointer; font-size: 14px"
+                                        onclick="window.scrollTo(0,0);">
+                                        ${data[i].opponent[j].name}
+                                    </span>
+                                    <p class="_item_action" data-action="clan-click" data-tag="${clanTag}" style="cursor:pointer; font-size: 11px"
+                                        onclick="window.scrollTo(0,0);">
+                                        ${clanBadge}
+                                        ${clanName}
+                                    </p>
                                 </div>
                                 <div style="width: 170px; height:100px;float:left">
                                     ${card}
                                 </div>
                             </div>`
                     } else {
-                        var card = '';
-                        var clanName = '<br>';
-                        var clanBadge = '';
                         for (var k = 0; k < data[i].opponent[j].deck.length; k++) {
                             card += `
                             <div class="_battle_card" style="float: right;  margin-top:4px; background-image: url('${opt.context}resources/image/cards-png8/${data[i].opponent[j].deck[k].key}.png')">
@@ -186,24 +181,19 @@ var battleLogTempl = {
                             </div>                       
                             `
                         }
-                        if (!(data[i].opponent[j].clan === null)) {
-                            clanName = data[i].opponent[j].clan.name;
-                            clanBadge = `<img src="${opt.context}resources/image/badges/${data[i].opponent[j].clan.badge.name}.png" style="height: 13px;">`
-                        }
+
                         opponent2 = `
                         <div class="_battle_inner" style="width:300px; height:100px; margin-top: 10px; float: right;">
                             <div style="width:130px; height:100px; margin-top:4px; float: left; text-align: right">
-                                <a>
-                                    <span class="font-weight-bold" style="font-size: 14px">
-                                        ${data[i].opponent[j].name}
-                                    </span>
-                                </a>
-                                <a>
-                                    <p style="font-size: 11px">
-                                        ${clanBadge}
-                                        ${clanName}
-                                    </p>
-                                </a>
+                                <span class="font-weight-bold _item_action" data-action="player-click" data-tag="${data[i].opponent[j].tag}" style="cursor:pointer; font-size: 14px"
+                                    onclick="window.scrollTo(0,0);">
+                                    ${data[i].opponent[j].name}
+                                </span>
+                                <p class="_item_action" data-action="clan-click" data-tag="${clanTag}" style="cursor:pointer; font-size: 11px"
+                                    onclick="window.scrollTo(0,0);">
+                                    ${clanBadge}
+                                    ${clanName}
+                                </p>
                             </div>
                             <div style="width: 170px; height:100px;float:left; ">
                                 ${card}
@@ -261,6 +251,7 @@ var battleLogTempl = {
                     if (!(data[i].team[j].clan === null)) {
                         clanName = data[i].team[j].clan.name;
                         clanBadge = `<img src="${opt.context}resources/image/badges/${data[i].team[j].clan.badge.name}.png" style="height: 13px;">`
+                        clanTag = data[i].team[j].clan.tag;
                     }
                     if (!(data[i].team[j].trophyChange === undefined)) {
                         if (data[i].team[j].trophyChange > 0) {
@@ -276,17 +267,15 @@ var battleLogTempl = {
                                 ${card}
                             </div>
                             <div style="width:130px; height:100px; margin-top:4px; float: left; padding-left: 10px">
-                                <a>
-                                    <span class="font-weight-bold" style="font-size: 14px">
-                                        ${data[i].team[j].name}
-                                    </span>
-                                </a>
-                                <a>
-                                    <p style="font-size: 11px">
-                                        ${clanBadge}
-                                        ${clanName}
-                                    </p>
-                                </a>
+                                <span class="font-weight-bold _item_action" data-action="player-click" data-tag="${data[i].team[j].tag}" style="cursor:pointer; font-size: 14px"
+                                    onclick="window.scrollTo(0,0);">
+                                    ${data[i].team[j].name}
+                                </span>
+                                <p class="_item_action" data-action="clan-click" data-tag="${clanTag}" style="cursor:pointer; font-size: 11px"
+                                    onclick="window.scrollTo(0,0);">
+                                    ${clanBadge}
+                                    ${clanName}
+                                </p>
                                 <div class="mt-4">
                                     <img src="${opt.context}resources/image/icon/trofe.png" style="height: 12px;">
                                     <span class="_app_font" style="font-size: 12px">
@@ -317,21 +306,20 @@ var battleLogTempl = {
                     if (!(data[i].opponent[j].clan === null)) {
                         clanName = data[i].opponent[j].clan.name;
                         clanBadge = `<img src="${opt.context}resources/image/badges/${data[i].opponent[j].clan.badge.name}.png" style="height: 13px;">`
+                        clanTag = data[i].opponent[j].clan.tag;
                     }
                     opponent = `
                     <div class="_battle_inner" style="width:300px; height:110px; float: left">
                         <div style="width:130px; height:100px; margin-top:4px; float: left; text-align: right">
-                            <a>
-                                <span class="font-weight-bold" style="font-size: 14px">
-                                    ${data[i].opponent[j].name}
-                                </span>
-                            </a>
-                            <a>
-                                <p style="font-size: 11px">
-                                    ${clanBadge}
-                                    ${clanName}
-                                </p>
-                            </a>
+                            <span class="font-weight-bold _item_action" data-action="player-click" data-tag="${data[i].opponent[j].tag}" style="cursor:pointer; font-size: 14px"
+                                onclick="window.scrollTo(0,0);">
+                                ${data[i].opponent[j].name}
+                            </span>
+                            <p class="_item_action" data-action="clan-click" data-tag="${clanTag}" style="cursor:pointer; font-size: 11px"
+                                onclick="window.scrollTo(0,0);">
+                                ${clanBadge}
+                                ${clanName}
+                            </p>
                             <div class="mt-4">
                                 <img src="${opt.context}resources/image/icon/trofe.png" style="height: 12px;">
                                 <span class="_app_font" style="font-size: 12px">

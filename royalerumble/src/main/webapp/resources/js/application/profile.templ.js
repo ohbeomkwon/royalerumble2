@@ -1,12 +1,12 @@
 var profileTempl = {
     player : function(data) {
-        console.log(data);
     var arenaLevel = data.arena.arena;
     var arena = arenaLevel.replace(/(\s*)/g,""); // 모든 공백 제거
     var clan="";
     var clanImg="";
     var clanTag="";
     var cardList="";
+    var bestSeason = "-";
     var averageElixir = 0;
     for(var i = 0; i < data.currentDeck.length; i++) {
         var card = data.currentDeck[i];
@@ -20,7 +20,9 @@ var profileTempl = {
         </div>`;
     }
     averageElixir = (averageElixir/8).toFixed(1); 
-    
+    if(data.leagueStatistics.bestSeason !== undefined) {
+        bestSeason = data.leagueStatistics.bestSeason.trophies;
+    }
     if(data.clan !=null) {
         clan = data.clan.name;
         clanImg= data.clan.badge.name
@@ -48,10 +50,9 @@ var profileTempl = {
             <div class="" style="width:420px">
                 <div class="row">
                     <div class="col-8">
-                        <h3 class="font-weight-bold text-white">${data.name}</h3>
-                        <a class="_item_action" data-action="player-click" data-tag="${data.tag}">
-                            <span class="font-weight-bold text-light">#${data.tag}</span>
-                        </a>
+                        <h3 class="font-weight-bold text-white">${data.name}</h3>                       
+                        <span class="font-weight-bold text-light _item_action" data-action="player-click" data-tag="${data.tag}" style="cursor:pointer;"
+                        onclick="window.scrollTo(0,0);">#${data.tag}</span>                       
                     </div>
                     <div class="col-4">
                         <div class="position-relative" style="top:35px">
@@ -61,11 +62,12 @@ var profileTempl = {
                 </div>
                 <div class="row">
                     <div class="col-6 text-left">
-                        <h6 class="mt-1" style="left:-30px">
-                            <img src="${opt.context}resources/image/badges/${clanImg}.png" style="left: -50px; height: 30px;">
-                            <a href="#" class="text-white">
-                                <span class="font-weight-bold _item_action" data-action="clan-click" data-tag="${clanTag}">${clan}</span>
-                            </a>
+                        <h6 class="mt-1" style="left:-30px">                                                   
+                            <div class="text-white">
+                                <img src="${opt.context}resources/image/badges/${clanImg}.png" style="left: -50px; height: 30px;">
+                                <span class="font-weight-bold _item_action" data-action="clan-click" data-tag="${clanTag}" style="cursor:pointer;"
+                                    onclick="window.scrollTo(0,0);">${clan}</span>
+                            </div>
                         </h6>
                     </div>
                     <div class="col-6 text-center">
@@ -120,7 +122,7 @@ var profileTempl = {
                 <div class="row mt-1 ml-2">
                     <div class="col-3">
                         <img src="${opt.context}resources/image/icon/trofe.png" style="height: 20px;">
-                        <span class="_app_font ml-1">${data.leagueStatistics.bestSeason.trophies}</span>
+                        <span class="_app_font ml-1">${bestSeason}</span>
                         <!--bestseason-->
                     </div>
                     <div class="col-4">
@@ -154,7 +156,7 @@ var profileTempl = {
                         </div>
                         <div class="col-6 text-right">
                             <span class="font-weight-bold">덱 복사</span>
-                            <a class="btn-link" href="#">
+                            <a class="btn-link" href="${data.deckLink}">
                                 <img src="${opt.context}resources/image/icon/cardcopy.png" style="width:25px" />
                             </a>
                         </div>
@@ -168,33 +170,33 @@ var profileTempl = {
                 <div class="card _battle_summary" style="width:725px; height: 200px;">
                     <div style="width:725px; height: 46px; border-bottom: 1px solid #DDDDDD">
                         <div class="_menu_item _active">
-                            <a class="text-dark _item_action" href="#">전체</a>
+                            <a class="text-dark _item_action">전체</a>
                         </div>
                         <div class="_menu_divide"></div>
                         <div class="_menu_item">
-                            <a class="text-dark _item_action" href="#">랭킹전</a>
+                            <a class="text-dark _item_action">랭킹전</a>
                         </div>
                         <div class="_menu_divide"></div>
                         <div class="_menu_item ">
-                            <a class="text-dark _item_action" href="#">도전</a>
+                            <a class="text-dark _item_action">도전</a>
                         </div>
                         <div class="_menu_divide"></div>
                         <div class="_menu_item">
-                            <a class="text-dark _item_action" href="#">토너먼트</a>
+                            <a class="text-dark _item_action">토너먼트</a>
                         </div>
                         <div class="_menu_divide"></div>
                         <div class="_menu_item">
-                            <a class="text-dark _item_action" href="#">2 v 2</a>
+                            <a class="text-dark _item_action">2 v 2</a>
                         </div>
                         <div class="_menu_divide"></div>
                         <div class="_menu_item">
-                            <a class="text-dark _item_action" href="#">이벤트</a>
+                            <a class="text-dark _item_action">이벤트</a>
                         </div>
                         <div class="_menu_divide"></div>
                     </div>
                     <div class="_battle_summary_info mt-3" id="battleSummary">
                         <div class="row justify-content-center">
-                        <img src="${opt.context}resources/image/etc/spin2.gif" style="width:23%; height: 23%;"/>
+                            <img src="${opt.context}resources/image/etc/spin2.gif" style="width:23%; height: 23%;"/>
                         </div>
                     </div>
                 </div>
@@ -241,16 +243,21 @@ var profileTempl = {
     var memberList = ``;
     for (var i=0; i<data.members.length; i++) {
         var member = data.members[i];
+        var crown = '0';
+
+        if(member.clanChestCrowns !== null){
+            crown = member.clanChestCrowns;
+        }
         memberList += `
         <tr>
             <th scope="row" class="font-italic" style="height: 30px; vertical-align: middle; font-size: 17px; text-align: center">${i+1}</th>
             <td style="height: 30px; vertical-align: middle">
-            <a href="#" class="_item_action" data-action="player-click" data-tag="${member.tag}">
-                <h6 class="font-weight-bold">
+                <span class="h6 font-weight-bold _item_action" data-action="player-click" data-tag="${member.tag}" style="cursor:pointer;"
+                            onclick="window.scrollTo(0,0);">
                     ${member.name}
-                </h6>
+                </span>
+                <br>
                 <span style="font-size: 12px">#${member.tag}</span>
-            </a>
             </td>
             <td style="height: 20px; vertical-align: middle">
                 <div class="_lv_icon" style="background-image: url('${opt.context}resources/image/icon/lv.png');">
@@ -261,7 +268,7 @@ var profileTempl = {
             </td>
             <td style="height: 30px; vertical-align: middle">
                 <img src="${opt.context}resources/image/icon/crown.png" style="height: 25px;">
-                <span class="ml-2 _app_font position-relative" style="top:6px; left: 2px;">0</span>
+                <span class="ml-2 _app_font position-relative" style="top:6px; left: 2px;">${crown}</span>
             </td>
             <td style="height: 30px; vertical-align: middle">
                 <img src="${opt.context}resources/image/icon/card.png" style="height: 25px;">
@@ -291,9 +298,9 @@ var profileTempl = {
                 <div class="row">
                     <div class="col-10">
                         <h2 class="font-weight-bold text-white">${data.name}</h2>
-                        <a href="#" class="_item_action" data-action="clan-click" data-tag="${data.tag}">
-                            <span class="font-weight-bold text-light">#${data.tag}</span>
-                        </a>
+                        <span class="font-weight-bold text-light _item_action" data-action="clan-click" data-tag="${data.tag}" style="cursor:pointer;"
+                        onclick="window.scrollTo(0,0);">#${data.tag}
+                        </span>                        
                     </div>
                 </div>
                 <div class="row">
@@ -338,7 +345,6 @@ var profileTempl = {
                     <div class="col-3">
                         <img src="${opt.context}resources/image/icon/trofe.png" style="height: 20px;">
                         <span class="_app_font ml-1">${data.score}</span>
-                        <!--bestseason-->
                     </div>
                     <div class="col-4">
                         <img src="${opt.context}resources/image/icon/trofe.png" style="height: 20px;">

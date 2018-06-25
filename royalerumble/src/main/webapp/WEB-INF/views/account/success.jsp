@@ -14,7 +14,7 @@
 
 
 </style>
-<div class="card royale-success">
+<div class="card royale-success" style="margin-top:200px;">
     <div class="card-header royale-success text-center">
         <p class="h2 font-weight-bold primary-lighter-hover">FUMBLER</p>
         <p class="h4 grey-darker-hover">Congratulation !!</p>

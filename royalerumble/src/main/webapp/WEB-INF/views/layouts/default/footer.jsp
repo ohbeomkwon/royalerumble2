@@ -12,7 +12,7 @@
             <div class="mx-auto">
                 <ul class="nav md-fills">
                     <li class="nav-item">
-                        <a class="nav-link" href="#!">이 사이트는 팀 프로젝트용으로 개발한 사이트입니다.</a>
+                        <a class="nav-link" href="#!">이 웹사이트는 팀 프로젝트용으로 개발된 사이트입니다.</a>
                     </li>
                 </ul>
             </div>

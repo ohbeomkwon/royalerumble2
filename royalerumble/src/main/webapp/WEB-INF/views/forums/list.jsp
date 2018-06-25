@@ -42,7 +42,7 @@
         });
     })
 </script>
-<div class="card forum-list">
+<div class="card forum-list" style="margin-top:100px;">
     <div class="card-header forum-list">
         <div class="row">
             <div class="col-auto mr-auto">
@@ -97,8 +97,8 @@
             <tr>
                 <th class="text-center" style="width: 50px">글번호</th>
                 <th class="text-center" style="width: 400px">제목</th>
-                <th class="text-center" style="width: 80px">유저네임</th>
-                <th class="text-center" style="width: 50px">날짜</th>
+                <th class="text-center" style="width: 80px">이름</th>
+                <th class="text-center" style="width: 60px">시간</th>
                 <th class="text-center" style="width: 50px">조회수</th>
             </tr>
             </thead>

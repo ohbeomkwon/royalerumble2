@@ -43,7 +43,7 @@ function parseTime(time) {
     } else if(minuteDiff > 0){
         return minute + "분 전";
     } else {
-        return second + "초 전";
+        return second+1 + "초 전";
     }
 }
 
@@ -59,25 +59,5 @@ function newBadge(time) {
     } else {
         return '';
     }
-
-    // if(now.getFullYear() == created.getFullYear() && now.getMonth() + 1 == created.getMonth() &&
-    //     now.getDate() == created.getDate() && now.getHours() == created.getHours() {
-    //     return true;
-    // }
 }
 
-
-//TODO 작동안댐 ...왜지 ??
-function errorPage() {
-    console.log("api서비스에 접속할 수 없습니다.");
-    var _appClass = document.getElementsByClassName("_app");
-    var error = `
-                <div>
-                    <h3 class="font-weight-bold"> API 서버에 접속할 수 없습니다. <h3>
-                    <h5> 잠시후에 다시 이용해주세요.</h5>
-                </div>
-                `;
-    _appClass.innerHTML = error;
-    console.log(_appClass);
-    console.log(error);
-};

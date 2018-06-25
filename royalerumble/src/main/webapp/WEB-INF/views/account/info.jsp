@@ -108,7 +108,7 @@
         });
     });
 </script>
-<div class="card royale-account">
+<div class="card royale-account" style="margin-top:200px;">
     <div class="card-header royale-account text-center">
         <p class="h2 font-weight-bold primary-lighter-hover">FUMBLER</p>
         <p class="h4 grey-darker-hover">Account Information</p>

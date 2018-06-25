@@ -6,7 +6,7 @@ class RoyaleApi {
 	}
 	
 	// callback함수를 입력받아 사용한다. 리턴없음
-	getPlayer(tag, callback, error) {
+	getPlayer(tag, callback) {
 		var param = {
 				type : "get",
 				url : this.url+"player/"+tag,
@@ -21,7 +21,16 @@ class RoyaleApi {
 							<img class="mx-auto" src="${opt.context}resources/image/etc/spin1.gif" style="width : 400px; margin: auto"/>
 						</div>`);
 				},
-            	error : error,
+            	error : function(){
+					$(function(){
+						$('._app').html(
+						`<div class="text-center" style="margin-top: 300px;">
+							<h1><i class="fas fa-exclamation-triangle" style="color:#CC0000"></i></h1>
+                            <h3 class="font-weight-bold">해당 플레이어를 찾을 수 없습니다.<h3>
+                        	<h5>태그를 확인해 주세요.</h5>
+                        </div>`);
+					})
+				},
 				success : callback
 		};
 		$.ajax(param);
@@ -44,7 +53,7 @@ class RoyaleApi {
 		$.ajax(param);
 	}
 
-	getClan(tag, callback, error) {
+	getClan(tag, callback) {
 		var param={
 			type : "get",
 			url : this.url+"clan/"+tag,
@@ -59,7 +68,16 @@ class RoyaleApi {
 					</div>`);
             },
 			dataType : this.dataType,
-            error : error,
+            error : function(){
+                $(function(){
+                    $('._app').html(
+                        `<div class="text-center" style="margin-top: 300px;">
+							<h1><i class="fas fa-exclamation-triangle" style="color:#CC0000"></i></h1>
+                            <h3 class="font-weight-bold">해당 클랜을 찾을 수 없습니다.<h3>
+                        	<h5>태그를 확인해 주세요.</h5>
+                        </div>`);
+                })
+            },
 			success : callback
 		};
 		$.ajax(param);
@@ -83,7 +101,7 @@ class RoyaleApi {
 	}
 	
 	// 플레이어 랭크 불러오기
-	getPlayerRank(callback, error) {
+	getPlayerRank(callback) {
 		var param = {
 				type : "get",
 				url: this.url+"top/players",
@@ -92,21 +110,29 @@ class RoyaleApi {
 				},
 				beforeSend : function() {
                     opt.ajax_last_num = opt.ajax_last_num + 1;
-                    console.log("2번" + opt.ajax_last_num);
                     $("#rankTable").html(`
 						<div class="row">
 							<img src="${opt.context}resources/image/etc/spin2.gif" style="width : 270px; margin:auto"/>
 						</div>`);
 				},
 				dataType : this.dataType,
-            	error : error,
+            	error : function(){
+                    $(function(){
+                        $('._app').html(
+						`<div class="text-center" style="margin-top: 200px;">
+							<h1><i class="fas fa-exclamation-triangle" style="color:#CC0000"></i></h1>
+                            <h3 class="font-weight-bold">API 서버에 연결할 수 없습니다.<h3>
+                        	<h5>잠시후에 이용해 주세요.</h5>
+                        </div>`);
+                    });
+                },
 				success : callback
 		};
 		$.ajax(param);
 	}
 	
 	// clan 랭크 불러오기
-	getClanRank(callback, error) {
+	getClanRank(callback) {
 		var param = {
 				type: "get",
 				url : this.url+"top/clans",
@@ -121,7 +147,14 @@ class RoyaleApi {
 						</div>`);
 				},
 				dataType : this.dataType,
-            	error : error,
+            	error : function(){
+                    $('._app').html(
+                        `<div class="text-center" style="margin-top: 200px;">
+							<h1><i class="fas fa-exclamation-triangle" style="color:#CC0000"></i></h1>
+                            <h3 class="font-weight-bold">API 서버에 연결할 수 없습니다.<h3>
+                        	<h5>잠시후에 이용해 주세요.</h5>
+                        </div>`);
+                },
 				success : callback
 		};
 		$.ajax(param);
@@ -159,7 +192,7 @@ class RoyaleApi {
 		$.ajax(param);
 	}
 
-    getBattleLog(tag, callback, error) {
+    getBattleLog(tag, callback) {
         var param = {
             type: "get",
             url : this.url+"player/"+tag+"/battle?max=20",
@@ -170,7 +203,14 @@ class RoyaleApi {
 
             },
             dataType : this.dataType,
-            error : error,
+            error : function(){
+                $('#battleSummary').html(
+                    `<div class="text-center">
+							<h6><i class="fas fa-exclamation-triangle" style="color:#CC0000"></i></h6>
+                            <h6 class="font-weight-bold">API 서버에 연결할 수 없습니다.<h3>
+                        	<h6>잠시후에 이용해 주세요.</h6>
+                        </div>`);
+            },
             success : callback
         };
         $.ajax(param);

@@ -68,10 +68,10 @@ $.fn.playerSearch = function() {
                 $('#chests').html(profileTempl.playerChests(chest));
                 opt.api.getBattleLog(opt.keyword, function(data){
                     $('#battleList').html(battleLogTempl.battleLog(data)).hide().fadeIn(700);
-                }, errorPage)
+                })
             })
         }
-    },errorPage)
+    })
 };
 
 $.fn.clanSearch = function() {
@@ -82,7 +82,7 @@ $.fn.clanSearch = function() {
         if(current_ajax_num === opt.ajax_last_num - 1) {
             $('._app').html(profileTempl.clan(data)).hide().fadeIn(700);
         }
-    },errorPage);
+    });
 };
 
 
@@ -99,7 +99,7 @@ $.fn.royalePlayerRank = function() {
             if(current_ajax_num === opt.ajax_last_num - 1) {
                 $("#rankTable").html(rankTempl.playerRank(data)).hide().fadeIn(700);
             }
-        }, errorPage);
+        });
     });
 
     $('#clanRankPage').on('click', function(e){
@@ -111,7 +111,7 @@ $.fn.royalePlayerRank = function() {
             if(current_ajax_num === opt.ajax_last_num - 1) {
                 $("#rankTable").html(rankTempl.clanRank(data)).hide().fadeIn(700);
             }
-        }, errorPage)
+        })
     });
 
     var current_ajax_num = opt.ajax_last_num;
@@ -119,7 +119,7 @@ $.fn.royalePlayerRank = function() {
         if(current_ajax_num === opt.ajax_last_num - 1) {
             $("#rankTable").html(rankTempl.playerRank(data)).hide().fadeIn(700);
         }
-    }, errorPage);
+    });
 };
 
 

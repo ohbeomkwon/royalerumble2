@@ -7,10 +7,9 @@ var homeTempl = {
             </video>
             <div class="mask justify-content-center align-items-center">
                 <div class="_top_app_body">
-                    <div class="_top_app_title _app_font">
-                        <h1 class="display-4 font-weight-bold text-center text-white ">FUMBLER</h1>
-                        <h5 class="text-center text-white">이 사이트는</h5>
-                        <h6 class="text-center text-white">팀 프로젝트용으로 개발한 사이트입니다.</h6>
+                    <div class="_top_app_title">
+                        <h1 class="display-4 font-weight-bold text-center text-white _app_font">FUMBLER</h1>
+                        <h5 class="text-center text-white">이 웹사이트는 팀 프로젝트용으로 개발된 사이트입니다.</h5>
                     </div>
                     <!--검색시작-->
                     <div class="card _search_app">
@@ -31,10 +30,11 @@ var homeTempl = {
                                     <div class="_search_app_body">
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="playerSearch" placeholder="태그로 검색 예)#XXXXXXX">
-                                            <div class="input-group-append">
-                                                <a href="#" class="btn btn-primary m-0 btn-sm _item_action" data-action="player-search">
-                                                    <span class="_app_font">Search</span>
-                                                </a>
+                                            <div class="input-group-append">                                             
+                                                <div class="btn btn-primary m-0 btn-sm _item_action" data-action="player-search" style="cursor:pointer;"
+                                                    onclick="window.scrollTo(0,0);">
+                                                    <span class="_app_font">SEARCH</span>
+                                                </div>  
                                             </div>
                                         </div>
                                     </div>
@@ -57,9 +57,10 @@ var homeTempl = {
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="clanSearch" placeholder="태그로 검색 예)#XXXXXXX"/>
                                             <div class="input-group-append">
-                                                <a href="#" class="btn btn-primary m-0 btn-sm _item_action" data-action="clan-search">
-                                                    <span class="_app_font">Search</span>
-                                                </a>
+                                                <div class="btn btn-primary m-0 btn-sm _item_action" data-action="clan-search" style="cursor:pointer;"
+                                                    onclick="window.scrollTo(0,0);">
+                                                    <span class="_app_font">SEARCH</span>
+                                                </div> 
                                             </div>
                                         </div>
                                     </div>
@@ -155,10 +156,11 @@ var homeTempl = {
         <li class="list-group-item" style="display: table; line-height: 12px">
             <div class="_item font-italic position-relative" style="left:-10px;width: 20px;">${data[i].rank}</div>
             <div class="_item font-small position-relative" style="left:-10px">
-                <a href="#" class="text-dark _item_action" data-action="player-click" data-tag="${data[i].tag}">
+                <div class="text-dark _item_action" data-action="player-click" data-tag="${data[i].tag}" style="cursor:pointer;"
+                    onclick="window.scrollTo(0,0);">
                     <div>${data[i].name}</div>
                     <div>#${data[i].tag}</div>
-                </a>
+                </div>
             </div>
             <div class="_item text-right">
                 <img src="${opt.context}resources/image/icon/trofe.png" style="width:20px"/>
@@ -176,10 +178,11 @@ var homeTempl = {
         <li class="list-group-item" style="display: table; line-height: 12px;">
             <div class="_item font-italic position-relative" style="left:-10px;width: 20px;">${data[i].rank}</div>
             <div class="_item font-small position-relative" style="left:-10px">
-                <a href="#" class="text-dark _item_action" data-action="clan-click" data-tag="${data[i].tag}">
+                <div class="text-dark _item_action" data-action="clan-click" data-tag="${data[i].tag}" style="cursor:pointer;"
+                    onclick="window.scrollTo(0,0);">
                     <div>${data[i].name}</div>
                     <div>#${data[i].tag}</div>
-                </a>
+                </div>
             </div>
             <div class="_item text-right">
                 <img src="${opt.context}resources/image/icon/trofe.png" style="width:20px"/>

@@ -93,7 +93,7 @@
         })
     });
 </script>
-<nav class="navbar navbar-expand-lg navbar-dark blue accent-2 sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark blue accent-2 fixed-top">
     <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarTogglerMenu" aria-controls="navbarTogglerMenu"
@@ -108,13 +108,23 @@
             <ul class="navbar-nav mr-auto mt-lg-0">
                 <li class="nav-item <c:if test="${home == 'active'}">active</c:if>">
                     <%--<a class="nav-link font-weight-bold" href="${root}">홈</a>--%>
-                    <a href="#" class="nav-link font-weight-bold" id="home">홈</a>
+                    <div class="nav-link font-weight-bold" id="home" style="cursor:pointer;"
+                         onclick="window.scrollTo(0,0);">
+                        홈
+                    </div>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link font-weight-bold" id="card">카드</a>
+                    <div class="nav-link font-weight-bold" id="card" style="cursor:pointer;"
+                         onclick="window.scrollTo(0,0);">
+                        카드
+                    </div>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link font-weight-bold" id="rank">랭크</a>
+                    <div class="nav-link font-weight-bold" id="rank" style="cursor:pointer;"
+                         onclick="window.scrollTo(0,0);">
+                        랭킹
+                    </div>
+                    <%--<a class="nav-link font-weight-bold" id="rank">랭크</a>--%>
                 </li>
                 <li class="nav-item dropdown <c:if test="${forum == 'active'}">active</c:if>">
                     <a class="nav-link dropdown-toggle font-weight-bold" id="dropdownForum" data-toggle="dropdown"
@@ -127,10 +137,10 @@
                 </li>
                 <c:if test="${not empty USER}">
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold" href="#" data-toggle="modal"
-                           data-target="#fullHeightModalRight">
+                        <div class="nav-link font-weight-bold" data-toggle="modal"
+                             data-target="#fullHeightModalRight" style="cursor:pointer;">
                             <img src="${root}resources/image/cards-png8/sparky.png" height="30" alt=""> 스파키
-                        </a>
+                        </div>
                     </li>
                 </c:if>
             </ul>
@@ -183,21 +193,7 @@
             <div class="modal-body">
                 <p class="font-weight-bold">스파키는?</p>
                 <p>FUMBLER에서 제공하는 실시간 토크 서비스입니다.</p>
-                <div class="input-group">
-                    <input type="text" id="friendSearch" class="form-control py-0" placeholder="친구검색"/>
-                    <div class="input-group-append">
-                        <button type="button" class="input-group-text" id="friendCheck">검색</button>
-                    </div>
-                </div>
-                <p id="outputContent">결과가 출력됨</p>
-                <%--<ul class="list-group">--%>
-                <%--<c:forEach var="friend" items="${USER.list}">--%>
-                <%--<li class="list-group-item d-flex justify-content-between align-items-center">--%>
-                <%--${friend.friendId}--%>
-                <%--<span class="badge badge-primary badge-pill">12</span>--%>
-                <%--</li>--%>
-                <%--</c:forEach>--%>
-                <%--</ul>--%>
+                <p>준비중입니다.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>

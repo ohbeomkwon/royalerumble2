@@ -43,7 +43,7 @@
         });
     });
 </script>
-<div class="card forum-write">
+<div class="card forum-write" style="margin-top:100px;">
     <div class="card-header forum-write">
         <c:if test="${forum.type == 'free'}"><h3 class="my-2">고블린광장</h3></c:if>
         <c:if test="${forum.type == 'info'}"><h3 class="my-2">정보/소식</h3></c:if>

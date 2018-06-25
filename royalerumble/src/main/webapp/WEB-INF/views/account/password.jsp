@@ -42,7 +42,7 @@
         });
     });
 </script>
-<div class="card royale-password">
+<div class="card royale-password" style="margin-top:200px;">
     <div class="card-header royale-password text-center">
         <p class="h2 font-weight-bold primary-lighter-hover">FUMBLER</p>
         <p class="h4 grey-darker-hover">Change Password</p>

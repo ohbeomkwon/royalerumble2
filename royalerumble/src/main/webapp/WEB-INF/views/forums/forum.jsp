@@ -72,9 +72,9 @@
         });
     });
 </script>
-<div class="card forum-view">
+<div class="card forum-view" style="margin-top:100px;">
     <div class="card-header forum-view">
-        <h4><c:if test="${forum.modified == 1}">[포럼수정]</c:if> ${forum.subject}</h4>
+        <h4><c:if test="${forum.modified == 1}">[수정됨]</c:if> ${forum.subject}</h4>
         <span>${forum.userName}</span>
         <span class="parse-time"><fmt:formatDate value="${forum.regDate}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
         <div class="row">

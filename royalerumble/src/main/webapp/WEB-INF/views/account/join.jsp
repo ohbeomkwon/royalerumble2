@@ -11,19 +11,21 @@
     .card-header.royale-join {
 
     }
-
-    .error {
-        color: red;
-    }
 </style>
 <script>
     $(function () {
+        var regExEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         var validation = {
             email : '',
             emailDupl : false,
             name : '',
             nameDupl : false,
         };
+
+        // $('#email').on('keydown', function(){
+        //     var val = $(this).val();
+        //     if (regExEmail.test(val));
+        // });
         $('#checkEmail').click(e => {
             var email = $('#email').val();
             validation.email = email;
@@ -86,7 +88,7 @@
         })
     });
 </script>
-<div class="card royale-join">
+<div class="card royale-join" style="margin-top:200px;">
     <div class="card-header royale-join text-center">
         <p class="h2 font-weight-bold primary-lighter-hover">FUMBLER</p>
         <p class="h4 grey-darker-hover">Sign up</p>
@@ -95,12 +97,12 @@
         <form:form commandName="member">
             <div class="md-form">
                 <div class="input-group">
-                    <form:input path="email" cssClass="form-control" required="required"/>
+                    <form:input type="email" path="email" cssClass="form-control" required="required"/>
                     <label for="email">Email</label>
                     <button type="button" class="btn btn-primary btn-sm" style="font-size: 13px" id="checkEmail">중복확인</button>
                 </div>
-                <div class="error">
-                    <%--<span>벨리데이션 테스트</span>--%>
+                <div class="error" id="emailMessage">
+                    <span class="text-warning" style="font-size: 13px">필수 항목입니다.</span>
                 </div>
             </div>
             <div class="md-form">
@@ -110,7 +112,7 @@
                     <button type="button" class="btn btn-primary btn-sm" style="font-size: 13px" id="checkName">중복확인</button>
                 </div>
                 <div class="error">
-                    <%--<span>벨리데이션 테스트</span>--%>
+                    <span class="text-warning" style="font-size: 13px">필수 항목입니다.</span>
                 </div>
             </div>
             <div class="md-form">
@@ -119,7 +121,7 @@
                     <label for="password">Password</label>
                 </div>
                 <div class="error">
-                    <%--<span>벨리데이션 테스트</span>--%>
+                    <span class="text-warning" style="font-size: 13px">필수 항목입니다.</span>
                 </div>
             </div>
             <div class="row text-center">

@@ -19,11 +19,11 @@ public class SparkyInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
 
-        Member member = (Member) request.getSession().getAttribute("USER");
-        if(member != null) {
-            member.setList(dao.selectList(member.getId()));
-            request.setAttribute("USER", member);
-        }
+//        Member member = (Member) request.getSession().getAttribute("USER");
+//        if(member != null) {
+//            member.setList(dao.selectList(member.getId()));
+//            request.setAttribute("USER", member);
+//        }
         return super.preHandle(request, response, handler);
     }
 }
