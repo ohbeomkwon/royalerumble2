@@ -58,39 +58,12 @@
         });
 
         $('#card').on('click', function (e) {
-            alert("준비중 입니다.")
+            $(document).royaleCardsInfo(opt);
         });
 
         $('#rank').on('click', function (e) {
             $(document).royalePlayerRank(opt);
         });
-
-        var searchList = [];
-
-
-        $('#friendSearch').autocomplete({
-            serviceUrl: '${root}api/sparky/find',
-            lookup: searchList,
-            onSelect: function (suggestion) {
-            }
-        });
-
-        $('#friendCheck').on('click', function (e) {
-
-            console.log(name);
-            $.ajax({
-                url: '${root}api/sparky/friend',
-                type: 'post',
-                contentType: 'application/json',
-                data: JSON.stringify(name),
-                success: function (data) {
-                    alert("친구추가 결과" + data);
-                },
-                error: function (data) {
-                    alert("에러" + data);
-                }
-            });
-        })
     });
 </script>
 <nav class="navbar navbar-expand-lg navbar-dark blue accent-2 fixed-top">

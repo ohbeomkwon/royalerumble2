@@ -17,7 +17,7 @@ class RoyaleApi {
 				beforeSend : function() {
 					opt.ajax_last_num = opt.ajax_last_num + 1;
                     $('._app').html(`
-						<div class="row">
+						<div class="row" style="margin-top: 150px">
 							<img class="mx-auto" src="${opt.context}resources/image/etc/spin1.gif" style="width : 400px; margin: auto"/>
 						</div>`);
 				},
@@ -63,7 +63,7 @@ class RoyaleApi {
             beforeSend : function() {
                 opt.ajax_last_num = opt.ajax_last_num + 1;
                 $('._app').html(`
-					<div class="row">
+					<div class="row" style="margin-top: 150px">
 						<img class="mx-auto" src="${opt.context}resources/image/etc/spin1.gif" style="width : 400px; margin: auto"/>
 					</div>`);
             },
@@ -215,6 +215,39 @@ class RoyaleApi {
         };
         $.ajax(param);
     }
+
+    getCards(callback) {
+        var param={
+            type: "get",
+            url: this.url+"constants?keys=cards",
+            headers : {
+                auth : this.apiKey
+            },
+            beforeSend : function() {
+
+            },
+            dataType : this.dataType,
+            success : callback
+        };
+        $.ajax(param);
+    }
+
+    getCardsStats(callback) {
+        var param = {
+            type : 'get',
+            url: this.url+"constants?keys=cards_stats",
+            headers : {
+                auth : this.apiKey
+            },
+            beforeSend : function() {
+
+            },
+            dataType : this.dataType,
+            success : callback
+        };
+        $.ajax(param);
+    }
+
 
 
 

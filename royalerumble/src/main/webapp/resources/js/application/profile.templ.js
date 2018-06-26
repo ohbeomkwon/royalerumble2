@@ -1,5 +1,6 @@
 var profileTempl = {
     player : function(data) {
+        console.log(data);
     var arenaLevel = data.arena.arena;
     var arena = arenaLevel.replace(/(\s*)/g,""); // 모든 공백 제거
     var clan="";
@@ -20,7 +21,7 @@ var profileTempl = {
         </div>`;
     }
     averageElixir = (averageElixir/8).toFixed(1); 
-    if(data.leagueStatistics.bestSeason !== undefined) {
+    if(data.leagueStatistics !== undefined) {
         bestSeason = data.leagueStatistics.bestSeason.trophies;
     }
     if(data.clan !=null) {
@@ -34,7 +35,7 @@ var profileTempl = {
     }
     
     var templ = `
-    <div class="header" style="height:220px;background-image: url('${opt.context}resources/image/etc/top_blue.png')">
+    <div class="header" style="margin-top:50px; height:220px;background-image: url('${opt.context}resources/image/etc/top_blue.png')">
     </div>
     <div class="row justify-content-center">
         <section class="position-relative" style="top:-110px; left:-30px">
@@ -282,7 +283,7 @@ var profileTempl = {
     }
 
     var templ = `
-    <div class="header" style="height:220px;background-image: url('${opt.context}resources/image/etc/top.png')">
+    <div class="header" style="margin-top:50px; height:220px;background-image: url('${opt.context}resources/image/etc/top.png')">
     </div>
     <div class="row justify-content-center">
         <section class="position-relative" style="top:-110px; left:-40px">

@@ -2,7 +2,7 @@ var homeTempl = {
     top: function() {
         var templ = `
         <div class="view full-page-intro _top_app">
-            <video class="video-intro" autoplay loop>
+            <video class="video-intro" playsinline autoplay muted loop>
                 <source src="${opt.context}resources/video/intro.mp4" type="video/mp4" />
             </video>
             <div class="mask justify-content-center align-items-center">

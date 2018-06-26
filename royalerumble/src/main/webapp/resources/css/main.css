@@ -37,13 +37,13 @@ body,
     height: 100%;
 }
 ._top_app_title {
-    margin: 200px auto;
+    margin: 230px auto;
 }
 
 .card._search_app {
     width: 50em;
     height: 10em;
-    margin: 100px auto;
+    margin: 130px auto;
 }
 
 .navbar-brand,

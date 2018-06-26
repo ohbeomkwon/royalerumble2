@@ -178,7 +178,7 @@ var battleLogTempl = {
                                     <div class="ml-2 _app_font position-relative" style="font-size: 10px; left:-2px; top:2px;">${data[i].opponent[j].deck[k].elixir}</div>
                                     <div class="ml-2 _app_font position-relative" style="font-size: 10px; top:15px;">Lv.${data[i].opponent[j].deck[k].level}</div>
                                 </div>
-                            </div>                       
+                            </div>
                             `
                         }
 
